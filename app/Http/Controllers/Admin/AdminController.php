@@ -12,10 +12,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // 首页
+    // 后台首页资源
     public function index()
     {
-        return view('Admin.Admin.index');
+        // 公共资源
+        return view('Admin.Admin.demo');
     }
 
     /**
@@ -25,7 +26,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        // 后台首页
+        return view('Admin.Admin.index');
     }
 
     /**
