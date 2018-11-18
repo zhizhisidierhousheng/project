@@ -20,8 +20,6 @@ Route::get('adminlogin/captcha/{tmp}', 'Admin\AdminloginController@captcha');
 // 后台中间件限制不登录不能访问
 Route::group(['middleware' => 'adminlogin'], function () 
 {
-	// 后台首页
-	Route::resource('/admin', 'Admin\AdminController');
 
 // 管理员模块
 	// 后台管理员管理
@@ -47,7 +45,43 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	Route::resource('/users', 'Admin\UsersController');
 	// 会员收货地址
 	Route::get('/usersaddress/{id}', 'Admin\UsersController@address');
+
+// 订单模块
+	// ajax修改订单状态
+	Route::get('/admin/orderstatus', 'Admin\UsersorderController@updatestatus');
+	// 订单列表
+	Route::resource('/admin/usersorder', 'Admin\UsersorderController');
+
+// 广告模块
+	//ajax修改广告状态
+	Route::get('/admin/advstatus', 'Admin\AdvController@updatestatus');
+	// 广告列表
+	Route::resource('/admin/adv', 'Admin\AdvController');
+
+// 公告模块
+	// 公告列表
+	Route::resource('/admin/notice', 'Admin\NoticeController');
+
+// 后台首页
+	Route::resource('/admin', 'Admin\AdminController');
 });
+
+//会员中心
+Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
+//会员商品收藏
+Route::resource('/home/userscollect', 'Home\UserscollectController');
+//ajax修改个人信息
+Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
+//会员个人信息
+Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
+Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
+Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
+Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
+Route::resource('/home/usersinfo', 'Home\UsersinfoController');
+//会员订单
+Route::resource('/home/usersorder', 'Home\UsersorderController');
+//收货地址
+Route::resource('/home/usersaddress', 'Home\UsersaddressController');
 
 // 前台注册
 Route::resource('/register', 'Home\RegisterController');

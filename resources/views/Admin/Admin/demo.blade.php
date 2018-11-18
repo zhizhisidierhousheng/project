@@ -122,18 +122,39 @@
             </dd>
         </dl>
 		<dl>
-			<dt>
-				<i class="Hui-iconfont">&#xe627;</i> 
-				订单管理
-				<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li>
-						<a data-href="/admin/usersorder" data-title="订单列表" href="javascript:void(0)">订单列表</a>
-					</li>
-				</ul>
-			</dd>
-		</dl>
+            <dt><i class="Hui-iconfont">&#xe627;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a data-href="/admin/usersorder" data-title="订单列表" href="javascript:void(0)">订单列表</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt><i class="Hui-iconfont">&#xe622;</i> 商品评价<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a data-href="/admin/usersorder" data-title="评价列表" href="javascript:void(0)">评价列表</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt><i class="Hui-iconfont">&#xe62f;</i> 广告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a data-href="/admin/adv" data-title="广告列表" href="javascript:void(0)">广告列表</a></li>
+                    <li><a data-href="/admin/adv/create" data-title="广告添加" href="javascript:void(0)">广告添加</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt><i class="Hui-iconfont">&#xe62f;</i> 公告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    <li><a data-href="/admin/notice" data-title="公告列表" href="javascript:void(0)">公告列表</a></li>
+                    <li><a data-href="/admin/notice/create" data-title="公告添加" href="javascript:void(0)">公告添加</a></li>
+                </ul>
+            </dd>
+        </dl>
 	</div>
 </aside>
 <div class="dislpayArrow hidden-xs">

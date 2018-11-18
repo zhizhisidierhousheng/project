@@ -22,8 +22,8 @@ $(document).ready(function(){
 $(".modify").click(function(){
 	 $('.text').attr("disabled", false);
 	 $('.text').addClass("add");
-	  $('#Personal').find('.xinxi').addClass("hover");
-	
+     $('.change').css({"display":"block"});
+	 $('#Personal').find('.xinxi').addClass("hover");
 	});
 //文本框登录注册事件
     $('#user_text, #password, #email_text, #phone_text, #Codes_text').blur(function(){

@@ -315,39 +315,3 @@ $(function(){
 		$(window.frames.document).contents().find("#skin").attr("href",hrefRes);
 	});
 }); 
-// 提交成功后关闭当前页面并跳转到指定页面
-/* 
-	参数解释:
-	href    跳转页面
-	title   跳转页面标题
-	close   关闭当前页面
-*/
-function myflash(href,title,close){
-    bStop  = false;
-    bStopIndex = 0;
-    topWindow = $(window.parent.document);
-    show_navLi = topWindow.find("#min_title_list li");
-    iframe_box = topWindow.find("#iframe_box");
-    iframe = topWindow.find('#iframe_box .show_iframe');
-    tab = topWindow.find(".acrossTab li");
-    show_navLi.each(function(e) {
-      if($(this).find('span').attr("data-href")==href){
-        bStop=true;
-        bStopIndex=show_navLi.index($(this));
-      }
-      if($(this).find('span').attr("data-href")==close){
-        closeIndex = show_navLi.index($(this));
-      }
-    });
-    if(!bStop){
-      window.parent.creatIframe(href,title);
-      min_titleList();
-      tab.eq(closeIndex).remove(); 
-      iframe.eq(closeIndex).remove();
-    }else{
-      show_navLi.removeClass("active").eq(bStopIndex).addClass("active");     
-      iframe_box.find(".show_iframe").hide().eq(bStopIndex).show().find("iframe").attr("src",href);
-      tab.eq(closeIndex).remove(); 
-      iframe.eq(closeIndex).remove();
-    }
-}

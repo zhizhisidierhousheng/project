@@ -10,5 +10,6 @@ class Usersinfo extends Model
     protected $table = 'users_info';
     // 关闭自动更新时间戳
     public $timestamps = false;
-
+    //可以被批量赋值的属性
+    protected $fillable = ["username", "sex", "birthday"];
 }
