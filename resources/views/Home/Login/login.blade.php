@@ -13,6 +13,10 @@
     <script src="/static/home/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
     <script src="/static/home/js/common_js.js" type="text/javascript"></script>
     <script src="/static/home/js/footer.js" type="text/javascript"></script>
+    <style>
+        .auto_login{text-align:right;}
+        .error{text-align:center;height:40px;font-size:20px;}
+    </style>
 
     <title>
         用户登录
@@ -21,7 +25,7 @@
 <body>
     <div class="Reg_log_style">
         <div class="logo">
-            <a href="#"><img src="/static/home/images/logo.png"></a>
+            <a href="/index"><img src="/static/home/images/logo.png"></a>
         </div>
         <div class="login_style">
             <div class="left_img">
@@ -34,23 +38,22 @@
                 <div class="title_name">
                     <span>登录</span>
                 </div>
-                <div class="login_m_1" style="height:325px;">
+                <div class="login_m_1" >
+                <div class="error">
+                    @if(session('error'))
+                    <span style="color:red">{{session('error')}}</span>
+                    @endif
+                    @if(session('success'))
+                    <span style="color:green">{{session('success')}}</span>
+                    @endif
+                </div>
                     <div class="add_login">
                         <ul>
                             <li class="frame_style">
                                 <label class="user_icon"></label>
-                                <input name="name" type="text" id="user_text" placeholder="用户名/手机号/邮箱">
+                                <input name="name" type="text" id="user_text" placeholder="用户名/手机号">
                             </li>
-                            <span>
-                                @if(session('error'))
-                                {{session('error')}}
-                                @endif
-                            </span>
-                            @if (count($errors) > 0)
-                            @foreach ($errors->all() as $error)
-                            <div style="width:300px;height:20px;margin:auto;color:red;">{{ $error }}</div>
-                            @endforeach
-                            @endif
+                            
                             <li class="frame_style">
                                 <label class="password_icon"></label>
                                 <input name="password" type="password" id="password" placeholder="密码">
@@ -65,8 +68,8 @@
                             
                         </ul>
                         <div class="auto_login clearfix">
-                            
-                            <a href="#" target="_blank" class="forget_pswd" tabindex="-1">忘记密码？</a>
+                            <a href="/register/create">立即注册</a> / 
+                            <a href="/forget">忘记密码？</a>
                         </div>
                         {{csrf_field()}}
                         <div class="center clearfix" style="margin-top:40px;">
@@ -90,5 +93,9 @@
         $url = $url + "/" + Math.random();
         document.getElementById('c2c98f0de5a04167a9e427d883690ff6').src=$url;
     }
+    // 错误提示清空
+    $('input').focus(function () {
+        $('.error').html('');
+    });
 </script>
 </html>

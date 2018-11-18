@@ -20,6 +20,7 @@
 				<th>收货手机号</th>
 				<th>收货地区</th>
 				<th>详细地址</th>
+				<th>邮政编码</th>
 				<th>默认地址否</th>
 			</tr>
 		</thead>
@@ -31,6 +32,7 @@
 				<td>{{$row->phone}}</td>
 				<td>{{$row->area}}</td>
 				<td>{{$row->address}}</td>
+				<td>{{$row->postalcode}}</td>
 				<td class="td-manage">
 					{{$row->status}}
 				</td>

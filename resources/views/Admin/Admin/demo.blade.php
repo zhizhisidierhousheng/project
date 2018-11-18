@@ -4,7 +4,7 @@
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
         <div class="container-fluid cl">
-            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">
+            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/admin">
                 淘食
             </a>
             <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">
@@ -13,10 +13,10 @@
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
                     <li>
-                        {{session('aname')}}
+                        欢迎你 {{session('aname')}}
                     </li>
                     <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A"> {{session('name')}} </a>
+                        <a href="javascript:void(0)" class="dropDown_A"> {{session('name')}} </a>
                     </li>
                     <li id="Hui-msg">
                         <a href="/adminlogin" title="退出">退出</a>

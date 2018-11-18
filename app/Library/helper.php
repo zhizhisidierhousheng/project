@@ -1,7 +1,7 @@
 <?php 
 
 // 发送的短信校验码方法
-function sendphone($phone)
+function sendphone($p)
 {
 
 	//初始化必填
@@ -17,13 +17,11 @@ function sendphone($phone)
 	$templateid = '387159';//可在后台短信产品→选择接入的应用→短信模板-模板ID,查看改模板ID
 	//发送的短信校验码
 	$param = rand(1, 999999);//多个参数使用英文逗号隔开（如：param="a,b,c"),若无参数则留空
-	//放置在cookie 3分钟后过期
-	setcookie('fcode', $param, time() + 180);
+	//放置在cookie 1分钟后过期
+	\Cookie::queue('scode', $param, 1);
 	//接收验证码的手机号
-	$mobile = $phone;
+	$mobile = $p;
 	$uid = '';
 	//70字内（含70字）计一条，超过70字，按67字/条计费，超过长度短信平台将会自动分割为多条发送。分割后的多条短信将按照具体占用条数计费。
 	echo $ucpass->SendSms($appid,$templateid,$param,$mobile,$uid);
 }
-	
-	

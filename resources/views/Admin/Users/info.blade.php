@@ -26,7 +26,7 @@
 			<tr class="text-c">
 				<td>{{$info->uid}}</td>
 				<td>{{$info->username}}</td>
-				<td>{{$info->pic}}</td>
+				<td><img src="{{$info->pic}}" alt="" width="60" height="60"></td>
 				<td>{{$info->age}}</td>
 				<td>{{$info->sex}}</td>
 			</tr>

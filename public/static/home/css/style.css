@@ -1138,15 +1138,15 @@ auto_login .service_agreement {
 }
 .btmbg {
 	width: 100%;
-	position:fixed;
+	/*position:fixed;*/
 	bottom:0px;
-	min-width: 1200px;
+	/*min-width: 1200px;*/
 	overflow: hidden;
 	padding: 20px 0 40px 0;
 	border-top: 1px solid #eaeaea;
 }
 .btmbg .btm {
-	width: 1200px;
+	width: 100%;
 	overflow: hidden;
 	color: #999999;
 	font-family:"新宋体";

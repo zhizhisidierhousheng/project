@@ -4,6 +4,13 @@
 <title>@yield('title')</title>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 会员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+	<div class="text-c">
+	<form action="/users" method="get">
+		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称" name="keywords" value="{{$request['keywords'] or ' '}}">
+		<button type="submit" class="btn btn-success" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+	</form>
+	</div>
+	<br>
 	@if (count($errors) > 0)
   	@foreach ($errors->all() as $error)
     <div style="width:300px;height:20px;margin:auto;color:red;">{{ $error }}</div>
@@ -23,7 +30,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($user as $row)
+			@foreach($data as $row)
 			<tr class="text-c">
 				<td>{{$row->id}}</td>
 				<td>{{$row->name}}</td>
@@ -38,6 +45,20 @@
 		</tbody>
 	</table>
 </div>
-
+<!-- 分页 -->
+<div style="float:right;margin-right:20px;">
+	@foreach($pp as $v)
+	<a href="javascript:void(0)" onclick="page({{$v}})" class="btn btn-success">{{$v}}</a>
+	@endforeach
+</div>
+<script>
+	function page(page){
+		//Ajax
+		$.get("/users", {page:page}, function(data){
+			//赋值
+			$(".page-container").html(data);
+		});
+	}
+</script>
 @endsection
 @section('title', '会员列表')

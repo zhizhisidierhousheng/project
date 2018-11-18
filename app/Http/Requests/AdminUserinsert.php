@@ -27,7 +27,7 @@ class AdminUserinsert extends FormRequest
         // 用隐藏域获取id   保证修改时排除当前id的值进行检测唯一
         $id = $this->input('id');
         return [
-            // 管理员添加做规则设置  admin_users表名,name字段,
+            // 管理员添加做规则设置  admin_users表名,name字段,$id排除的当前id
             'name' => 'required|regex:/\w{4,8}/|unique:admin_users,name,'.$id,
             // 密码和重复密码
             'password' => 'required|regex:/\w{6,16}/',

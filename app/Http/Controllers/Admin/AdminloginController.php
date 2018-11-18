@@ -85,10 +85,20 @@ class AdminloginController extends Controller
             if (Hash::check($password, $info->password)) {
                 // 把用户信息写入到session
                 session(['name' => $name]);
-                // 获取管理员角色信息
-                $role = DB::table('admin_users')->join('user_role', 'admin_users.id', '=', 'user_role.uid')->join('role', 'user_role.rid', '=', 'role.id')->select('role.*')->first();
-                // 把角色信息存在session里
-                session(['aname' => $role->name], ['status' => $role->status]);
+                
+                // 获取用户角色表信息
+                $user_role = DB::table('user_role')->where('uid', '=', $info->id)->first();
+
+                // 判断是否拥有角色信息
+                if (!empty($user_role->uid)) {
+                    // 获取用户角色信息
+                    $role = DB::table('role')->where('id', '=', $user_role->rid)->first();
+                    // 获取管理员角色信息
+                    // 把角色信息存在session里
+                    session(['aname' => $role->name]);
+                    session(['status' => $role->status]);
+                }
+               
                 // 获取登录后台用户所有的权限信息
                 $list = DB::select("select n.name,n.controllers,n.action from user_role as ur,role_node as rn,node as n  where ur.rid=rn.rid and rn.nid=n.id and uid={$info->id}");
                 // 初始化权限信息
