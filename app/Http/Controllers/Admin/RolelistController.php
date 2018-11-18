@@ -148,10 +148,12 @@ class RolelistController extends Controller
     {
         // 忽略掉信息
         $data = $request->except(['_token', '_method']);
+        // 获取修改的name
         $name = $request->input('name');
         // 不修改直接返回列表页
         if (DB::table('role')->where('name', '=', $name)->first()) {
-            return redirect('/adminrolelist'); 
+            // 返回列表页
+            return redirect('/adminrolelist')->with('error', '修改失败'); 
         } else {
             if (DB::table('role')->where('id', '=', $id)->update($data)) {
                 return redirect('/adminrolelist')->with('success', '修改成功');

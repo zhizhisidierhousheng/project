@@ -11,6 +11,7 @@
     <div style="width:300px;height:20px;margin:auto;color:red;">{{ $error }}</div>
     @endforeach
 	@endif
+	<div style="margin:auto;width:30%;font-size:40px;color:orange;text-align:center;">角色名修改</div>
 	<form class="form form-horizontal" id="form-admin-add" action="/adminrolelist/{{$role->id}}" method="post">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>

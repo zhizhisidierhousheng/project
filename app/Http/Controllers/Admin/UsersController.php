@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 // 导入模型类
 use App\Models\Users;
+use DB;
 
 class UsersController extends Controller
 {
@@ -15,12 +16,42 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     // 加载会员列表
-    public function index()
+    public function index(Request $request)
     {
-        // 获取数据
-        $user = Users::orderBy('id','asc')->get();
-        // 加载列表
-        return view('Admin.Users.index', ['user' => $user]);
+        //获取数据总条数
+        $tot = DB::table("users")->count();
+        //规定下每页显示的数据条数
+        $rev = 5;
+        //获取总页数
+        $sums = ceil($tot/$rev);
+        for ($i = 1; $i <= $sums; $i++) {
+            $pp[$i] = $i;
+        } 
+        //获取附加参数值
+        $page = $request->input('page');
+        //判断$page为空
+        if (empty($page)) {
+            $page = 1;
+        } 
+        //偏移量
+        $offset = ($page-1)*$rev;
+        //准备sql语句
+        $sql = "select * from users limit $offset,$rev";
+        //执行sql
+        $data = DB::select($sql);
+
+        // dd($request->input('keywords'));
+        // 获取搜素的关键词
+        $K = $request->input('keywords');
+        // 会员列表
+        $search = DB::table('users')->where('name', 'like', '%'.$k.'%');
+        //判断当前请求是否为Ajax请求
+        if($request->ajax()){
+            //加载一个独立的模板界面
+            return view("Admin.Users.test", ['data' => $data, 'search' => $search, 'request' => $request->all()]);
+        } 
+        //加载模板
+        return view("Admin.Users.index", ['pp' => $pp, 'data' => $data, 'search' => $search, 'request' => $request->all()]);
     }
 
     /**

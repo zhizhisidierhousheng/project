@@ -28,7 +28,7 @@
 				<td class="td-manage">
 					<a style="text-decoration:none" href="javascript:void(0)" title="分配角色" onclick="layer_show('分配角色', '/rolelist/{{$row->id}}', 800, 500)"><i class="Hui-iconfont">&#xe61d;</i></a> 
 
-					<a title="编辑" href="/adminuser/{{$row->id}}/edit"  class="ml-5" style="text-decoration:none" ><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a title="编辑信息" href="/adminuser/{{$row->id}}/edit"  class="ml-5" style="text-decoration:none" ><i class="Hui-iconfont">&#xe6df;</i></a> 
 
 					<a title="删除" href="javascript:;"  class="ml-5 del" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 				</td>

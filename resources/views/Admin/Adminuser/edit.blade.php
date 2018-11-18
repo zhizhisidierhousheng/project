@@ -10,6 +10,7 @@
     <div style="width:300px;height:20px;margin:auto;color:red;">{{ $error }}</div>
     @endforeach
 	@endif
+	<div style="margin:auto;width:30%;font-size:40px;color:orange;text-align:center;">管理员修改</div>
 	<form class="form form-horizontal" id="form-admin-add" action="/adminuser/{{$user->id}}" method="post">
 		<input type="hidden" name="id" value="{{$user->id}}">
 		<div class="row cl">
@@ -39,9 +40,6 @@
 		</div>
 	</form>
 </article>
-<script>
-	
-</script>
 
 @endsection
 @section('title', '管理员修改')

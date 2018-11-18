@@ -25,6 +25,9 @@
             "database/factories",
             "app/Library/Ucpaas.php"
         ],
+        "files":[
+            "app/Library/helper.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         }
