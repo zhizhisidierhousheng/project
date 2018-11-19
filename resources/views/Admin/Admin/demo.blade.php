@@ -90,6 +90,41 @@
                 </ul>
             </dd>
         </dl>
+        <dl id="menu-product">
+            <dt>
+                <i class="Hui-iconfont">&#xe620;</i> 
+                类别管理
+                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        <a data-href="/admincates" data-title="类别列表" href="javascript:void(0)"> 类别列表</a>
+                    </li>
+                    <li>
+                        <a data-href="/admincates/create" data-title="类别添加" href="javascript:void(0)"> 类别添加</a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-product">
+            <dt>
+                <i class="Hui-iconfont">&#xe620;</i> 
+                商品管理
+                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        <a data-href="/admingoods" data-title="商品列表" href="javascript:void(0)"> 商品列表</a>
+                    </li>
+                    <li>
+                        <a data-href="/admingoods/create" data-title="商品添加" href="javascript:void(0)"> 商品添加</a>
+                    </li>
+                    
+                </ul>
+            </dd>
+        </dl>
         <dl id="menu-admin">
             <dt>
                 <i class="Hui-iconfont">&#xe6f1;</i>
@@ -122,36 +157,64 @@
             </dd>
         </dl>
 		<dl>
-            <dt><i class="Hui-iconfont">&#xe627;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt>
+                <i class="Hui-iconfont">&#xe627;</i> 
+                订单管理
+                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+            </dt>
             <dd>
                 <ul>
-                    <li><a data-href="/admin/usersorder" data-title="订单列表" href="javascript:void(0)">订单列表</a></li>
+                    <li>
+                        <a data-href="/admin/usersorder" data-title="订单列表" href="javascript:void(0)">订单列表</a>
+                    </li>
                 </ul>
             </dd>
         </dl>
         <dl>
-            <dt><i class="Hui-iconfont">&#xe622;</i> 商品评价<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt>
+                <i class="Hui-iconfont">&#xe622;</i> 
+                商品评价
+                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+            </dt>
             <dd>
                 <ul>
-                    <li><a data-href="/admin/usersorder" data-title="评价列表" href="javascript:void(0)">评价列表</a></li>
+                    <li>
+                        <a data-href="/admin/usersorder" data-title="评价列表" href="javascript:void(0)">评价列表</a>
+                    </li>
                 </ul>
             </dd>
         </dl>
         <dl>
-            <dt><i class="Hui-iconfont">&#xe62f;</i> 广告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt>
+                <i class="Hui-iconfont">&#xe62f;</i> 
+                广告管理
+                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+            </dt>
             <dd>
                 <ul>
-                    <li><a data-href="/admin/adv" data-title="广告列表" href="javascript:void(0)">广告列表</a></li>
-                    <li><a data-href="/admin/adv/create" data-title="广告添加" href="javascript:void(0)">广告添加</a></li>
+                    <li>
+                        <a data-href="/admin/adv" data-title="广告列表" href="javascript:void(0)">广告列表</a>
+                    </li>
+                    <li>
+                        <a data-href="/admin/adv/create" data-title="广告添加" href="javascript:void(0)">广告添加</a>
+                    </li>
                 </ul>
             </dd>
         </dl>
         <dl>
-            <dt><i class="Hui-iconfont">&#xe62f;</i> 公告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt>
+                <i class="Hui-iconfont">&#xe62f;</i> 
+                公告管理
+                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+            </dt>
             <dd>
                 <ul>
-                    <li><a data-href="/admin/notice" data-title="公告列表" href="javascript:void(0)">公告列表</a></li>
-                    <li><a data-href="/admin/notice/create" data-title="公告添加" href="javascript:void(0)">公告添加</a></li>
+                    <li>
+                        <a data-href="/admin/notice" data-title="公告列表" href="javascript:void(0)">公告列表</a>
+                    </li>
+                    <li>
+                        <a data-href="/admin/notice/create" data-title="公告添加" href="javascript:void(0)">公告添加</a>
+                    </li>
                 </ul>
             </dd>
         </dl>

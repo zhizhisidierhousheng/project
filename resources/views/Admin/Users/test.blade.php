@@ -1,4 +1,5 @@
-﻿@if (count($errors) > 0)
+﻿
+@if (count($errors) > 0)
 @foreach ($errors->all() as $error)
 <div style="width:300px;height:20px;margin:auto;color:red;">{{ $error }}</div>
 @endforeach

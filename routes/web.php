@@ -62,6 +62,22 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	// 公告列表
 	Route::resource('/admin/notice', 'Admin\NoticeController');
 
+// 类别模块
+	// 类别列表
+	Route::resource('/admincates', 'Admin\CatesController');
+
+// 商品模块
+	// 商品列表
+	Route::resource('/admingoods', 'Admin\AdmingoodsController');
+	// Ajax删除商品
+    Route::get('/admingoodsdel', 'Admin\AdmingoodsController@del');
+
+
+
+
+
+
+
 // 后台首页
 	Route::resource('/admin', 'Admin\AdminController');
 });
@@ -104,18 +120,18 @@ Route::group([''], function ()
     Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
     //会员商品收藏
     Route::resource('/home/userscollect', 'Home\UserscollectController');
-//ajax修改个人信息
-Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
-//会员个人信息
-Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
-Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
-Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
-Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
-Route::resource('/home/usersinfo', 'Home\UsersinfoController');
-//会员订单
-Route::resource('/home/usersorder', 'Home\UsersorderController');
-//收货地址
-Route::resource('/home/usersaddress', 'Home\UsersaddressController');
+	//ajax修改个人信息
+	Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
+	//会员个人信息
+	Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
+	Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
+	Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
+	Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
+	Route::resource('/home/usersinfo', 'Home\UsersinfoController');
+	//会员订单
+	Route::resource('/home/usersorder', 'Home\UsersorderController');
+	//收货地址
+	Route::resource('/home/usersaddress', 'Home\UsersaddressController');
 });
 
 // 前台首页

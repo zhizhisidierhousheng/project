@@ -18,8 +18,7 @@
 	<link href="/static/admin/calendar/css/calendarAll.css" rel="stylesheet" type="text/css">
     <link href="/static/admin/calendar/css/skin.css" rel="stylesheet" type="text/css">
     <link href="/static/admin/calendar/css/calendar.css" rel="stylesheet" type="text/css">
-    
-
+	<link rel="stylesheet" type="text/css" href="/static/admin/my.css" media="screen" />
 	<!-- <script type="text/javascript" src="/static/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>  -->
 	<!-- <script type="text/javascript" src="/static/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>  -->
 	<title>@yield('title')</title>
@@ -33,4 +32,11 @@
 <script type="text/javascript" src="/static/admin/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="/static/admin/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="/static/admin/static/h-ui.admin/js/H-ui.admin.js"></script> 
+
+<script>
+     // 隐藏报错信息
+    $('.div').click(function(){
+        $(this).hide();
+    });
+</script>
 </html>
