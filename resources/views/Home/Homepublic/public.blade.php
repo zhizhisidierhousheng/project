@@ -49,10 +49,12 @@
                     </li>
                     <li class="hd_menu_tit phone_c" data-addclass="hd_menu_hover">
                         <a href="#" class="hd_menu ">
-                            <em class="iconfont icon-shouji"></em>手机版</a>
+                            <em class="iconfont icon-shouji"></em>手机版
+                        </a>
                         <div class="hd_menu_list erweima">
                             <ul>
-                                <img src="images/erweima.jpg" width="100px" height="100" /></ul>
+                                <img src="/static/home/images/erweima.jpg" width="100px" height="100" />
+                            </ul>
                         </div>
                     </li>
                 </ul>
@@ -63,20 +65,23 @@
     <div id="header" class="header page_style">
         <div class="logo">
             <a href="index.html">
-                <img src="images/logo.png" /></a>
+                <img src="/static/home/images/logo.png" />
+            </a>
         </div>
         <!--结束图层-->
         <div class="Search">
             <p>
                 <input name="" type="text" class="text" />
-                <input name="" type="submit" value="搜 索" class="Search_btn" /></p>
+                <input name="" type="submit" value="搜 索" class="Search_btn" />
+            </p>
             <p class="Words">
                 <a href="#">苹果</a>
                 <a href="#">香蕉</a>
                 <a href="#">菠萝</a>
                 <a href="#">西红柿</a>
                 <a href="#">橙子</a>
-                <a href="#">苹果</a></p>
+                <a href="#">苹果</a>
+            </p>
         </div>
         <!--购物车样式-->
         <div class="hd_Shopping_list" id="Shopping_list">
@@ -91,24 +96,29 @@
                 <ul class="p_s_list">
                     <li>
                         <div class="img">
-                            <img src="products/p_7.jpg"></div>
+                            <img src="/static/home/products/p_7.jpg">
+                        </div>
                         <div class="content">
                             <p>
-                                <a href="#">产品名称</a></p>
+                                <a href="#">产品名称</a>
+                            </p>
                             <p>颜色分类:紫花8255尺码:XL</p>
                         </div>
                         <div class="Operations">
                             <p class="Price">￥55.00</p>
                             <p>
-                                <a href="#">删除</a></p>
+                                <a href="#">删除</a>
+                            </p>
                         </div>
                     </li>
                 </ul>
                 <div class="Shopping_style">
                     <div class="p-total">共
                         <b>1</b>件商品　共计
-                        <strong>￥ 515.00</strong></div>
-                    <a href="Shop_cart.html" title="去购物车结算" id="btn-payforgoods" class="Shopping">去购物车结算</a></div>
+                        <strong>￥ 515.00</strong>
+                    </div>
+                    <a href="Shop_cart.html" title="去购物车结算" id="btn-payforgoods" class="Shopping">去购物车结算</a>
+                </div>
             </div>
         </div>
     </div>
@@ -119,7 +129,8 @@
                 <div class="t_menu_img"></div>
                 <div class="Category">
                     <a href="#">
-                        <em></em>所有产品分类</a>
+                        <em></em>所有产品分类
+                    </a>
                 </div>
                 <div class="hd_allsort_out_box_new">
                     <!--左侧栏目开始-->
@@ -177,7 +188,7 @@
             <script>$("#Navigation").slide({
                     titCell: ".Navigation_name li"
                 });</script>
-            </div>
+        </div>
     </div>
 </div>
     @section('home')
@@ -232,59 +243,80 @@
                 <dl>
                     <dt>新手上路</dt>
                     <dd>
-                        <a href="#">售后流程</a></dd>
+                        <a href="#">售后流程</a>
+                    </dd>
                     <dd>
-                        <a href="#">购物流程</a></dd>
+                        <a href="#">购物流程</a>
+                    </dd>
                     <dd>
-                        <a href="#">订购方式</a></dd>
+                        <a href="#">订购方式</a>
+                    </dd>
                     <dd>
-                        <a href="#">隐私声明</a></dd>
+                        <a href="#">隐私声明</a>
+                    </dd>
                     <dd>
-                        <a href="#">推荐分享说明</a></dd>
+                        <a href="#">推荐分享说明</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>配送与支付</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>售后保障</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>帮助中心</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
             </div>
         </div>

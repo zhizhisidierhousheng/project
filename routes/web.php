@@ -72,6 +72,21 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	// Ajax删除商品
     Route::get('/admingoodsdel', 'Admin\AdmingoodsController@del');
 
+//友情链接模块
+	// 后台友情链接列表
+	Route::resource('/adminlink','Admin\LinkController');
+	// 后台友情链接管理
+	Route::resource('/adminrelink','Admin\RelinkController');
+	// 后台友情链接删除选中
+	Route::get('/relinkchoosedel','Admin\RelinkController@choosedel');
+
+//轮播图管理模块
+	// 后台轮播图管理
+	Route::resource('/adminlooppic','Admin\LooppicController');
+	// 后台轮播图添加
+	Route::get('/adminpicadd','Admin\LooppicController@adminpicadd');
+	// 后台轮播图删除选中
+	Route::get('/looppicchoosedel','Admin\LooppicController@choosedel');
 
 
 
@@ -80,6 +95,7 @@ Route::group(['middleware' => 'adminlogin'], function ()
 
 // 后台首页
 	Route::resource('/admin', 'Admin\AdminController');
+
 });
 
 
@@ -113,6 +129,7 @@ Route::post('/doforget', 'Home\LoginController@doforget');
 // 重置密码方法
 Route::post('/reset', 'Home\LoginController@reset');
 
+
 // 前台中间件
 Route::group([''], function () 
 { 
@@ -140,4 +157,12 @@ Route::get('/index', function ()
 	return view('Home.home.index');
 });
 
+// 前台友情链接
+Route::resource('/link','Home\linkController');
+// 前台购物车
+Route::resource('/cart','Home\CartController');
+// 前台购物车删除选中
+Route::get('/cartchoosedel','Home\CartController@choosedel');
+// 前台订单
+Route::resource('/order','Home\OrderController');
 

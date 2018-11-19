@@ -151,7 +151,7 @@
             <dd>
                 <ul>
                     <li>
-                        <a data-href="picture-list.html" data-title="轮播图管理" href="javascript:void(0)">轮播图管理</a>
+                        <a data-href="/adminlooppic" data-title="轮播图管理" href="javascript:void(0)">轮播图管理</a>
                     </li>
                 </ul>
             </dd>
