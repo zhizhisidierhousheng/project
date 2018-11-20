@@ -71,6 +71,19 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	Route::resource('/admingoods', 'Admin\AdmingoodsController');
 	// Ajax删除商品
     Route::get('/admingoodsdel', 'Admin\AdmingoodsController@del');
+    // Ajax修改状态
+    Route::post('/goodsstatus', 'Admin\AdmingoodsController@goodsstatus');
+    // 商品详情表
+    Route::get('/goodsinfo/{id}', 'Admin\AdmingoodsController@goodsinfo');
+    // 商品详情添加
+    Route::get('/addgoodsinfo/{id}', 'Admin\AdmingoodsController@addgoodsinfo');
+    // 执行添加
+    Route::post('/doaddgoodsinfo', 'Admin\AdmingoodsController@doaddgoodsinfo');
+    // 执行商品详情修改
+    Route::post('/updateinfo/{id}', 'Admin\AdmingoodsController@updateinfo');
+    // Ajax删除商品详情
+    Route::get('/goodsinfodel', 'Admin\AdmingoodsController@delete');
+
 
 //友情链接模块
 	// 后台友情链接列表
@@ -152,10 +165,7 @@ Route::group([''], function ()
 });
 
 // 前台首页
-Route::get('/index', function () 
-{
-	return view('Home.home.index');
-});
+Route::resource('/index', 'Home\HomeController');
 
 // 前台友情链接
 Route::resource('/link','Home\linkController');

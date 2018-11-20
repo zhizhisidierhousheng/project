@@ -28,6 +28,7 @@ class AdminGoodsRequest extends FormRequest
             'name' => 'required',
             'dcr'=> 'required',
             'pic' => 'required|image',
+            'cid' => 'required',
             'price' => 'required|numeric',
         ];
     }
@@ -38,7 +39,7 @@ class AdminGoodsRequest extends FormRequest
             "dcr.required "=> '商品的描述不能为空',
             "pic.required" => '商品的图片不能为空',
             "pic.image" => '商品的图片类型不符合',
-
+            "cid.required" => '选择商品分类',
             "price.required" => '商品的单价不能为空',
             "price.numeric" => '商品的单价必须为数字',
         ];

@@ -135,34 +135,22 @@
                 <div class="hd_allsort_out_box_new">
                     <!--左侧栏目开始-->
                     <ul class="Menu_list">
+                        @foreach($data as $row)
                         <li class="name">
                             <div class="Menu_name">
-                                <a href="product_list.html">面部护理</a>
+                                <a href="product_list.html">{{$row->name}}</a>
                                 <span>&lt;</span>
                             </div>
-                            <div class="link_name">
-                                <p>
-                                    <a href="product_Detailed.html">茅台</a>
-                                    <a href="#">五粮液</a>
-                                    <a href="#">郎酒</a>
-                                    <a href="#">剑南春</a>
-                                </p>
-                            </div>
+                            <div class="link_name"></div>
                             <div class="menv_Detail">
                                 <div class="cat_pannel clearfix">
                                     <div class="hd_sort_list">
                                         <dl class="clearfix" data-tpc="1">
-                                            <dt>
-                                                <a href="#">面膜
-                                                    <i>></i>
-                                                </a>
-                                            </dt>
+                                        @foreach($row->suv as $value)
                                             <dd>
-                                                <a href="#">撕拉面膜</a>
-                                                <a href="#">面膜贴</a>
-                                                <a href="#">免洗面膜</a>
-                                                <a href="#">水洗面膜</a>
+                                                <a href="#">{{$value->name}}</a>
                                             </dd>
+                                        @endforeach    
                                         </dl>
                                       
                                     </div>
@@ -170,6 +158,7 @@
                                 </div>
                             </div>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

@@ -59,7 +59,7 @@
 							<br> 链接文字：讨食链接地址：
 							<a href="//www.welaravel.com" target="_blank">www.welaravel.com</a></div>
 					</li>
-					<li>2.做好链接后，请在右侧填写申请信息。讨食只接受申请文字友情链接。</li>
+					<li>2.做好链接后，请在右侧填写申请信息。淘食只接受申请文字友情链接。</li>
 					<li>
 						<div class="float_Left"> 3.</div>
 						<div class="margin_l_12">
@@ -118,20 +118,14 @@
 
 </body>
 	<script>
-
 	function page(page)
 	{
-	  // alert(111);
-	  
-	  //触发ajax
-	  $.get('/link',{page:page},function(data){
-	    // alert(data);
-	    //赋值
-	    $('#uid').html(data);
-	    
-	 });
+	    //触发ajax
+	    $.get('/link',{page:page},function(data){
+		    //赋值
+		    $('#uid').html(data);
+		});
 	}
-	
 	</script>
 </html>
 @endsection

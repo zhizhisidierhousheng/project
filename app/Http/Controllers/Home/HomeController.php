@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class HomeController extends Controller
 {
@@ -12,9 +13,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 无限分类方法
+    public function getcatesbypid($pid)
+    {
+        $res = DB::table("cates")->where("pid", "=", $pid)->get();
+        $data = [];
+        //遍历 把对应得到的子类信息 添加到SUV下标里面
+        foreach ($res as $key => $value) {
+            $value->suv = $this->getcatesbypid($value->id);
+            $data[] = $value;
+        }
+        return $data;
+    }
+
+    // 加载首页
     public function index()
     {
-        //
+        $data = $this->getcatesbypid(0);
+        //dd($data);
+        //加载前台模版
+        return view("Home.Home.index", ["data" => $data]);
+
     }
 
     /**
