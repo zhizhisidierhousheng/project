@@ -100,22 +100,32 @@ Route::post('/reset', 'Home\LoginController@reset');
 // 前台中间件
 Route::group([''], function () 
 { 
-    //会员中心
+//会员中心
     Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
-    //会员商品收藏
+//会员商品收藏
     Route::resource('/home/userscollect', 'Home\UserscollectController');
-//ajax修改个人信息
-Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
-//会员个人信息
-Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
-Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
-Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
-Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
-Route::resource('/home/usersinfo', 'Home\UsersinfoController');
+//会员个人信息    
+    //ajax修改个人信息
+    Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
+    //获取验证码
+    Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
+    //比较验证码
+    Route::get('/home/myphone/checkcode', 'Home\UsersinfoController@checkcode');
+    //执行修改
+    Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
+    //更绑手机步骤页
+    Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
+    //发送邮件
+    Route::get('/home/myemail/send', 'Home\UsersinfoController@change');
+    //确认绑定
+    Route::get('/home/myemail/upemail', 'Home\UsersinfoController@upemail');
+    //更绑邮箱步骤页
+    Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
+    Route::resource('/home/usersinfo', 'Home\UsersinfoController');
 //会员订单
-Route::resource('/home/usersorder', 'Home\UsersorderController');
+    Route::resource('/home/usersorder', 'Home\UsersorderController');
 //收货地址
-Route::resource('/home/usersaddress', 'Home\UsersaddressController');
+    Route::resource('/home/usersaddress', 'Home\UsersaddressController');
 });
 
 // 前台首页

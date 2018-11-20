@@ -312,7 +312,7 @@
       <ul class="Navigation_name"> 
        <li><a href="#">首页</a></li> 
        <li><a href="#">水果蔬菜</a></li> 
-       <li><a href="#">限时特卖</a><em class="hot_icon"></em></li> 
+       <li><a href="#">限时特卖</a><em class="hot_icon"></em></li>
        <li><a href="#">联系我们</a></li> 
        <li><a href="#">鲜盟人才</a></li> 
        <li><a href="#">鲜盟金融</a></li> 
@@ -354,7 +354,7 @@
         <dd> 
          <ul> 
           <li> <a href="/home/usersorder"> 我的订单</a></li> 
-          <li> <a href="User_address.html">收货地址</a></li> 
+          <li> <a href="/home/usersaddress">收货地址</a></li> 
          </ul> 
         </dd> 
        </dl> 
@@ -365,7 +365,7 @@
         <dd> 
          <ul> 
           <li> <a href="/home/usersinfo"> 用户信息</a></li> 
-          <li> <a href="user.php?act=collection_list"> 我的收藏</a></li> 
+          <li> <a href="/home/userscollect"> 我的收藏</a></li> 
           <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
           <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
          </ul> 

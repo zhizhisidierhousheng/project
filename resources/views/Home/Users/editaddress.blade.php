@@ -380,7 +380,7 @@
         <dd> 
          <ul> 
           <li> <a href="/home/usersorder"> 我的订单</a></li> 
-          <li> <a href="User_address.html">收货地址</a></li> 
+          <li> <a href="/home/usersaddress">收货地址</a></li> 
          </ul> 
         </dd> 
        </dl> 
@@ -390,8 +390,8 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="user.php?act=profile"> 会员信息</a></li> 
-          <li> <a href="user.php?act=collection_list"> 我的收藏</a></li> 
+          <li> <a href="/home/usersinfo"> 会员信息</a></li> 
+          <li> <a href="/home/userscollect"> 我的收藏</a></li> 
           <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
           <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
          </ul> 
@@ -432,30 +432,13 @@
        <div class="adderss_list"> 
         <!--地址列表--> 
         <div class="Address_List clearfix"> 
-         <!--地址类表--> 
-         @foreach($address as $row)
-         <ul class="Address_info"> 
-          <div class="address_title"> 
-           <a href="/home/usersaddress/{{$row->id}}/edit" class="modify iconfont icon-fankui btn btn-primary" title="修改信息"></a> 地址信息@if($row->status == 0) (默认) @endif 
-           <form action="/home/usersaddress/{{$row->id}}" method="post" id="addr_del" style="display:inline">
-           {{csrf_field()}}
-           {{method_field('DELETE')}}
-           <a href="javascript:document.getElementById('addr_del').submit();" class="delete "><i class="iconfont icon-close2"></i></a>
-           </form>
-          </div> 
-          <li>收件人：{{$row->name}}</li> 
-          <li>收货地址：{{$row->area . $row->address}}</li> 
-          <li>手机号：{{$row->phone}}</li> 
-          <li>邮政编码：610000</li> 
-         </ul>
-         <script class="resources library" src="/static/home/address/area.js"></script><script>_init_area();</script>
-         @endforeach
+         
         </div> 
        </div> 
-       <form action="/home/usersaddress" method="post" id="addr"> 
+       <form action="/home/usersaddress/{{$data->id}}" method="post" id="addr"> 
         <div class="Add_Addresss"> 
          <div class="title_name">
-          <i></i>添加地址
+          <i></i>修改地址
          </div> 
          <table> 
           <tbody>
@@ -468,20 +451,29 @@
             <select class="kitjs-form-suggestselect " id="s_city" name="s_city"></select>
             <label> 区/县 </label><select class="kitjs-form-suggestselect" id="s_county" name="s_county"></select>
             <script class="resources library" src="/static/home/address/area.js"></script>
-            <script>_init_area();</script>
+            <script>
+            var opt0 = ["{{$province}}","{{$city}}","{{$county}}"];
+            _init_area();
+            </script>
             </td> 
            </tr> 
            <tr>
             <td class="label_name">详细地址</td>
-            <td><input name="address" type="text" class="Add-text" /><i>（必填）</i></td> 
+            <td><input name="address" type="text" class="Add-text" value="{{$data->address}}" /><i>（必填）</i></td> 
             <td class="label_name">手&nbsp;&nbsp;机</td>
-            <td><input name="phone" type="text" class="Add-text" /><i>（必填）</i></td> 
+            <td><input name="phone" type="text" class="Add-text" value="{{$data->phone}}" /><i>（必填）</i></td> 
            </tr> 
            <tr> 
             <td class="label_name">收件人姓名</td>
-            <td><input name="name" type="text" class="Add-text" /><i>（必填）</i></td> 
+            <td><input name="name" type="text" class="Add-text" value="{{$data->name}}" /><i>（必填）</i></td> 
             <td class="label_name">邮&nbsp;&nbsp;编</td>
             <td><input name="code" type="text" class="Add-text" value="000000" /><i>（必填）</i></td> 
+           </tr> 
+           <tr>
+            <td class="label_name">是否选为默认地址</td>
+            <td><input type="checkbox" value="0" name="status" @if($data->status == 0) checked @endif /></td>
+            <td class="label_name"></td>
+            <td></td> 
            </tr> 
            <tr>
             <td class="label_name"></td>
@@ -491,12 +483,10 @@
            </tr> 
           </tbody>
          </table> 
-         <div class="address_Note" style="color:red">
-          <span>注：</span>只能添加5个收货地址信息。请乎用假名填写地址，如造成损失由收货人自己承担。
-         </div>
          <div class="btn">
           {{csrf_field()}}
-          <input type="button" value="添加地址" class="Add_btn" onclick="check()">
+          {{method_field('PUT')}}
+          <input type="button" value="确认修改" class="Add_btn" onclick="check()">
          </div> 
         </div> 
        </form>

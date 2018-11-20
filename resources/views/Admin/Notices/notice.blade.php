@@ -40,8 +40,7 @@
     <button type="submit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜索</button> 
     </form>
    </div> 
-   <div class="cl pd-5 bg-1 bk-gray mt-20"> 
-    <span class="l">共有数据：<strong>{{count($data)}}</strong> 条</span> 
+   <div class="cl bg-1 bk-gray mt-20"> 
    </div>
    @if(count($data) > 0)
    <form action="/admin/notice/batchdel" method="post" id="batchdel">
