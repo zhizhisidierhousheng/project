@@ -4,19 +4,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
-
-	
- 	<script type="text/javascript">
+<script type="text/javascript">
 		window.pageConfig={
 			compatible:true
 		};
-		
-	</script>
-	<link type="text/css" rel="stylesheet" href="/static/home/jd/css/link.2012_1.css" />
-	<script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
-	<script type="text/javascript" src="/static/admin/lib/layer/2.4/layer.js"></script>
-	<script type="text/javascript" src="/static/admin/static/h-ui/js/H-ui.min.js"></script>
-	<script type="text/javascript" src="/static/admin/static/h-ui.admin/js/H-ui.admin.js"></script> 
+</script>
+<link type="text/css" rel="stylesheet" href="/static/home/jd/css/link.2012_1.css" />
+<script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/static/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/admin/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/admin/static/h-ui.admin/js/H-ui.admin.js"></script> 
 </head>
 <!-- 假如数据库没有数据 -->
 @if ($count == 0)
@@ -72,26 +69,23 @@
 		</div>
 	</div>   
 	<!-- 分页按钮 -->     
-  <div style="float:right;margin-right:50px">
-      @foreach($pp as $row)
-     <a href="javascript:void(0)" class="btn btn-success" style="float:left;margin-left:7px" onclick="page({{$row}})">{{$row}}</a>
-     @endforeach
-     </div>
- @endif
+    <div style="float:right;margin-right:50px">
+	    @foreach($pp as $row)
+	    	<a href="javascript:void(0)" class="btn btn-success" style="float:left;margin-left:7px" onclick="page({{$row}})">{{$row}}</a>
+	    @endforeach
+    </div>
+@endif
 <!-- js -->
 <script type="text/javascript">
 	//分页
 	function page(page)
 	{
-	  // alert(page);
-	  
-	  //触发ajax
-	  $.get('/adminlink',{page:page},function(data){
-	    // alert(data);
-	    //赋值
-	    $('#uid').html(data);
-	    
-	  })
+	    //触发ajax
+	    $.get('/adminlink',{page:page},function(data){
+		    // alert(data);
+		    //赋值
+		    $('#uid').html(data);
+	    })
 	}
 </script>
 </body>

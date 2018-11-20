@@ -37,7 +37,7 @@
 					@foreach($goods as $row)
 					<tr class="text-c va-m">
 						<td>{{$row->sid}}</td>
-			       		<td><a href="javascript:void(0)" title="查看详情" onclick="layer_show('商品详情', '/goodsinfo/{{$row->sid}}', 1300, 500)">{{$row->sname}}</a></td>
+			       		<td><a href="javascript:void(0)" title="查看详情" onclick="layer_show('商品详情', '/goodsinfo/{{$row->sid}}', 1300, 00)">{{$row->sname}}</a></td>
 			       		<td>{{$row->cname}}</td>
 			       		<td>{{$row->price}}</td>
 			       		<td>{!!$row->dcr!!}</td>
