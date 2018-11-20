@@ -13,6 +13,9 @@
      收货地址：{{$address->area . $address->address}}
     </dd>
     <dd class="pt-10 f-12" style="margin-left:0">
+     邮政编码：{{$address->postacode}}
+    </dd>
+    <dd class="pt-10 f-12" style="margin-left:0">
      使用优惠券：{{$coupon->coupon_id}} (￥{{$coupon->money}})
     </dd>
    </dl> 

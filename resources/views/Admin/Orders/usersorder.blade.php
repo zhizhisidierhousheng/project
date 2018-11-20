@@ -1,5 +1,9 @@
 @extends("Admin.AdminPublic.public")
 @section("admin")
+<head>
+  <link rel="stylesheet" href="/mypage.css">
+</head>
+<body>
   <nav class="breadcrumb">
    <i class="Hui-iconfont"></i> 首页 
    <span class="c-gray en">&gt;</span> 订单管理 
@@ -13,9 +17,9 @@
     <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button> 
     </form>
    </div> 
-   <div class="cl pd-5 bg-1 bk-gray mt-20"> 
-    <span class="l">共有数据：<strong>{{$num}}</strong> 条</span> 
+   <div class="cl bg-1 bk-gray mt-20">  
    </div> 
+   @if(count($orders) > 0)
    <table class="table table-border table-bordered table-hover table-bg table-sort"> 
     <thead> 
      <tr class="text-c"> 
@@ -45,7 +49,10 @@
      @endforeach
     </tbody> 
    </table> 
-   <div id="pageNav" class="pageNav"></div> 
+   <div id="pages">
+     {{$orders->render()}}
+   </div>
+   @endif
   </div> 
   <!--_footer 作为公共模版分离出去--> 
   <script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
@@ -67,6 +74,5 @@
   });
   </script>   
 </body>
-</html>
 @endsection
 @section('title', '订单列表')

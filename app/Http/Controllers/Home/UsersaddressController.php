@@ -47,7 +47,7 @@ class UsersaddressController extends Controller
         $uid = 1;
         //执行地址添加
         //获取数据
-        $data = $request->only('phone', 'name', 'address');
+        $data = $request->only('phone', 'name', 'address', 'postacode');
         $data['area'] = implode('', $request->only('s_province', 's_city', 's_county'));
         $data['uid'] = $uid;
         //获取地址数量
@@ -91,24 +91,13 @@ class UsersaddressController extends Controller
         //获取需修改的那条地址数据
         $data = DB::select("select * from users_address where id = :id", ["id" => $id])[0];
         $address = $data->area;
-        preg_match('/(.*?(省|自治区|北京市|天津市|重庆市|上海市|香港市|澳门市))/', $address, $matches);
-        if (count($matches) > 1) {
-            $province = $matches[count($matches) - 2];
-            $address = str_replace($province, '', $address);
-        }
-        preg_match('/(.*?(市|区|州))/', $address, $matches);
-        if (count($matches) > 1) {
-            $city = $matches[count($matches) - 2];
-            $address = str_replace($city, '', $address);
-        }
-        preg_match('/(.*?(区|县|镇))/', $address, $matches);
-        if (count($matches) > 1) {
-            $area = $matches[count($matches) - 2];
-            $address = str_replace($area, '', $address);
-        }
-        // dd($province);
-        // dd($city);
-        // dd($area);
+        preg_match('/(.*?(省|自治区|北京市|天津市|重庆市|上海市|香港市|澳门市))+(.*?(市|州|区))+(.*?(镇|县|区))/', $address, $matches);
+        //省级
+        $province = $matches[count($matches) - 6];
+        //市级
+        $city = $matches[count($matches) - 4];
+        //区级
+        $area = $matches[count($matches) - 2];
 
         return view("Home.Users.editaddress", ["pic" => $info->pic, "data" => $data, "province" => $province, "city" => $city, "county" => $area]);
     }
@@ -123,7 +112,7 @@ class UsersaddressController extends Controller
     public function update(Request $request, $id)
     {
         //执行地址修改
-        $data = $request->only('address', 'phone', 'name');
+        $data = $request->only('address', 'phone', 'name', 'postacode');
         $data['area'] = implode('', $request->only('s_province', 's_city', 's_county'));
         //获取默认地址
         $old = DB::table("users_address")->where("status", "=", 0)->first();
@@ -132,10 +121,13 @@ class UsersaddressController extends Controller
         } else {
             $data['status'] = 0;
         }
+
         // dd($data);
         if (DB::table("users_address")->where("id", "=", $id)->update($data)) {
-            if (($old->id != $id) && ($data['status'] == 0)) {
-                DB::table("users_address")->where("id", "=", $old)->update(["status" => 1]);
+            if (count($old) > 0) {
+                if (($old->id != $id) && ($data['status'] == 0)) {
+                    DB::table("users_address")->where("id", "=", $old)->update(["status" => 1]);
+                }
             }
             return redirect("/home/usersaddress");
         } else {

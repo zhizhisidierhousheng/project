@@ -23,6 +23,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			@if(!empty($info))
 			<tr class="text-c">
 				<td>{{$info->uid}}</td>
 				<td>{{$info->username}}</td>
@@ -30,6 +31,11 @@
 				<td>{{$info->age}}</td>
 				<td>{{$info->sex}}</td>
 			</tr>
+			@else
+			<tr class="text-c">
+				<td colspan="5">暂无数据</td>
+			</tr>
+			@endif
 		</tbody>
 	</table>
 </div>

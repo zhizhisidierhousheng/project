@@ -8,21 +8,14 @@
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <link rel="Bookmark" href="/static/admin/favicon.ico" >
 <link rel="Shortcut Icon" href="/static/admin/favicon.ico" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="/static/admin/lib/html5shiv.js"></script>
-<script type="text/javascript" src="/static/admin/lib/respond.min.js"></script>
-<![endif]-->
 <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/style.css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="/static/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
 <script type="text/javascript" src="/static/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="/static/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<link rel="stylesheet" href="/mypage.css">
 <title></title>
 </head>
 <body>
@@ -79,7 +72,9 @@
     <span><a class="btn btn-primary radius" href="javascript:;" id="checkall">全选</a></span>
     <span><a class="btn btn-primary radius" href="javascript:;" id="reverse">反选</a></span>
    </div>
-   <div id="pageNav" class="pageNav"></div>
+   <div id="pages">
+     {{$data->render()}}
+   </div>
    @endif
   </div> 
 </body>

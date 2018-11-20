@@ -1,5 +1,5 @@
 <?php
-
+// 广告控制器
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;

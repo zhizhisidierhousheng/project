@@ -25,6 +25,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			@if(!empty($address))
 			@foreach($address as $row)
 			<tr class="text-c">
 				<td>{{$row->uid}}</td>
@@ -38,6 +39,11 @@
 				</td>
 			</tr>
 			@endforeach
+			@else
+			<tr class="text-c">
+				<td>暂无数据</td>
+			</tr>
+			@endif
 		</tbody>
 	</table>
 </div>

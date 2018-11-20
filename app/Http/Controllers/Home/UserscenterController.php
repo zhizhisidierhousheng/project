@@ -61,6 +61,7 @@ class UserscenterController extends Controller
 
         //最新公告
         $notice = DB::select("select * from notice order by inputtime desc limit 1")[0];
+        // dd($orders);
 
         return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic]);
     }
