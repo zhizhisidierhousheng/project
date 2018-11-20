@@ -121,7 +121,6 @@
                     <li>
                         <a data-href="/admingoods/create" data-title="商品添加" href="javascript:void(0)"> 商品添加</a>
                     </li>
-                    
                 </ul>
             </dd>
         </dl>
@@ -179,7 +178,7 @@
             <dd>
                 <ul>
                     <li>
-                        <a data-href="/admin/usersorder" data-title="评价列表" href="javascript:void(0)">评价列表</a>
+                        <a data-href="/comment" data-title="评价列表" href="javascript:void(0)">评价列表</a>
                     </li>
                 </ul>
             </dd>

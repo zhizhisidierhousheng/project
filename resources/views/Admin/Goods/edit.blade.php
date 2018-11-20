@@ -27,7 +27,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">图片:</label>
 			<div style="width:100px;height:100px;border:1px solid #ddd;position:relative;left:298px;">
-				<img src="{{$info->pic}}" width="100px" height="100px" alt="">
+				<img src="{{$info->pic}}" width="100px" height="100px" style="position:absolute;left:0;">
 			</div>
 		</div>
 		<div class="row cl">

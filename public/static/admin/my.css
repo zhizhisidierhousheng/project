@@ -1,8 +1,9 @@
 /*报错提示*/
 .div{margin: 30px auto; width: 20%; text-align: center;border-radius: 10px; background: lightgreen;}
 
+/*冲突*/
 /*普通分页*/
-#pages{
+/*#pages{
 	margin-top: 50px;
 	float:right;
 }
@@ -49,5 +50,5 @@
 	-moz-box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
 	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
-
+*/
 

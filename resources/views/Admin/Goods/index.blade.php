@@ -65,7 +65,7 @@
 				</tbody>
 			</table>
 			<div id="pages">
-				{!!$goods->render()!!}
+				{{$goods->render()}}
 			</div>
 		</div>
 	</div>

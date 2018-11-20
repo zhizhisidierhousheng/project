@@ -126,7 +126,7 @@ class AdmingoodsController extends Controller
     {
         //获取到需要修改的信息
         $info = DB::table('goods')->where('id', '=', $id)->first();
-       
+        // dd($info);
         //加载模板
         return view('Admin.Goods.edit', ['info' => $info]);
     }

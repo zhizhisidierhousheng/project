@@ -84,6 +84,9 @@ Route::group(['middleware' => 'adminlogin'], function ()
     // Ajax删除商品详情
     Route::get('/goodsinfodel', 'Admin\AdmingoodsController@delete');
 
+// 评论管理
+    // 评论列表
+    Route::resource('/comment', 'Admin\CommentController');
 
 //友情链接模块
 	// 后台友情链接列表
