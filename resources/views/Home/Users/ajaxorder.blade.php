@@ -1,5 +1,9 @@
 @extends("Home.HomePublic.public")
 @section('home')
+<head>
+  <link rel="stylesheet" href="/mypage.css">
+</head>
+<body>
   <!--订单管理--> 
   <div class="user_style clearfix"> 
    <div class="user_center"> 
@@ -7,7 +11,7 @@
     <div class="left_style"> 
      <div class="menu_style"> 
       <div class="user_title">
-       用户中心
+       会员中心
       </div> 
       <div class="user_Head"> 
        <div class="user_portrait"> 
@@ -39,7 +43,7 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="/home/usersinfo"> 用户信息</a></li> 
+          <li> <a href="/home/usersinfo"> 会员信息</a></li> 
           <li> <a href="/home/userscollect"> 我的收藏</a></li> 
           <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
           <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
@@ -85,9 +89,6 @@
         <li class="noborder" onclick="page(1, 3)"><a href="javascript:;"><img src="/static/home/images/icon-weibiaoti101.png" /><br />已验收（{{count($d)}}）</a></li> 
        </ul> 
       </div> 
-      <div id="ajaxorder">
-        
-      </div>
       <div class="Order_form_list"> 
        <table> 
        @if(count($orders) > 0)
@@ -146,20 +147,29 @@
         <center><h1>您的订单信息为空！</h1></center>
         @endif
        </table> 
-       
+       @if(count($pagenum) > 1)
+       <div id="pages" style="margin-left:50px"> 
+          <ul> 
+           @foreach($pagenum as $num)
+           <li><a href="javascript:;" class="btn" onclick="page({{$num}}, {{$status}})">{{$num}}</a></li>
+           @endforeach
+          </ul> 
+       </div>
+       @endif
       </div> 
       <script>jQuery(".Order_form_list").slide({titCell:".Order_info", targetCell:".Order_Details",defaultIndex:0,delayTime:300,trigger:"click",defaultPlay:true,returnDefault:false});</script> 
      </div> 
-     <div class="Paging"> 
-        <div class="Pagination" id="pages"> 
-         @foreach($pagenum as $num)
-         <a href="javascript:;" class="btn" onclick="page({{$num}}, {{$status}})">{{$row}}</a>
-         @endforeach
-        </div> 
-     </div> 
-     <!----> 
     </div> 
    </div> 
-  </div> 
+  </div>
+</body>
+<script>
+  function page(page, status)
+  {
+    $.get("/home/usersorder", {page:page, status:status}, function(data) {
+      $('#body').html(data);
+    });
+  }
+</script>
 @endsection
 @section('title', '我的订单')

@@ -90,6 +90,7 @@
         <!--地址列表--> 
         <div class="Address_List clearfix"> 
          <!--地址类表--> 
+         @if(count($address) > 0)
          @foreach($address as $row)
          <ul class="Address_info"> 
           <div class="address_title"> 
@@ -107,6 +108,7 @@
          </ul>
          <script class="resources library" src="/static/home/address/area.js"></script><script>_init_area();</script>
          @endforeach
+         @endif
         </div> 
        </div> 
        <form action="/home/usersaddress" method="post" id="addr"> 

@@ -38,7 +38,7 @@
         <a class="prev" href="javascript:void(0)"></a>
         <a class="next" href="javascript:void(0)"></a>
     </div>
-<script type="text/javascript">jQuery(".slideBox").slide({
+    <script type="text/javascript">jQuery(".slideBox").slide({
                 titCell: ".hd ul",
                 mainCell: ".bd ul",
                 autoPlay: true,
@@ -48,45 +48,13 @@
         <!--内容样式-->
         <div class="index_style">
             <!--推荐图层样式-->
-            <div class="recommend">
-                <div class="recommend_bg"></div>
-                <div class="list">
-                    <div class="picScroll">
-                        <div class="hd">
-                            <a class="prev" href="javascript:void(0)">&gt;</a>
-                            <a class="next" href="javascript:void(0)">&lt;</a>
-                        </div>
-                        <div class="bd">
-                            <div class="tempWrap">
-                                <ul>
-                                    <li class="recommend_info">
-                                        <div class="img_link">
-                                            <a href="#" class="">
-                                                <img src="/static/home/Products/p_8.jpg" width="110px" height="150px">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <a href="#" class="title_name">荣耀 6 Plus (PE-TL10) 3GB内存增强版 金色 移动联通双4G手机 双卡</a>
-                                            <h2>
-                                                <i>￥</i>1124.00
-                                            </h2>
-                                        </div>
-                                        <a href="#" class="buy_btn">立即购买</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <script>jQuery(".picScroll").slide({
-                            titCell: ".hd ul",
-                            mainCell: ".bd ul",
-                            autoPage: true,
-                            effect: "leftLoop",
-                            autoPlay: true,
-                            vis: 4
-                        });</script>
-                </div>
+            <div class="recommend" id="adv">
+                <img src="{{$adv->pic}}">
             </div>
+            <script>
+                $('#adv').fadeIn(3000);
+                $('#adv').fadeOut(3000);
+            </script>
             <!--样式-->
             <div class="clearfix">
                 <div class="news_P">
@@ -108,46 +76,20 @@
                                     <div class="hd"></div>
                                     <div class="bd">
                                         <ul>
+                                            @if(count($orders) > 0)
+                                            @foreach($orders as $row)
                                             <li class="clearfix">
                                                 <a href="#" target="_blank" class="img_link">
-                                                    <img src="/static/home/Products/p_56.jpg" width="60" height="60" />
+                                                    <img src="{{$row->gpic}}" width="60" height="60" />
                                                 </a>
-                                                <a href="#" class="name">史努比（SNOOPY）净含量30克 梦系列薄荷糖（甜橙味）</a>
+                                                <a href="#" class="name">{{$row->gdcr}}</a>
                                                 <h2>总价：
-                                                    <b>￥123</b>
+                                                    <b>￥{{$row->num * $row->gprice}}</b>
                                                 </h2>
-                                                <h4>下单时间：2016年5月2日 12:43:03</h4>
+                                                <h4>下单时间：{{date('Y年m月日 H:i:s', $row->time)}}</h4>
                                             </li>
-                                            <li class="clearfix">
-                                                <a href="#" target="_blank" class="img_link">
-                                                    <img src="/static/home/Products/p_56.jpg" width="60" height="60" />
-                                                </a>
-                                                <a href="#" class="name">史努比（SNOOPY）净含量30克 梦系列薄荷糖（甜橙味）</a>
-                                                <h2>总价：
-                                                    <b>￥123</b>
-                                                </h2>
-                                                <h4>下单时间：2016年5月2日 12:43:03</h4>
-                                            </li>
-                                            <li class="clearfix">
-                                                <a href="#" target="_blank" class="img_link">
-                                                    <img src="/static/home/Products/p_56.jpg" width="60" height="60" />
-                                                </a>
-                                                <a href="#" class="name">史努比（SNOOPY）净含量30克 梦系列薄荷糖（甜橙味）</a>
-                                                <h2>总价：
-                                                    <b>￥123</b>
-                                                </h2>
-                                                <h4>下单时间：2016年5月2日 12:43:03</h4>
-                                            </li>
-                                            <li class="clearfix">
-                                                <a href="#" target="_blank" class="img_link">
-                                                    <img src="/static/home/Products/p_56.jpg" width="60" height="60" />
-                                                </a>
-                                                <a href="#" class="name">史努比（SNOOPY）净含量30克 梦系列薄荷糖（甜橙味）</a>
-                                                <h2>总价：
-                                                    <b>￥123</b>
-                                                </h2>
-                                                <h4>下单时间：2016年5月2日 12:43:03</h4>
-                                            </li>
+                                            @endforeach
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
@@ -161,24 +103,14 @@
                                     });</script>
                             </ul>
                             <ul>
+                                @if(count($notice) > 0)
+                                @foreach($notice as $noce)
                                 <li>
-                                    <a href="#" target="_blank">商城最新公告提示！</a>
+                                    <a href="javascript:;" target="_blank">{{$noce->title}}</a>
+                                    <span>{{$noce->content}}</span>
                                 </li>
-                                <li>
-                                    <a href="#" target="_blank">商城最新公告提示！</a>
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">商城最新公告提示！</a>
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">商城最新公告提示！</a>
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">商城最新公告提示！</a>
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">商城最新公告提示！</a>
-                                </li>
+                                @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>

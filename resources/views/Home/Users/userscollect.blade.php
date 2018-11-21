@@ -87,7 +87,7 @@
          <li>收藏数：{{$num or '0'}}条</li>
          <li></li>
         </ul>
-        @if(empty($goods))
+        @if(count($goods) < 1)
         <center><h1>您还没有收藏商品，快去收藏吧！</h1></center>
         @else
         <div class="collect_list"> 
@@ -118,12 +118,10 @@
           @endforeach
          </ul> 
         </div> 
-        <div class="Paging"> 
-         <div class="Pagination" id="pages">
+        <div id="pages" style="margin-left: 50px">
           {{$goods->render()}}
-         </div>
-         @endif
         </div> 
+        @endif
        </div> 
       </div> 
      </div> 

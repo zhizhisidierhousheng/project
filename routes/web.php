@@ -164,10 +164,7 @@ Route::group([''], function ()
 });
 
 // 前台首页
-Route::get('/index', function () 
-{
-	return view('Home.home.index');
-});
+Route::resource('/index', 'Home\HomeController');
 
 // 前台友情链接
 Route::resource('/link','Home\linkController');

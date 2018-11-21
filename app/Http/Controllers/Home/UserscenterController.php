@@ -26,13 +26,22 @@ class UserscenterController extends Controller
         //获取30天前的时间戳用于比较
         $time = strtotime('-1 month');
         //获取订单
-        $orders = Orders::where("uid", "=", $uid)->get();
+        $orders = Orders::where("uid", "=", $uid)->paginate(3);
+        //获取订单数
+        $onum = DB::table("orders")->where("uid", "=", $uid)->count();
         //订单表与订单详情表联查获取数据
         $sql = "select * from orders as od,orders_info as oi where od.id = oi.oid and od.time > :time and od.uid = :uid";
         $info = DB::select($sql, ['time' => $time, 'uid' => $uid]);
         //将订单号相同的订单详情信息统一存入订单数组的info键里
-        foreach ($orders as $value) {
-            $value->info = $info;
+        foreach ($orders as $order) {
+            $order->time = date("Y-m-d H:i:s", $order->time);
+            $arr = array();
+            foreach ($info as $value) {
+                if ($order->id == $value->oid) {
+                    $arr[] = $value;
+                }
+            }
+            $order->info = $arr;
         }
 
         //随机获取9条广告
@@ -61,9 +70,12 @@ class UserscenterController extends Controller
 
         //最新公告
         $notice = DB::select("select * from notice order by inputtime desc limit 1")[0];
-        // dd($orders);
 
-        return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic]);
+        //获取优惠券数
+        $cnum = DB::table("coupon")->where("uid", "=", $uid)->count();
+        // dd($collect);
+
+        return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic, "onum" => $onum, "cnum" => $cnum]);
     }
 
     public function uphone()

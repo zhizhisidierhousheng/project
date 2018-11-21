@@ -28,7 +28,7 @@ class UsersorderController extends Controller
         //获取数据总条数
         $tot = DB::table("orders")->where("uid", "=", $uid)->count();
         //每页显示数据条数
-        $rev = 5;
+        $rev = 4;
         //获取最大页
         $maxpage = ceil($tot / $rev);
         //判断
@@ -39,15 +39,22 @@ class UsersorderController extends Controller
 
         //获取订单信息
         //获取订单
-        $orders = DB::table("orders")->where("uid", "=", $uid)->orderBy("time", "DESC")->paginate(5);
+        $orders = DB::table("orders")->where("uid", "=", $uid)->orderBy("time", "DESC")->paginate(4);
         //订单表与订单详情表联查获取数据
         $sql = "select * from orders as od,orders_info as oi where od.id = oi.oid and od.uid = :uid";
         $info = DB::select($sql, ['uid' => $uid]);
         //将订单号相同的订单详情信息统一存入订单数组的info键里
-        foreach ($orders as $value) {
-            $value->time = date("Y-m-d H:i:s", $value->time);
-            $value->info = $info;
+        foreach ($orders as $order) {
+            $order->time = date("Y-m-d H:i:s", $order->time);
+            $arr = array();
+            foreach ($info as $value) {
+                if ($order->id == $value->oid) {
+                    $arr[] = $value;
+                }
+            }
+            $order->info = $arr;
         }
+        // dd($orders);
         //待发货
         $a = DB::table("orders")->where("uid", "=", $uid)->where("status", "=", 0)->get();
         //已发货
@@ -88,11 +95,17 @@ class UsersorderController extends Controller
             $sql = "select * from orders as od,orders_info as oi where od.id = oi.oid and od.uid = :uid and od.status = :status";
             $info = DB::select($sql, ['uid' => $uid, 'status' => $status]);
             //将订单号相同的订单详情信息统一存入订单数组的info键里
-            foreach ($orders as $value) {
-                $value->time = date("Y-m-d H:i:s", $value->time);
-                $value->info = $info;
+            foreach ($orders as $order) {
+                $order->time = date("Y-m-d H:i:s", $order->time);
+                $arr = array();
+                foreach ($info as $value) {
+                    if ($order->id == $value->oid) {
+                        $arr[] = $value;
+                    }
+                }
+                $order->info = $arr;
             }
-            // dd($orders);
+            // dd($pagenum);
             return view("Home.Users.ajaxorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "status" => $status, "pagenum" => $pagenum]);
         }
         

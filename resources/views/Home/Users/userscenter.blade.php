@@ -2,7 +2,8 @@
 @section('home')
  <head> 
   <script src="/static/home/js/jquery-1.9.1.min.js" type="text/javascript"></script> 
-  <script src="/static/home/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script> 
+  <script src="/static/home/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/mypage.css">
  </head> 
  <body>  
   <!--用户中心样式--> 
@@ -79,12 +80,12 @@
     <div class="right_style"> 
      <div class="info_content"> 
       <div class="Notice">
-       <span>系统最新公告:</span>{{$notice->content}}
+       <span>系统最新公告:</span>@if(count($notice) > 0){{$notice->content}}@endif
       </div> 
       <div class="user_info"> 
        <ul class=""> 
-        <li class="Order_form"><a href="/home/usersorder"><img src="/static/home/images/user_img_04.png" /><h4>订单：(5)</h4></a></li> 
-        <li class="grade"><a href="#"><img src="/static/home/images/user_img_08.png" /><h4>优惠券：(3)</h4></a></li> 
+        <li class="Order_form"><a href="/home/usersorder"><img src="/static/home/images/user_img_04.png" /><h4>订单：({{$onum}})</h4></a></li> 
+        <li class="grade"><a href="#"><img src="/static/home/images/user_img_08.png" /><h4>优惠券：({{$cnum}})</h4></a></li> 
        </ul> 
       </div> 
       <!--样式--> 
@@ -102,7 +103,6 @@
            </div> 
           </div> 
          </div> 
-         <div style="display:block;overflow:auto;width:730px;height:312px">
          <table> 
           <thead> 
            <tr> 
@@ -145,7 +145,9 @@
            @endforeach
           </tbody> 
          </table> 
-         </div>
+        <div id="pages" style="margin-left: 50px">
+        {{$orders->render()}}
+        </div>
         </div> 
        </div> 
        <!--右侧记录样式--> 
@@ -153,7 +155,7 @@
         <div class="us_Record"> 
          <div id="Record_p" class="Record_p"> 
           <div class="title_name">
-           <span class="name left">商品推荐</span>
+           <span class="name left">广告</span>
            <span class="pageState right"><span>1</span>/9</span>
           </div> 
           <div class="hd">
@@ -162,16 +164,17 @@
           </div> 
           <div class="bd"> 
            <ul> 
+           @if(count($advs) > 0)
             @foreach($advs as $adv)
             {{--//第一条广告--}}
             @if($loop->iteration == 1)
             <li class="clone"> 
              <div class="p_width"> 
               <div class="pic">
-               <a href=""><img src="/static/home/products/P_1.jpg" /></a>
+               <a href=""><img src="{{$adv->pic}}" /></a>
               </div> 
               <div class="title">
-               <a href="#">{{$adv->title}}</a>
+               <a href="{{$adv->url}}">{{$adv->title}}</a>
               </div> 
               <div class="Purchase_info">
                <span class="p_Price">{{$adv->dcr}}</span> 
@@ -184,10 +187,10 @@
               <li class="clone"> 
                <div class="p_width"> 
                 <div class="pic">
-                 <a href=""><img src="/static/home/products/P_11.jpg" />  </a>
+                 <a href=""><img src="{{$adv->pic}}" />  </a>
                 </div> 
                 <div class="title">
-                 <a href="#">{{$adv->title}}</a>
+                 <a href="{{$adv->url}}">{{$adv->title}}</a>
                 </div> 
                 <div class="Purchase_info">
                  <span class="p_Price">{{$adv->dcr}}</span> 
@@ -199,10 +202,10 @@
               <li> 
                <div class="p_width"> 
                  <div class="pic">
-                 <a href=""><img src="/static/home/products/P_6.jpg" /></a>
+                 <a href=""><img src="{{$adv->pic}}" /></a>
                 </div> 
                 <div class="title">
-                 <a href="#">{{$adv->title}}</a>
+                 <a href="{{$adv->url}}">{{$adv->title}}</a>
                 </div> 
                 <div class="Purchase_info">
                  <span class="p_Price">{{$adv->dcr}}</span> 
@@ -213,6 +216,7 @@
             @endif
             @endforeach
            </ul>
+           @endif
           </div> 
          </div> 
          <script type="text/javascript">jQuery("#Record_p").slide({ mainCell:".bd ul",effect:"leftLoop",vis:1,autoPlay:true });</script> 
@@ -232,11 +236,12 @@
         </div> 
         <div class="bd"> 
          <ul>
+         @if(count($collect) > 0)
           @foreach($collect as $coll)
           @if($coll->status == 0)
           <li> 
            <div class="pic">
-            <a href="javascript:void(0)" onclick="alert('该商品已下架')"><img src="/static/home/products/P_11.jpg" /></a>
+            <a href="javascript:void(0)" onclick="alert('该商品已下架')"><img src="{{$coll->pic}}" /></a>
            </div> 
            <div class="title">
             <a href="javascript:void(0)" onclick="alert('该商品已下架')">{{$coll->name}}</a>
@@ -248,7 +253,7 @@
           @else
           <li> 
            <div class="pic">
-            <a href=""><img src="/static/home/products/P_11.jpg" /></a>
+            <a href=""><img src="{{$coll->pic}}" /></a>
            </div> 
            <div class="title">
             <a href="#">{{$coll->name}}</a>
@@ -259,6 +264,7 @@
           </li>
           @endif
           @endforeach
+          @endif
          </ul> 
         </div> 
        </div> 

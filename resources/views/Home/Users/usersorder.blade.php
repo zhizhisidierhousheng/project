@@ -16,7 +16,7 @@
     <div class="left_style"> 
      <div class="menu_style"> 
       <div class="user_title">
-       用户中心
+       会员中心
       </div> 
       <div class="user_Head"> 
        <div class="user_portrait"> 
@@ -48,7 +48,7 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="/home/usersinfo"> 用户信息</a></li> 
+          <li> <a href="/home/usersinfo"> 会员信息</a></li> 
           <li> <a href="/home/userscollect"> 我的收藏</a></li> 
           <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
           <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
@@ -123,7 +123,7 @@
              <tr> 
               <td> 
                <div class="product_name clearfix"> 
-                <a href="#" class="product_img"><img src="/static/home/Products/p_2.jpg" width="80px" height="80px" /></a> 
+                <a href="#" class="product_img"><img src="{{$info->gpic}}" width="80px" height="80px" /></a> 
                 <a href="3">{{$info->gdcr}}</a>
                 <p class="specification">礼盒装20个/盒</p> 
                </div> </td>
@@ -155,20 +155,12 @@
         <center><h1>您的订单信息为空！</h1></center>
         @endif
        </table> 
-       
+        <div id="pages" style="margin-left: 50px">
+        {{$orders->render()}}
+        </div>
       </div> 
       <script>jQuery(".Order_form_list").slide({titCell:".Order_info", targetCell:".Order_Details",defaultIndex:0,delayTime:300,trigger:"click",defaultPlay:true,returnDefault:false});</script> 
      </div> 
-     <div class="Paging"> 
-        <div class="Pagination" id="pages">
-         <ul>
-         @foreach($pagenum as $num)
-         <li><a href="javascript:;" class="btn" onclick="page({{$num}}, {{$status}})">{{$row}}</a></li>
-         @endforeach
-         </ul>
-        </div> 
-     </div> 
-     <!----> 
     </div> 
    </div> 
   </div> 

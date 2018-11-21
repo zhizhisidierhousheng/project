@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        //前台首页
+        //获取最新订单
+        $orders = DB::table("orders")
+                      ->join("orders_info", "orders.id", "=", "orders_info.oid")
+                      ->orderBy("time", "DESC")
+                      ->limit(5)
+                      ->get();
+
+        //获取公告
+        $notice = DB::table("notice")
+                      ->orderBy("inputtime", "DESC")
+                      ->limit(5)
+                      ->get();
+
+        //获取广告
+        $adv = DB::table("notice")->first();
+
+        return view("Home.Home.index", ["orders" => $orders, "notice" => $notice]);
     }
 
     /**
