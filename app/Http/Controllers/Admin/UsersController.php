@@ -36,7 +36,7 @@ class UsersController extends Controller
         //偏移量
         $offset = ($page-1)*$rev;
         //准备sql语句
-        $sql = "select * from users limit $offset,$rev";
+        $sql = "select * from users limit {$offset},{$rev}";
         //执行sql
         $data = DB::select($sql);
 

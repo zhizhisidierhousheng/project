@@ -14,17 +14,21 @@
     <link rel="stylesheet" type="text/css" href="/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui.admin/css/style.css" />
-
+    <style>
+        form{margin: auto;width: 80%;}
+    </style>
 </head>
 <body>
     <form action="/adminlooppic" method="post" enctype="multipart/form-data">
         图片描述：<input type="text" name="dcr" class="input-text Wdate">
         <br> 
+        <br>
         文件:<input type="file" name="pic" class="input-text Wdate">
         <br>        
         {{csrf_field()}}        
+        <br>
         <input type="submit" class="btn btn-success" value="提交">
-        <a href="javascript:window.opener=null;window.open('','_self');window.close();">关闭</a>
+        <a href="javascript:window.opener=null;window.open('','_self');window.close();" class="btn btn-warning">关闭</a>
     </form>
 </body>
 </html>

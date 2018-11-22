@@ -26,8 +26,8 @@ class GoodsInfoInsert extends FormRequest
         return [
             //
             'gname' => 'required',
-            'pic_up'=> 'required',
-            'pic_down'=> 'required',
+            'pic_up' => 'required',
+            'pic_down' => 'required',
             'num' => 'required|numeric',
             'pro_num' => 'required',
             'material' => 'required',
@@ -36,7 +36,7 @@ class GoodsInfoInsert extends FormRequest
 
      public function messages(){
         return [
-            "gname.required" => '商品名字不能为空',
+            "gname.required" => '商品名不能为空',
             "pic_up.required "=> '商品的小图不能为空',
             "pic_down.required" => '商品的描述图片不能为空',
             "num.required" => '库存不能为空',

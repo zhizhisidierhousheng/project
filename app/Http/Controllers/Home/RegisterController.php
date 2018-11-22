@@ -128,7 +128,7 @@ class RegisterController extends Controller
                 // 获取当前用户id
                 $id = $info->id;
                 // 获取默认头像路径
-                $pic = '\static\home\images\myhead.jpg';
+                $pic = '/static/home/images/myhead.jpg';
                 // 添加相应的用户详情的id和默认头像
                 DB::table('users_info')->insert(['uid' => $id, 'pic' => $pic]);
                 // 跳转登录页

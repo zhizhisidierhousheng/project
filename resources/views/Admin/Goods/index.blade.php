@@ -42,12 +42,14 @@
 			       		<td>{{$row->price}}</td>
 			       		<td>{!!$row->dcr!!}</td>
 			       		<td><img src="{{$row->pic}}" width="100px" height="100px"></td>
-		       			<td class="td-status">
-				            @if($row->status)
-				                <span class="label label-success radius" onClick="status(this,{{$row->sid}},0)">已启用</span>
+		       			<td class="td-status" >
+		       				<a href="javascript:;">
+				            @if($row->status == 0)
+				                <span class="label label-success radius" >1</span>
 				            @else
-				                <span class="label label-warning radius" onClick="status(this,{{$row->sid}},1)">已禁用</span> 
+				                <span class="label label-warning radius" >0</span> 
 				            @endif
+				            </a>
 			            </td>
 						<td class="td-manage">
 							<a style="text-decoration:none" href="/addgoodsinfo/{{$row->sid}}" title="详情添加" class="ml-5">
@@ -90,42 +92,18 @@
 	        }, 'json');
     	} 
     });
- //    // 修改状态
-	// function admin_stop(obj,id)
-	// {
-	//     if($('.hidden').html() == 1){
-	//         if(confirm('确定要停用吗？')){
-	//            window.location.href = "/admingoods/"+id;
-	//         }
-	//     }else{
-	//         if(confirm('确定要启用吗？')){
-	//            window.location.href = "/admingoods/"+id;
-	//         }
-	//     }
-	// }
-	
-	function status(obj,sid,status)
-	{
-		if (status) {
-			// 发送ajax请求
-			$.post('/goodsstatus', {id:sid, '_token':'{{csrf_token()}}', 'status':'1'},function(data){
-				if (data == 1) {
-					$(obj).html('<span class="label  label-success radius" onclick="status(this,'+sid+',0)">已启用</span> ');
-				} else {
-					alert('修改失败');
-				}
-			});
-		} else {
-			// 发送ajax请求
-			$.post('/goodsstatus', {id:sid, '_token':'{{csrf_token()}}', 'status':'0'},function(data){
-				if (data == 1) {
-					$(obj).html('<span class="label label-warning radius" onclick="status(this,'+sid+',1)">已禁用</span> ');
-				} else {
-					alert('修改失败');
-				}
-			});
-		}
-	}
+	$('.label').click(function(){
+		id = $(this).parents('tr').find('td:first').html();
+		status = $(this).html();
+		$.get('/goodsstatus', {id:id, status:status}, function(data){
+			if(data.msg == 1){
+				alert('修改成功');
+				// status=0;
+			}else{
+				alert('修改失败');
+			}
+		}, 'json')
+	});
 	
 </script>
 @endsection

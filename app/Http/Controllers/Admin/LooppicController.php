@@ -85,8 +85,8 @@ class LooppicController extends Controller
             // dd($ext);
             $filename = time()+rand(1,10000);
             // dd($filename);
-            $request->file('pic')->move('./uploads/',$filename.'.'.$ext);
-            $url = '\uploads\\'.$filename.'.'.$ext;
+            $request->file('pic')->move('./uploads/looppic/',$filename.'.'.$ext);
+            $url = '/uploads/looppic/'.$filename.'.'.$ext;
             $dcr = $request->input('dcr');
             // dd($url);
             DB::table('looppic')->insert([

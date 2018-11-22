@@ -24,11 +24,10 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         // 退出销毁session
-        $request->session()->pull('name');
-        $request->session()->pull('phone');
+        $request->session()->pull('username');
         
-        // 返回登录页
-        return redirect('/login/create');
+        // 返回首页
+        return redirect('/index');
     }
 
     /**
@@ -83,8 +82,7 @@ class LoginController extends Controller
             // 2.检测密码
             if (Hash::check($password, $info->password)) {
                 // 把用户信息存入到session 里
-                session(['name' => $name]);
-                session(['phone' => $name]);
+                session(['username' => $info->name]);
                 // 3.检测验证码
                 if (Session::get('milkcaptcha') == $userInput) {
                     // 登录成功跳到商城首页

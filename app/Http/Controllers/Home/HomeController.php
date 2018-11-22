@@ -29,10 +29,13 @@ class HomeController extends Controller
     // 加载首页
     public function index()
     {
+        // session(['name' => 'user']);
         $data = $this->getcatesbypid(0);
+        // 轮播图
+        $loop = DB::table('looppic')->where('status', '=', '1')->limit(4)->get();
         //dd($data);
         //加载前台模版
-        return view("Home.Home.index", ["data" => $data]);
+        return view("Home.Home.index", ["data" => $data, 'loop' => $loop]);
 
     }
 

@@ -197,18 +197,10 @@ function picture_del(obj,id)
 /*轮播图-改变状态*/
 function picture_edit(obj,id)
 {
-    // alert($('.hidden').html());
-    if($('.hidden').html()==1){
-        if(confirm('确定要停用吗？')){
+    if($('.hidden').html() == 1){
         window.location.href = "/adminlooppic/"+id+"/edit";
-        // confirm('删除成功');
-        }
     }else{
-        if(confirm('确定要启用吗？')){
-        // alert(id);
         window.location.href = "/adminlooppic/"+id+"/edit";
-        // confirm('删除成功');
-        }
     }
 }
 </script>

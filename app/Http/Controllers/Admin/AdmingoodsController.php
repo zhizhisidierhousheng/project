@@ -1,5 +1,5 @@
 <?php
-
+// 后台商品模块
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -82,36 +82,44 @@ class AdmingoodsController extends Controller
      * @return \Illuminate\Http\Response
      */
     // 修改状态
-    // public function show($id)
-    // {
-    //     $te = DB::table('goods')->where('id', '=', $id)->get();
+    public function show($id)
+    {
+        $te = DB::table('goods')->where('id', '=', $id)->get();
 
-    //     // 状态
-    //     $stu = $te[0]->status;
-    //     //进来的status的值是1就变为0 是0就变为1
-    //     if ($stu == 0) {
-    //         $stu = 1;
-    //     } else {
-    //         $stu = 0;   
-    //     }
-    //     //修改数据库中的status
-    //     $db = DB::table('goods')->where('id', '=', $id)->update(['status'=>$stu]);
-    //     $goods = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->select(DB::raw('*,goods.name as sname,goods.id as sid,cates.name as cname,cates.id as csid'))->paginate(10);
-    //     // dd($db);
-    //     return view('Admin.Goods.index', ['goods'=>$goods]);
-    //     // return redirect('/admingoods');
-    // }
+        // 状态
+        $stu = $te[0]->status;
+        //进来的status的值是1就变为0 是0就变为1
+        if ($stu == 0) {
+            $stu = 1;
+        } else {
+            $stu = 0;   
+        }
+        //修改数据库中的status
+        $db = DB::table('goods')->where('id', '=', $id)->update(['status'=>$stu]);
+        $goods = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->select(DB::raw('*,goods.name as sname,goods.id as sid,cates.name as cname,cates.id as csid'))->paginate(10);
+        // dd($db);
+        return view('Admin.Goods.index', ['goods'=>$goods]);
+        // return redirect('/admingoods');
+    }
 
     // 修改状态
     public function goodsstatus(Request $request)
     {
         // dd($request);
-        $arr = $request->except('_token');
-        var_dump($arr);
-        if (\DB::update("update goods set status= $arr[status] where id=$arr[id]")) {
-            return 1;
+        $id = $request->input('id');
+        $sta = $request->input('status');
+        if ($sta == 0) {
+            $sta = 1;
+        } else {
+            $sta = 0;
+        }
+        // dd($status);
+        // $arr = $request->except('_token');
+        // var_dump($arr);
+        if (DB::update("update goods set status={$sta} where id={$id}")) {
+            return response()->json(['msg' => 1, 'status' => $sta]);
         }else{
-            return 0;
+            return response()->json(['msg' => 0, 'status' => $sta]);
         }
     }
 
@@ -188,10 +196,18 @@ class AdmingoodsController extends Controller
     {
         //获取参数id
         $id = $request->input('id');
-        
+        // 判断删除是否成功
         if (DB::table('goods')->where('id', '=', $id)->delete()) {
-            //json格式
-            return response()->json(['msg' => 1]);
+            // 判断有无详情数据
+            if(DB::table('goods_info')->where('gid', '=', $id)->first()) {
+                // 删除对应的详情数据
+                DB::table('goods_info')->where('gid', '=', $id)->delete();
+                //json格式
+                return response()->json(['msg' => 1]);
+            } else {
+                return response()->json(['msg' => 1]);
+            }
+           
         } else {
             return response()->json(['msg' => 0]);
         }
@@ -256,7 +272,7 @@ class AdmingoodsController extends Controller
         $info = DB::table('goods_info')->where('gid', '=', $id)->first();
         // 获取接收的数据
         $data = $request->except('_token');
-        dd($request->hasFile('pic_up'));
+        // dd($request->hasFile('pic_up'));
         // 修改
         if($request->hasFile('pic_up') || $request->hasFile('pic_down')){
 

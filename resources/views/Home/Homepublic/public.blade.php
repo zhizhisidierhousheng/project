@@ -18,20 +18,32 @@
 <div id="header_top">
     <div id="top">
         <div class="Inside_pages">
-            <div class="Collection">下午好，欢迎光临锦宏颜！
-                <em></em>
-                <a href="#">收藏我们</a></div>
             <div class="hd_top_manu clearfix">
                 <ul class="clearfix">
-                    <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！
-                        <a href="#" class="red">[请登录]</a>新用户
-                        <a href="#" class="red">[免费注册]</a></li>
+                    @if(session('username'))
+                    <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">     欢迎你
+                        {{session('username')}}
+                        <a href="/login" class="red">[退出]</a>
+                    </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">我的订单</a></li>
+                        <a href="/order">我的订单</a>
+                    </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">购物车</a></li>
+                        <a href="#">购物车</a>
+                    </li>
+                    @else
+                    <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本商城！
+                        <a href="/login/create" class="red">[请登录]</a>新用户
+                        <a href="/register" class="red">[免费注册]</a>
+                    </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">联系我们</a></li>
+                        <a href="#">购物车</a>
+                    </li>
+                    @endif
+
+                    <li class="hd_menu_tit" data-addclass="hd_menu_hover">
+                        <a href="#">联系我们</a>
+                    </li>
                     <li class="hd_menu_tit list_name" data-addclass="hd_menu_hover">
                         <a href="#" class="hd_menu">客户服务</a>
                         <div class="hd_menu_list">
@@ -64,7 +76,7 @@
     <!--顶部样式1-->
     <div id="header" class="header page_style">
         <div class="logo">
-            <a href="index.html">
+            <a href="/index">
                 <img src="/static/home/images/logo.png" />
             </a>
         </div>
@@ -165,18 +177,20 @@
             <script>$("#allSortOuterbox").slide({
                     titCell: ".Menu_list li",
                     mainCell: ".menv_Detail",
-                });</script>
+                });
+            </script>
             <!--菜单栏-->
             <div class="Navigation" id="Navigation">
                 <ul class="Navigation_name">
                     <li>
-                        <a href="product_list.html">首页</a>
+                        <a href="/index">首页</a>
                     </li>
                 </ul>
             </div>
             <script>$("#Navigation").slide({
                     titCell: ".Navigation_name li"
-                });</script>
+                });
+            </script>
         </div>
     </div>
 </div>
@@ -315,6 +329,7 @@
                 <a href="#">公开信息披露</a>｜
                 <a href="#">加入我们</a>｜
                 <a href="#">联系我们</a>｜
+                <a href="">友情链接</a>｜
                 <a href="#">版权声明</a>｜
                 <a href="#">隐私声明</a>｜
                 <a href="#">网站地图</a></p>
@@ -325,10 +340,17 @@
     <div class="fixedBox">
         <ul class="fixedBoxList">
             <li class="fixeBoxLi user">
-                <a href="User.html">
+            @if(session('name'))
+                <a href="/home/userscenter">
                     <span class="fixeBoxSpan iconfont icon-yonghu"></span>
                     <strong>用户</strong>
                 </a>
+            @else
+                <a href="/login">
+                    <span class="fixeBoxSpan iconfont icon-yonghu"></span>
+                    <strong>用户</strong>
+                </a>
+            @endif
             </li>
             <li class="fixeBoxLi cart_bd" style="display:block;" id="cartboxs">
                 <p class="good_cart">0</p>
@@ -346,7 +368,7 @@
                 </a>
             </li>
             <li class="fixeBoxLi Home">
-                <a href="./">
+                <a href="#">
                     <span class="fixeBoxSpan iconfont  icon-fankui"></span>
                     <strong>反馈</strong>
                 </a>

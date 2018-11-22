@@ -72,7 +72,7 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	// Ajax删除商品
     Route::get('/admingoodsdel', 'Admin\AdmingoodsController@del');
     // Ajax修改状态
-    Route::post('/goodsstatus', 'Admin\AdmingoodsController@goodsstatus');
+    Route::get('/goodsstatus', 'Admin\AdmingoodsController@goodsstatus');
     // 商品详情表
     Route::get('/goodsinfo/{id}', 'Admin\AdmingoodsController@goodsinfo');
     // 商品详情添加
@@ -191,3 +191,5 @@ Route::get('/cartchoosedel','Home\CartController@choosedel');
 // 前台订单
 Route::resource('/order','Home\OrderController');
 
+// 前台商品详情
+Route::resource('/homegoods', 'Home\GoodsinfoController');

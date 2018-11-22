@@ -6,7 +6,13 @@
 <link rel="stylesheet" href="/mypage.css">
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 评论管理 <span class="c-gray en">&gt;</span> 评论列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-
+	<div class="text-c">
+        <form action="/comment" method="get">
+            <input type="text" class="input-text" style="width:150px" placeholder="输入用户名" name="users" value="{{$request['users'] or ''}}" />
+            <input type="text" class="input-text" style="width:150px" placeholder="输入商品名" name="goods" value="{{$request['goods'] or ''}}" />
+            <button type="submit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜索</button> 
+        </form>
+    </div> 
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
