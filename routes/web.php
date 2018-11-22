@@ -116,10 +116,38 @@ Route::post('/reset', 'Home\LoginController@reset');
 Route::resource('/link','Home\linkController');
 // 前台购物车
 Route::resource('/cart','Home\CartController');
+// 列表到购物车
+Route::post('/listaddcart/{$id}','Home\CartController@listaddcart');
+// 商品详情到购物车
+Route::post('/goodsaddcart/{$id}','Home\CartController@goodsaddcart');
+
+
+
+// 前台购物车记录商品数量加减删除
+// 加
+Route::post('/cartnumadd','Home\CartController@numadd');
+// 减
+Route::post('/cartnumsub','Home\CartController@numsub');
+// 删除
+Route::post('/cartdel','Home\CartController@del');
+// 删除选中
+Route::post('/choosedel','Home\CartController@choosedel');
+
 // 前台购物车删除选中
 Route::get('/cartchoosedel','Home\CartController@choosedel');
-// 前台订单
-Route::resource('/order','Home\OrderController');
+// 前台结算
+Route::post('/settle','Home\SettleController@settle');
+// 生成订单
+Route::post('/order','Home\OrderController@index');
+// 前台支付页
+Route::get("/pay/{code}",'Home\OrderController@pay');
+//支付宝接口调用
+Route::post("/pays","Home\PayController@pays");
+//支付宝接口调用
+Route::get("/returnurl","Home\PayController@returnurl");
+
+//订单页自定义收货地址
+Route::resource('/addaddress', 'Home\UsersaddressController');
 
 // 前台中间件
 Route::group([''], function () 

@@ -77,18 +77,20 @@ class LooppicController extends Controller
      */
     public function store(Request $request)
     {
+        //得到图片描述
         $dcr = $request->input('dcr');
-
+        //判断是否得到数据（图片描述是否为空）
         if($request->hasFile('pic') && $dcr!='' ){
-
+            //
             $ext=$request->file("pic")->getClientOriginalExtension();
             // dd($ext);
             $filename = time()+rand(1,10000);
             // dd($filename);
+            // 移动图片
             $request->file('pic')->move('./uploads/',$filename.'.'.$ext);
+            // 得到图片路径
             $url = '\uploads\\'.$filename.'.'.$ext;
-            $dcr = $request->input('dcr');
-            // dd($url);
+            //将图片加入数据库
             DB::table('looppic')->insert([
                                             'dcr'=>$dcr,
                                             'url'=>$url,
@@ -144,29 +146,6 @@ class LooppicController extends Controller
         $count=DB::table('looppic')->count();
         return redirect('/adminlooppic');
         // return view('Admin.Admin.relooppic',['data'=>$data,'count'=>$count,'stu'=>$stu]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        echo 111;
     }
     //这是用于跳转轮播图添加页面
     public function adminpicadd()
