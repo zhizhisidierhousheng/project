@@ -22,8 +22,8 @@
         <div class="background_img"></div> 
        </div> 
        <div class="user_name"> 
-        <p><span class="name">化海天堂</span><a href="#">[修改密码]</a></p> 
-        <p>访问时间：2016-1-21 10:23</p> 
+        <p><span class="name">{{Session::get('username')}}</span><a href="/forget">[修改密码]</a></p> 
+        <p>访问时间：{{Session::get('time')}}</p> 
        </div> 
       </div> 
       <div class="sideMen"> 
@@ -47,7 +47,6 @@
          <ul> 
           <li> <a href="/home/usersinfo"> 会员信息</a></li> 
           <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-          <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
           <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
          </ul> 
         </dd> 
@@ -58,7 +57,7 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="user.php?act=bonus">优惠券</a></li> 
+          <li> <a href="/home/userscoupon">优惠券</a></li> 
          </ul> 
         </dd> 
        </dl> 
@@ -68,7 +67,7 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="user.php?act=myshop">密保设置</a></li> 
+          <li> <a href="/forget"> 修改密码</a></li> 
          </ul> 
         </dd> 
        </dl> 
@@ -191,10 +190,6 @@
                 </div> 
                 <div class="title">
                  <a href="{{$adv->url}}">{{$adv->title}}</a>
-                </div> 
-                <div class="Purchase_info">
-                 <span class="p_Price">{{$adv->dcr}}</span> 
-                </div> 
                </div>
               </li>
               @else
@@ -206,10 +201,6 @@
                 </div> 
                 <div class="title">
                  <a href="{{$adv->url}}">{{$adv->title}}</a>
-                </div> 
-                <div class="Purchase_info">
-                 <span class="p_Price">{{$adv->dcr}}</span> 
-                </div> 
                </div>
               </li>
               @endif
@@ -267,14 +258,8 @@
           @endif
          </ul> 
         </div> 
-       </div> 
-       <script type="text/javascript">jQuery("#Collect_Products").slide({ mainCell:".bd ul",effect:"leftLoop",vis:5,autoPlay:false });</script>
-      </div> 
-      <!--结束--> 
-     </div> 
     </div> 
-   </div> 
-  </div>   
- </body>
+</div>   
+</body>
 @endsection
 @section('title', '会员中心')

@@ -109,7 +109,7 @@ class RelinkController extends Controller
         //进来的status的值是1就变为0 是0就变为1
         if ($stu==0) {
             $stu=1;
-                    } else {
+        } else {
             $stu=0;
             
         }

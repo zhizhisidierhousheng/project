@@ -25,8 +25,8 @@
         <div class="background_img"></div> 
        </div> 
        <div class="user_name"> 
-        <p><span class="name">化海天堂</span><a href="#">[修改密码]</a></p> 
-        <p>访问时间：2016-1-21 10:23</p> 
+        <p><span class="name">{{Session::get('username')}}</span><a href="/forget">[修改密码]</a></p> 
+        <p>访问时间：{{Session::get('time')}}</p> 
        </div> 
       </div> 
       <div class="sideMen"> 
@@ -50,7 +50,6 @@
          <ul> 
           <li> <a href="/home/usersinfo"> 会员信息</a></li> 
           <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-          <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
           <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
          </ul> 
         </dd> 
@@ -61,7 +60,7 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="User_coupon.html">优惠劵</a></li> 
+          <li> <a href="/home/userscoupon">优惠劵</a></li> 
          </ul> 
         </dd> 
        </dl> 
@@ -71,7 +70,7 @@
         </dt> 
         <dd> 
          <ul> 
-          <li> <a href="user.php?act=myshop">密保设置</a></li> 
+          <li> <a href="/forget"> 修改密码</a></li> 
          </ul> 
         </dd> 
        </dl> 
@@ -162,16 +161,15 @@
       <script>jQuery(".Order_form_list").slide({titCell:".Order_info", targetCell:".Order_Details",defaultIndex:0,delayTime:300,trigger:"click",defaultPlay:true,returnDefault:false});</script> 
      </div> 
     </div> 
-   </div> 
-  </div> 
- </body>
+</div> 
+</body>
 <script>
-  function page(page, status)
-  {
+function page(page, status)
+{
     $.get("/home/usersorder", {page:page, status:status}, function(data) {
-      $('#body').html(data);
+        $('#body').html(data);
     });
-  }
+}
 </script>
 @endsection
 @section('title', '我的订单')

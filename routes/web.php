@@ -71,6 +71,22 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	Route::resource('/admingoods', 'Admin\AdmingoodsController');
 	// Ajax删除商品
     Route::get('/admingoodsdel', 'Admin\AdmingoodsController@del');
+    // Ajax修改状态
+    Route::post('/goodsstatus', 'Admin\AdmingoodsController@goodsstatus');
+    // 商品详情表
+    Route::get('/goodsinfo/{id}', 'Admin\AdmingoodsController@goodsinfo');
+    // 商品详情添加
+    Route::get('/addgoodsinfo/{id}', 'Admin\AdmingoodsController@addgoodsinfo');
+    // 执行添加
+    Route::post('/doaddgoodsinfo', 'Admin\AdmingoodsController@doaddgoodsinfo');
+    // 执行商品详情修改
+    Route::post('/updateinfo/{id}', 'Admin\AdmingoodsController@updateinfo');
+    // Ajax删除商品详情
+    Route::get('/goodsinfodel', 'Admin\AdmingoodsController@delete');
+
+// 评论管理
+    // 评论列表
+    Route::resource('/comment', 'Admin\CommentController');
 
 //友情链接模块
 	// 后台友情链接列表
@@ -131,13 +147,14 @@ Route::post('/reset', 'Home\LoginController@reset');
 
 
 // 前台中间件
-Route::group([''], function () 
-{ 
+// Route::group(['middleware' => 'homelogin'], function () 
+// { 
 //会员中心
     Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
 //会员商品收藏
     Route::resource('/home/userscollect', 'Home\UserscollectController');
-
+//会员优惠券
+    Route::resource('/home/userscoupon', 'Home\UserscouponController');
 //会员个人信息    
     //ajax修改个人信息
     Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
@@ -161,7 +178,10 @@ Route::group([''], function ()
 //收货地址
     Route::resource('/home/usersaddress', 'Home\UsersaddressController');
 
-});
+//商品列表
+    Route::resource('/home/goodslist', 'Home\GoodslistController');
+
+// });
 
 // 前台首页
 Route::resource('/index', 'Home\HomeController');

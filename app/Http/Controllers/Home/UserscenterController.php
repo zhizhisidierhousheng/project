@@ -6,19 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB; //引入DB类
 use App\Models\Orders; //导入模型类
+use Session;
 
 class UserscenterController extends Controller
 {
     //分配数据并显示会员中心页面
     public function userscenter()
     {
-        //判断用户是否登录
-        // if ($request->session()->has('name')) {
-        //     redirect("/home/userslogin")->with('error', '请先登录');
-        // } else {
-        //     $uid = DB::select("select name form users where name = :name", ["name" => session('name')]);
-        // }
-        $uid = 1;
+        $uid = getuid();
         //获取会员头像
         $pic = DB::select("select pic from users_info where uid = :uid", ["uid" => $uid])[0];
 
@@ -48,7 +43,7 @@ class UserscenterController extends Controller
         //获取广告表中有几条数据
         $num = DB::table("adv")->count();
         //获取广告id
-        $ids = DB::select("select id from adv");
+        $ids = DB::select("select id from adv where status = 1");
         //将id存入数组并打乱顺序
         $adv = array();
         foreach ($ids as $value) {
@@ -75,16 +70,9 @@ class UserscenterController extends Controller
         $cnum = DB::table("coupon")->where("uid", "=", $uid)->count();
         // dd($collect);
 
-        return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic, "onum" => $onum, "cnum" => $cnum]);
-    }
+        //分类
+        $cates = getcatesbypid(0);
 
-    public function uphone()
-    {
-        //修改手机
-    }
-
-    public function uemail()
-    {
-        //修改邮箱
+        return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic, "onum" => $onum, "cnum" => $cnum, "cates" => $cates]);
     }
 }

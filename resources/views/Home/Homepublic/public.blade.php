@@ -64,23 +64,17 @@
     <!--顶部样式1-->
     <div id="header" class="header page_style">
         <div class="logo">
-            <a href="index.html">
+            <a href="/index">
                 <img src="/static/home/images/logo.png" />
             </a>
         </div>
         <!--结束图层-->
         <div class="Search">
             <p>
-                <input name="" type="text" class="text" />
-                <input name="" type="submit" value="搜 索" class="Search_btn" />
-            </p>
-            <p class="Words">
-                <a href="#">苹果</a>
-                <a href="#">香蕉</a>
-                <a href="#">菠萝</a>
-                <a href="#">西红柿</a>
-                <a href="#">橙子</a>
-                <a href="#">苹果</a>
+                <form action="/home/goodslist" method="get">
+                <input name="keyword" type="text" class="text" value="{{$request['keyword'] or ''}}" />
+                <input type="submit" value="搜 索" class="Search_btn" />
+                </form>
             </p>
         </div>
         <!--购物车样式-->
@@ -135,34 +129,22 @@
                 <div class="hd_allsort_out_box_new">
                     <!--左侧栏目开始-->
                     <ul class="Menu_list">
+                        @foreach($cates as $row)
                         <li class="name">
                             <div class="Menu_name">
-                                <a href="product_list.html">面部护理</a>
+                                <a href="javascript:;">{{$row->name}}</a>
                                 <span>&lt;</span>
                             </div>
-                            <div class="link_name">
-                                <p>
-                                    <a href="product_Detailed.html">茅台</a>
-                                    <a href="#">五粮液</a>
-                                    <a href="#">郎酒</a>
-                                    <a href="#">剑南春</a>
-                                </p>
-                            </div>
+                            <div class="link_name"></div>
                             <div class="menv_Detail">
                                 <div class="cat_pannel clearfix">
                                     <div class="hd_sort_list">
                                         <dl class="clearfix" data-tpc="1">
-                                            <dt>
-                                                <a href="#">面膜
-                                                    <i>></i>
-                                                </a>
-                                            </dt>
+                                        @foreach($row->suv as $value)
                                             <dd>
-                                                <a href="#">撕拉面膜</a>
-                                                <a href="#">面膜贴</a>
-                                                <a href="#">免洗面膜</a>
-                                                <a href="#">水洗面膜</a>
+                                                <a href="/home/goodslist/{{$value->id}}">{{$value->name}}</a>
                                             </dd>
+                                        @endforeach    
                                         </dl>
                                       
                                     </div>
@@ -170,6 +152,7 @@
                                 </div>
                             </div>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -181,7 +164,7 @@
             <div class="Navigation" id="Navigation">
                 <ul class="Navigation_name">
                     <li>
-                        <a href="product_list.html">首页</a>
+                        <a href="/index">首页</a>
                     </li>
                 </ul>
             </div>
@@ -336,7 +319,7 @@
     <div class="fixedBox">
         <ul class="fixedBoxList">
             <li class="fixeBoxLi user">
-                <a href="User.html">
+                <a href="/home/userscenter">
                     <span class="fixeBoxSpan iconfont icon-yonghu"></span>
                     <strong>用户</strong>
                 </a>
@@ -351,7 +334,7 @@
                 </div>
             </li>
             <li class="fixeBoxLi Home">
-                <a href="./">
+                <a href="/home/userscollect">
                     <span class="fixeBoxSpan iconfont  icon-shoucang"></span>
                     <strong>收藏</strong>
                 </a>

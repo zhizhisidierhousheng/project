@@ -37,13 +37,22 @@
 					@foreach($goods as $row)
 					<tr class="text-c va-m">
 						<td>{{$row->sid}}</td>
-			       		<td>{{$row->sname}}</td>
+			       		<td><a href="javascript:void(0)" title="查看详情" onclick="layer_show('商品详情', '/goodsinfo/{{$row->sid}}', 1300, 00)">{{$row->sname}}</a></td>
 			       		<td>{{$row->cname}}</td>
 			       		<td>{{$row->price}}</td>
 			       		<td>{!!$row->dcr!!}</td>
 			       		<td><img src="{{$row->pic}}" width="100px" height="100px"></td>
-			       		<td>{{$row->status}}</td>
+		       			<td class="td-status">
+				            @if($row->status)
+				                <span class="label label-success radius" onClick="status(this,{{$row->sid}},0)">已启用</span>
+				            @else
+				                <span class="label label-warning radius" onClick="status(this,{{$row->sid}},1)">已禁用</span> 
+				            @endif
+			            </td>
 						<td class="td-manage">
+							<a style="text-decoration:none" href="/addgoodsinfo/{{$row->sid}}" title="详情添加" class="ml-5">
+								<i class="Hui-iconfont">&#xe604;</i>
+							</a>
 							<a style="text-decoration:none" class="ml-5"  href="/admingoods/{{$row->id}}/edit" title="修改">
 								<i class="Hui-iconfont">&#xe6df;</i>
 							</a> 
@@ -56,7 +65,7 @@
 				</tbody>
 			</table>
 			<div id="pages">
-				{!!$goods->render()!!}
+				{{$goods->render()}}
 			</div>
 		</div>
 	</div>
@@ -81,6 +90,43 @@
 	        }, 'json');
     	} 
     });
+ //    // 修改状态
+	// function admin_stop(obj,id)
+	// {
+	//     if($('.hidden').html() == 1){
+	//         if(confirm('确定要停用吗？')){
+	//            window.location.href = "/admingoods/"+id;
+	//         }
+	//     }else{
+	//         if(confirm('确定要启用吗？')){
+	//            window.location.href = "/admingoods/"+id;
+	//         }
+	//     }
+	// }
+	
+	function status(obj,sid,status)
+	{
+		if (status) {
+			// 发送ajax请求
+			$.post('/goodsstatus', {id:sid, '_token':'{{csrf_token()}}', 'status':'1'},function(data){
+				if (data == 1) {
+					$(obj).html('<span class="label  label-success radius" onclick="status(this,'+sid+',0)">已启用</span> ');
+				} else {
+					alert('修改失败');
+				}
+			});
+		} else {
+			// 发送ajax请求
+			$.post('/goodsstatus', {id:sid, '_token':'{{csrf_token()}}', 'status':'0'},function(data){
+				if (data == 1) {
+					$(obj).html('<span class="label label-warning radius" onclick="status(this,'+sid+',1)">已禁用</span> ');
+				} else {
+					alert('修改失败');
+				}
+			});
+		}
+	}
+	
 </script>
 @endsection
 @section('title', '商品列表页')

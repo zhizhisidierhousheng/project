@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB; //引入DB类
 use App\Models\Orders; //引入订单模型类
+use Session;
 
 class UsersorderController extends Controller
 {
@@ -20,7 +21,7 @@ class UsersorderController extends Controller
         //获取传递参数
         $page = $request->input('page');
         $status = $request->input('status');
-        $uid = 1;
+        $uid = getuid();
         //获取头像
         $pic = DB::select("select pic from users_info where uid = :uid", ["uid" => $uid])[0];
 
@@ -70,6 +71,9 @@ class UsersorderController extends Controller
             $pagenum[$i] = $i;
         }
 
+        //分类
+        $cates = getcatesbypid(0);
+
         //判断请求是否为ajax
         if ($request->ajax()) {
             //获取所有分页
@@ -106,10 +110,10 @@ class UsersorderController extends Controller
                 $order->info = $arr;
             }
             // dd($pagenum);
-            return view("Home.Users.ajaxorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "status" => $status, "pagenum" => $pagenum]);
+            return view("Home.Users.ajaxorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "status" => $status, "pagenum" => $pagenum, "cates" => $cates]);
         }
         
-        return view("Home.Users.usersorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "pagenum" => $pagenum]);
+        return view("Home.Users.usersorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "pagenum" => $pagenum, "cates" => $cates]);
     }
 
     /**
@@ -141,7 +145,7 @@ class UsersorderController extends Controller
      */
     public function show($id)
     {
-        $uid = 1;
+        $uid = getuid();
         //订单详情页
         //获取订单详细信息
         $info = DB::select("select * from orders as o,orders_info as i where o.id = i.oid and o.uid = :uid", ["uid" => $uid]);
@@ -149,9 +153,12 @@ class UsersorderController extends Controller
         $data = $address = DB::select("select a.*,o.id as oid,o.coupon_id,o.total,c.money from orders as o,users_address as a,coupon as c where o.uid = a.uid and o.coupon_id = c.id and o.id = :oid and o.uid = :uid", ["oid" => $id, "uid" => $uid])[0];
         //整合数据
         $data->info = $info;
+
+        //分类
+        $cates = getcatesbypid(0);
         // dd($data);
 
-        return view("Home.Users.ordersinfo", ["data" => $data]);
+        return view("Home.Users.ordersinfo", ["data" => $data, "cates" => $cates]);
     }
 
     /**

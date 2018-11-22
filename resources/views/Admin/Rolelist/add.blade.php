@@ -1,7 +1,6 @@
 @extends("Admin.AdminPublic.public")
 @section('admin')
 
-
 <title>@yield('title') </title>
 
 <article class="page-container">

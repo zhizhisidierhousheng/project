@@ -47,14 +47,6 @@
         
         <!--内容样式-->
         <div class="index_style">
-            <!--推荐图层样式-->
-            <div class="recommend" id="adv">
-                <img src="{{$adv->pic}}">
-            </div>
-            <script>
-                $('#adv').fadeIn(3000);
-                $('#adv').fadeOut(3000);
-            </script>
             <!--样式-->
             <div class="clearfix">
                 <div class="news_P">
@@ -128,76 +120,22 @@
                         </div>
                         <div class="bd">
                             <ul>
+                                @foreach($hotgoods as $hg)
                                 <li>
                                     <a href="#" class="imglibk">
-                                        <img src="/static/home/Products/p_1.jpg" width="160" height="160" />
+                                        <img src="{{$hg['gpic']}}" width="160" height="160" />
                                     </a>
-                                    <a href="#" class="name">新疆特产 一品玉和田大枣四星450g</a>
+                                    <a href="#" class="name">{{$hg['gname']}}</a>
                                     <div class="infostyle">
                                         <span class="Price">
-                                            <b>￥</b>223.12
+                                            <b>￥</b>{{$hg['gprice']}}
                                         </span>
                                         <span class="Quantity">销售：
-                                            <b>123</b>件
+                                            <b>{{$hg['num']}}</b>件
                                         </span>
                                     </div>
                                 </li>
-                                <li>
-                                    <a href="#" class="imglibk">
-                                        <img src="/static/home/Products/p_5.jpg" width="160" height="160" />
-                                    </a>
-                                    <a href="#" class="name">陈克明 面条 克明面业 麦禧福面 福伴一生 五福礼盒挂面 399g*5</a>
-                                    <div class="infostyle">
-                                        <span class="Price">
-                                            <b>￥</b>223.12
-                                        </span>
-                                        <span class="Quantity">销售：
-                                            <b>123</b>件
-                                        </span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="imglibk">
-                                        <img src="/static/home/Products/p_2.jpg" width="160" height="160" />
-                                    </a>
-                                    <a href="#" class="name">陈克明 面条 克明面业 麦禧福面 福伴一生 五福礼盒挂面 399g*5</a>
-                                    <div class="infostyle">
-                                        <span class="Price">
-                                            <b>￥</b>223.12
-                                        </span>
-                                        <span class="Quantity">销售：
-                                            <b>123</b>件
-                                        </span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="imglibk">
-                                        <img src="/static/home/Products/p_3.jpg" width="160" height="160" />
-                                    </a>
-                                    <a href="#" class="name">陈克明 面条 克明面业 麦禧福面 福伴一生 五福礼盒挂面 399g*5</a>
-                                    <div class="infostyle">
-                                        <span class="Price">
-                                            <b>￥</b>223.12
-                                        </span>
-                                        <span class="Quantity">销售：
-                                            <b>123</b>件
-                                        </span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="imglibk">
-                                        <img src="/static/home/Products/p_3.jpg" width="160" height="160" />
-                                    </a>
-                                    <a href="#" class="name">陈克明 面条 克明面业 麦禧福面 福伴一生 五福礼盒挂面 399g*5</a>
-                                    <div class="infostyle">
-                                        <span class="Price">
-                                            <b>￥</b>223.12
-                                        </span>
-                                        <span class="Quantity">销售：
-                                            <b>123</b>件
-                                        </span>
-                                    </div>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <a class="next" href="javascript:void(0)">&lt;</a>
@@ -217,48 +155,18 @@
             </div>
             <!--限时促销-->
             <div class="Promotions_style">
-                <div class="title_name">
-                    <i class="iconfont icon-time"></i>限时促销
-                    <a href="#">更多促销</a>
-                </div>
-                <div class="list">
-                    <ul>
-                        <li>
-                            <a href="#" class="Promotions_img">
-                                <img src="/static/home/Products/p_4.jpg" width="180" height="180" />
-                            </a>
-                            <div class="Promotions_line">
-                                <a href="#" class="name">Orion 好丽友 熊猫派派福巧克力味4枚 100g/盒</a>
-                                <div class="infostyle">
-                                    <span class="Price">
-                                        <b>￥</b>223.12
-                                    </span>
-                                    <span class="Original_price">￥65.00</span>
-                                </div>
-                                <div class="time">剩余时间：23时34分23秒</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
+            <!-- 广告 -->
             <div class="AD_tu">
-                <a href="#">
-                    <img src="/static/home/AD/ad-4.jpg" width="1200" height="120" />
+                <a href="{{$adv->url}}">
+                    <img src="{{$adv->pic}}" width="1200" height="200" />
                 </a>
             </div>
             <!--产品类样式-->
+            @foreach($hotcate as $hcate)
             <div class="product_Sort">
                 <div class="title_name">
-                    <span class="floor">1F</span>
-                    <span class="name">水果蔬菜</span>
-                    <span class="link_name">
-                        <a href="#">苹果</a>|
-                        <a href="#">香蕉</a>|
-                        <a href="#">橙子</a>|
-                        <a href="#">哈密瓜</a>|
-                        <a href="#">白菜</a>|
-                        <a href="#">青菜</a>
-                    </span>
+                    <span class="floor">{{$loop->iteration}}F</span>
                 </div>
                 <div class="Section_info clearfix">
                     <div class="product_AD">
@@ -271,16 +179,22 @@
                             </div>
                             <div class="bd">
                                 <ul>
+                                    @foreach($hcate as $hc)
+                                    @if($loop->first)
                                     <li style="display: list-item;">
                                         <a href="#">
-                                            <img src="/static/home/AD/ad-6.jpg" width="398" height="469">
+                                            <img src="{{$hc['gpic']}}" width="398" height="469">
                                         </a>
                                     </li>
+                                    @endif
+                                    @if($loop->last)
                                     <li style="display: none;">
                                         <a href="#">
-                                            <img src="/static/home/AD/ad-7.jpg" width="398" height="469">
+                                            <img src="{{$hc['gpic']}}" width="398" height="469">
                                         </a>
                                     </li>
+                                    @endif
+                                    @endforeach
                                 </ul>
                             </div>
                             <a class="prev" href="javascript:void(0)">
@@ -301,160 +215,47 @@
                     <!--产品列表-->
                     <div class="pro_list">
                         <ul>
+                            @foreach($hcate as $goods)
                             <li>
                                 <a href="#">
-                                    <img src="/static/home/Products/p_1.jpg" width="180px" height="160px">
+                                    <img src="{{$goods['gpic']}}" width="180px" height="160px">
                                 </a>
-                                <a href="#" class="p_title_name">Olay玉兰油 新生塑颜金纯活能水</a>
+                                <a href="#" class="p_title_name">{{$goods['gname']}}</a>
                                 <div class="Numeral">
                                     <span class="price">
-                                        <i>￥</i>123.00
+                                        <i>￥</i>{{$goods['gprice']}}
                                     </span>
                                     <span class="Sales">销量
-                                        <i>345</i>
+                                        <i>{{$goods['num']}}</i>
                                     </span>
                                 </div>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <img src="/static/home/Products/p_2.jpg" width="180px" height="160px">
-                                </a>
-                                <a href="#" class="p_title_name">Olay玉兰油 新生塑颜金纯活能水</a>
-                                <div class="Numeral">
-                                    <span class="price">
-                                        <i>￥</i>123.00
-                                    </span>
-                                    <span class="Sales">销量
-                                        <i>345</i>件
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="/static/home/Products/p_3.jpg" width="180px" height="160px">
-                                </a>
-                                <a href="#" class="p_title_name">Olay玉兰油 新生塑颜金纯活能水</a>
-                                <div class="Numeral">
-                                    <span class="price">
-                                        <i>￥</i>123.00
-                                    </span>
-                                    <span class="Sales">销量
-                                        <i>345</i>件
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="/static/home/Products/p_4.jpg" width="180px" height="160px">
-                                </a>
-                                <a href="#" class="p_title_name">Olay玉兰油 新生塑颜金纯活能水</a>
-                                <div class="Numeral">
-                                    <span class="price">
-                                        <i>￥</i>123.00
-                                    </span>
-                                    <span class="Sales">销量
-                                        <i>345</i>件
-                                    </span>
-                                </div>
-                            </li>
-
+                            @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="product_Sort">
-                <div class="title_name">
-                    <span class="floor">2F</span>
-                    <span class="name">水果蔬菜</span>
-                    <span class="link_name">
-                        <a href="#">苹果</a>|
-                        <a href="#">香蕉</a>|
-                        <a href="#">橙子</a>|
-                        <a href="#">哈密瓜</a>|
-                        <a href="#">白菜</a>|
-                        <a href="#">青菜</a>
-                    </span>
-                </div>
-                <div class="Section_info clearfix">
-                    <div class="product_AD">
-                        <div class="pro_ad_slide">
-                            <div class="hd">
-                                <ul>
-                                    <li class="on">1</li>
-                                    <li class="">2</li>
-                                </ul>
-                            </div>
-                            <div class="bd">
-                                <ul>
-                                    <li style="display: list-item;">
-                                        <a href="#">
-                                            <img src="/static/home/AD/ad-7.jpg" width="398" height="469">
-                                        </a>
-                                    </li>
-                                    <li style="display: none;">
-                                        <a href="#">
-                                            <img src="/static/home/AD/ad-8.jpg" width="398" height="469">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a class="prev" href="javascript:void(0)">
-                                <em class="arrow"></em>
-                            </a>
-                            <a class="next" href="javascript:void(0)">
-                                <em class="arrow"></em>
-                            </a>
-                        </div>
-                        <script type="text/javascript">jQuery(".pro_ad_slide").slide({
-                                titCell: ".hd ul",
-                                mainCell: ".bd ul",
-                                autoPlay: true,
-                                autoPage: true,
-                                interTime: 6000
-                            });</script>
-                    </div>
-                    <!--产品列表-->
-                    <div class="pro_list">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <img src="/static/home/Products/p_1.jpg" width="180px" height="160px">
-                                </a>
-                                <a href="#" class="p_title_name">Olay玉兰油 新生塑颜金纯活能水</a>
-                                <div class="Numeral">
-                                    <span class="price">
-                                        <i>￥</i>123.00
-                                    </span>
-                                    <span class="Sales">销量
-                                        <i>345</i>件
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--猜你喜欢样式-->
+            @endforeach
+            <!--最新商品样式-->
             <div class="like_p">
                 <div class="title_name">
-                    <span>猜你喜欢</span>
+                    <span>最新商品</span>
                 </div>
                 <div class="list">
                     <ul class="list_style">
+                        @foreach($bnew as $row)
                         <li class="p_info_u">
                             <a href="#" class="p_img">
-                                <img src="/static/home/Products/p_13.jpg">
+                                <img src="{{$row->pic}}">
                             </a>
-                            <a href="#" class="name">御泥坊 玫瑰滋养+红石榴亮颜美肤套装 深层补水滋润 提亮肤色</a>
+                            <a href="#" class="name">{{$row->name}}</a>
                             <div class="Numeral">
                                 <span class="price">
-                                    <i>￥</i>123.00
-                                </span>
-                                <span class="Sales">销量
-                                    <i>345</i>件
+                                    <i>￥</i>{{$row->price}}
                                 </span>
                             </div>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

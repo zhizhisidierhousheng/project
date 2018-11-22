@@ -24,7 +24,7 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         // 退出销毁session
-        $request->session()->pull('name');
+        $request->session()->pull('username');
         $request->session()->pull('phone');
         
         // 返回登录页
@@ -83,7 +83,8 @@ class LoginController extends Controller
             // 2.检测密码
             if (Hash::check($password, $info->password)) {
                 // 把用户信息存入到session 里
-                session(['name' => $name]);
+                session(['username' => $name]);
+                session(['time' => date('Y-m-d H:i:s', time())]);
                 session(['phone' => $name]);
                 // 3.检测验证码
                 if (Session::get('milkcaptcha') == $userInput) {

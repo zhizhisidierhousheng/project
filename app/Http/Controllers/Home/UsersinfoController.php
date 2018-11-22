@@ -8,6 +8,7 @@ use DB; //引入DB类
 use App\Models\Usersinfo;
 use App\Models\Users;
 use Mail;
+use Session;
 
 class UsersinfoController extends Controller
 {
@@ -18,7 +19,7 @@ class UsersinfoController extends Controller
      */
     public function index()
     {
-        $uid = 1;
+        $uid = getuid();
         //会员个人信息页
         $info = DB::table("users")
                     ->join("users_info", "users.id", "=", "users_info.uid")
@@ -133,7 +134,7 @@ class UsersinfoController extends Controller
 
     public function ajaxinfo(Request $request)
     {
-        $id = 1;
+        $id = getuid();
         //获取修改数据
         $data = $request->only('username', 'sex', 'birthday');
         $data['birthday'] = strtotime($data['birthday']);
@@ -203,12 +204,13 @@ class UsersinfoController extends Controller
 
     public function change(Request $request)
     {
+        $id = getuid();
         if ($request->ajax()) {
-            $name = 'user'; //获取session中的name值
             //更绑手机
             $phone = $request->input('phone');
             if ($request->has('phone')) {
-                if (DB::table("users")->where("name", "=", $name)->update(['phone' => $phone])) {
+                if (DB::table("users")->where("id", "=", $id)->update(['phone' => $phone])) {
+                    $request->session()->pull('username');
                     return response()->json(['msg' => 1]);
                 } else {
                     return response()->json(['msg' => 2]);
@@ -230,9 +232,9 @@ class UsersinfoController extends Controller
                     //获取token
                     $token = str_shuffle('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwSsYyZz1234567890');
                     //存储token
-                    DB::table("users")->where("name", "=", $name)->update(['token' => $token]);
+                    DB::table("users")->where("id", "=", $id)->update(['token' => $token]);
                     //发送邮件
-                    Mail::send('Home.Users.email', ['name' => $name, 'email' => $email, 'token' => $token], function($message)use($email){
+                    Mail::send('Home.Users.email', ['id' => $id, 'email' => $email, 'token' => $token], function($message)use($email){
                         //发送主题
                         $message->subject('确认邮箱绑定');
                         //接收方
@@ -246,11 +248,11 @@ class UsersinfoController extends Controller
 
     public function upemail(Request $request)
     {
-        $name = $request->input('name');
+        $id = $request->input('id');
         $token = $request->input('token');
         $email = $request->input('email');
         // dd($request->all());
-        if (DB::table("users")->where('name', '=', $name)->where('token', '=', $token)->update(['email' => $email])) {
+        if (DB::table("users")->where('id', '=', $id)->where('token', '=', $token)->update(['email' => $email])) {
             return redirect('/login');
         } else {
             return redirect('/login');
