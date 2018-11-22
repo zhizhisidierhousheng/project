@@ -15,9 +15,7 @@
         <!--左侧菜单栏--> 
         <div class="left_style"> 
             <div class="menu_style"> 
-                <div class="user_title">
-                会员中心
-                </div> 
+                <div class="user_title">会员中心</div> 
                 <div class="user_Head"> 
                     <div class="user_portrait"> 
                         <a href="/home/usersinfo" title="修改头像" class="btn_link"></a> 
@@ -26,7 +24,7 @@
                     </div> 
                     <div class="user_name"> 
                         <p><span class="name">{{Session::get('username')}}</span><a href="/forget">[修改密码]</a></p> 
-                        <p>访问时间：{{Session::get('time')}}</p> 
+                        <p>登录时间：{{Session::get('time')}}</p> 
                     </div> 
                 </div> 
                 <div class="sideMen"> 
@@ -84,79 +82,55 @@
         <div class="right_style"> 
             <div class="info_content"> 
                 <div class="title_Section">
-                    <span>订单管理</span>
-                </div> 
-                <div class="Order_Sort"> 
-                    <ul> 
-                        <li><a href="javascript:;" onclick="page(1, 0)"><img src="/static/home/images/icon-dingdan1.png" /><br />待发货（{{count($a)}}）</a></li> 
-                        <li><a href="javascript:;" onclick="page(1, 1)"><img src="/static/home/images/icon-dingdan.png" /><br />已发货（{{count($b)}}）</a></li> 
-                        <li><a href="javascript:;" onclick="page(1, 2)"><img src="/static/home/images/icon-kuaidi.png" <="" a="" /><br />派送中（{{count($c)}}）</a></li>
-                        <a href="#"> </a>
-                        <li class="noborder" onclick="page(1, 3)"><a href="javascript:;"><img src="/static/home/images/icon-weibiaoti101.png" /><br />已验收（{{count($d)}}）</a></li> 
-                    </ul> 
+                    <span>我的评价</span>
                 </div> 
                 <div class="Order_form_list"> 
                     <table> 
-                        @if(count($orders) > 0)
+                        @if(count($comment) > 0)
                         <thead> 
                             <tr>
-                                <td class="list_name_title0">商品</td> 
-                                <td class="list_name_title1">单价(元)</td> 
-                                <td class="list_name_title2">数量</td> 
-                                <td class="list_name_title4">实付款(元)</td> 
-                                <td class="list_name_title5">订单状态</td> 
-                                <td class="list_name_title6">操作</td> 
+                                <td class="list_name_title0">评价商品</td> 
+                                <td class="list_name_title1">评价内容</td> 
+                                <td class="list_name_title2">评级</td> 
                             </tr>
                         </thead>
-                        @foreach($orders as $order)
+                        @foreach($comment as $row)
                         <tbody> 
                             <tr class="Order_info">
-                                <td colspan="6" class="Order_form_time" style="cursor:pointer">下单时间：{{$order->time}} | 订单号：{{$order->id}} <em></em></td>
+                                <td colspan="3" class="Order_form_time" style="cursor:pointer">评价时间：{{$row->inputtime}}<em></em></td>
                             </tr> 
                             <tr class="Order_Details"> 
-                                <td colspan="3"> 
+                                <td> 
                                     <table class="Order_product_style">
-                                        @foreach($order->info as $info)
                                         <tbody>
                                             <tr> 
                                                 <td> 
                                                     <div class="product_name clearfix"> 
-                                                        <a href="#" class="product_img"><img src="{{$info->gpic}}" width="80px" height="80px" /></a> 
-                                                        <a href="3">{{$info->gdcr}}</a>
-                                                        <p class="specification">礼盒装20个/盒</p> 
+                                                        <a href="#" class="product_img"><img src="{{$row->pic}}" width="80px" height="80px" /></a>
                                                     </div> 
                                                 </td>
-                                                <td>{{$info->gprice}}</td> 
-                                                <td>{{$info->num}}</td> 
                                             </tr> 
                                         </tbody>
-                                        @endforeach
                                     </table>
                                 </td> 
-                                <td class="split_line">{{$order->total}}</td> 
-                                <td class="split_line">
-                                    @if($order->status == 0)待发货@endif
-                                    @if($order->status == 1)已发货@endif
-                                    @if($order->status == 2)派送中@endif
-                                    @if($order->status == 3)已验收@endif
-                                </td> 
+                                <td class="split_line">{{$row->content}}</td> 
+                                <td class="split_line">{{str_repeat('★', $row->start)}}{{str_repeat('☆', 5 - $row->start)}}</td>
                                 <td class="operating">
-                                    <a href="/home/usersorder/{{$order->id}}">查看详细</a>
-                                    <form action="/home/usersorder/{{$order->id}}" method="post" id="order_del">
+                                    <form action="/home/userscomment/{{$row->id}}" method="post" id="com_del">
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
-                                        <a href="javascript:document.getElementById('order_del').submit();">删除</a>
+                                        <a href="javascript:document.getElementById('com_del').submit();">删除</a>
                                     </form>
                                 </td>
-                            </tr> 
+                            </tr>
                         </tbody>
                         @endforeach
                         @else
-                        <center><h1>您的订单信息为空！</h1></center>
+                        <center><h1>您没有评价商品！</h1></center>
                         @endif
                     </table> 
                     <div id="pages" style="margin-left: 50px">
-                    {{$orders->render()}}
+                        {{$comment->render()}}
                     </div>
                 </div> 
                 <script>
@@ -167,13 +141,5 @@
     </div> 
 </div>
 </body>
-<script>
-    function page(page, status)
-    {
-        $.get("/home/usersorder", {page:page, status:status}, function(data) {
-            $('#body').html(data);
-        });
-    }
-</script>
 @endsection
-@section('title', '我的订单')
+@section('title', '我的评价')

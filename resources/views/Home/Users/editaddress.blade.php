@@ -1,11 +1,11 @@
 @extends("Home.HomePublic.public")
 @section('home')
 <head> 
-<link href="/static/home/css/sumoselect.css" rel="stylesheet" type="text/css" /> 
-<link href="/static/home/css/purebox-metro.css" rel="stylesheet" id="skin" /> 
-<script src="/static/home/js/jquery.min.1.8.2.js" type="text/javascript"></script> 
-<script src="/static/home/js/jquery.sumoselect.js"></script> 
-<script src="/static/home/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <link href="/static/home/css/sumoselect.css" rel="stylesheet" type="text/css" /> 
+    <link href="/static/home/css/purebox-metro.css" rel="stylesheet" id="skin" /> 
+    <script src="/static/home/js/jquery.min.1.8.2.js" type="text/javascript"></script> 
+    <script src="/static/home/js/jquery.sumoselect.js"></script> 
+    <script src="/static/home/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
 </head>
 <body> 
 
