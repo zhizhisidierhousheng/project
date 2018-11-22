@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Models\Users;
+use Session;
 
 class UsersaddressController extends Controller
 {
@@ -22,7 +23,10 @@ class UsersaddressController extends Controller
         $info = Users::find($uid)->info;
         $addr = DB::table("users_address")->where("uid", "=", $uid)->get();
 
-        return view("Home.Users.usersaddress", ["pic" => $info->pic, "address" => $addr]);
+        //分类
+        $cates = getcatesbypid(0);
+
+        return view("Home.Users.usersaddress", ["pic" => $info->pic, "address" => $addr, "cates" => $cates]);
     }
 
     /**
@@ -99,7 +103,10 @@ class UsersaddressController extends Controller
         //区级
         $area = $matches[count($matches) - 2];
 
-        return view("Home.Users.editaddress", ["pic" => $info->pic, "data" => $data, "province" => $province, "city" => $city, "county" => $area]);
+        //分类
+        $cates = getcatesbypid(0);
+
+        return view("Home.Users.editaddress", ["pic" => $info->pic, "data" => $data, "province" => $province, "city" => $city, "county" => $area, "cates" => $cates]);
     }
 
     /**

@@ -83,6 +83,7 @@ class LoginController extends Controller
             if (Hash::check($password, $info->password)) {
                 // 把用户信息存入到session 里
                 session(['username' => $info->name]);
+                session(['time' => date('Y-m-d H:i:s', time())]);
                 // 3.检测验证码
                 if (Session::get('milkcaptcha') == $userInput) {
                     // 登录成功跳到商城首页

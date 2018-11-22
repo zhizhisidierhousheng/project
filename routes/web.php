@@ -147,13 +147,14 @@ Route::post('/reset', 'Home\LoginController@reset');
 
 
 // 前台中间件
-Route::group([''], function () 
-{ 
+// Route::group(['middleware' => 'homelogin'], function () 
+// { 
 //会员中心
     Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
 //会员商品收藏
     Route::resource('/home/userscollect', 'Home\UserscollectController');
-
+//会员优惠券
+    Route::resource('/home/userscoupon', 'Home\UserscouponController');
 //会员个人信息    
     //ajax修改个人信息
     Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
@@ -177,7 +178,10 @@ Route::group([''], function ()
 //收货地址
     Route::resource('/home/usersaddress', 'Home\UsersaddressController');
 
-});
+//商品列表
+    Route::resource('/home/goodslist', 'Home\GoodslistController');
+
+// });
 
 // 前台首页
 Route::resource('/index', 'Home\HomeController');

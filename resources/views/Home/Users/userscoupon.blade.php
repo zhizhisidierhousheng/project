@@ -1,4 +1,5 @@
 @extends("Home.HomePublic.public")
+@section('home')
 <head> 
 <link href="/static/home/css/sumoselect.css" rel="stylesheet" type="text/css" /> 
 <link href="/static/home/css/purebox-metro.css" rel="stylesheet" id="skin" /> 
@@ -17,12 +18,12 @@
                 <div class="user_Head"> 
                     <div class="user_portrait"> 
                         <a href="/home/usersinfo" title="修改头像" class="btn_link"></a> 
-                        <img src="{{$pic-pic}}" /> 
+                        <img src="{{$pic->pic}}" /> 
                         <div class="background_img"></div> 
                     </div> 
                     <div class="user_name"> 
-                        <p><span class="name">化海天堂</span><a href="#">[修改密码]</a></p> 
-                        <p>访问时间：2016-1-21 10:23</p> 
+                        <p><span class="name">{{Session::get('username')}}</span><a href="/forget">[修改密码]</a></p> 
+                        <p>访问时间：{{Session('time')}}</p> 
                     </div> 
                 </div> 
                 <div class="sideMen"> 
@@ -46,7 +47,6 @@
                             <ul> 
                                 <li> <a href="/home/usersinfo"> 会员信息</a></li> 
                                 <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                                <li> <a href="user.php?act=message_list"> 修改密码</a></li>
                                 <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
                             </ul> 
                         </dd> 
@@ -57,7 +57,7 @@
                         </dt> 
                         <dd> 
                             <ul> 
-                                <li> <a href="User_coupon.html">优惠劵</a></li> 
+                                <li> <a href="/home/userscoupon">优惠劵</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 
@@ -67,7 +67,7 @@
                         </dt> 
                         <dd> 
                             <ul> 
-                                <li> <a href="user.php?act=myshop">密保管理</a></li> 
+                                <li> <a href="/forget"> 修改密码</a></li>
                             </ul> 
                         </dd> 
                     </dl> 
@@ -82,83 +82,56 @@
                     <span>优惠劵</span>
                 </div> 
                 <div class="coupon_style clearfix"> 
-                    <!--<div class="prompt">你还没有优惠劵</div>--> 
-                    <div class="clearfix"> 
+                    @if(count($data) < 1)
+                    <div class="prompt">你还没有优惠劵</div>
+                    @else
+                    <div class="clearfix">
+                        @foreach($data as $row)
+                        @if($row->status == 2)
                         <ul class="coupons"> 
-                            <li class="Numbering">YHJ1234567445623GB</li> 
+                            <li class="Numbering">{{$row->id}}</li> 
                             <li class=" clearfix"> 
                                 <div class="coupons_Money">
                                     ￥
-                                    <b>100</b>
-                                    <h4>订单满1000</h4>
+                                    <b>{{$row->money}}</b>
                                 </div> 
-                                <div class="coupons_name">消费卷</div> 
-                            </li> 
-                            <li class="time">2016-3-12至2016-3-30</li> 
-                        </ul> 
-                        <ul class="coupons"> 
-                            <li class="Numbering">YHJ1234567445623GB</li> 
-                            <li class=" clearfix"> 
-                                <div class="coupons_Money">
-                                    ￥
-                                    <b>50</b>
-                                    <h4>订单满500</h4>
-                                </div> 
-                                <div class="coupons_name">消费卷</div> 
-                            </li> 
-                            <li class="time">2016-3-12至2016-3-30</li> 
-                        </ul> 
-                        <ul class="coupons"> 
-                            <li class="Numbering">YHJ1234567445623GB</li> 
-                            <li class=" clearfix"> 
-                                <div class="coupons_Money">
-                                    ￥
-                                    <b>20</b>
-                                    <h4>订单满300</h4>
-                                </div> 
-                                <div class="coupons_name">购物卷</div> 
-                            </li> 
-                            <li class="time">2016-3-12至2016-3-30</li> 
-                        </ul> 
-                        <ul class="coupons on"> 
-                            <div class="status">已过期</div> 
-                            <li class="Numbering">YHJ1234567445623GB</li> 
-                            <li class=" clearfix"> 
-                                <div class="coupons_Money">
-                                    ￥
-                                    <b>20</b>
-                                    <h4>订单满300</h4>
-                                </div> 
-                                <div class="coupons_name">购物卷</div> 
-                            </li> 
-                            <li class="time">2016-3-12至2016-3-30</li> 
-                        </ul> 
+                                <div class="coupons_name">优惠卷</div> 
+                            </li>
+                            <li class="time">{{$row->create}}至{{$row->overdue}}</li> 
+                        </ul>
+                        @else
+                        @if($row->status == 1)
                         <ul class="coupons on"> 
                             <div class="status">已使用</div> 
-                            <li class="Numbering">YHJ1234567445623GB</li> 
+                            <li class="Numbering">{{$row->id}}</li> 
                             <li class=" clearfix"> 
                                 <div class="coupons_Money">
                                     ￥
                                     <b>20</b>
-                                    <h4>订单满300</h4>
                                 </div> 
-                                <div class="coupons_name">购物卷</div> 
+                                <div class="coupons_name">优惠卷</div> 
+                            </li> 
+                            <li class="time">{{$row->create}}至{{$row->overdue}}</li> 
+                        </ul>
+                        @else
+                        <ul class="coupons on">
+                            <div class="status">已过期</div> 
+                            <li class="Numbering">{{$row->id}}</li> 
+                            <li class=" clearfix"> 
+                                <div class="coupons_Money">
+                                    ￥
+                                    <b>{{$row->money}}</b>
+                                </div>
+                                <div class="coupons_name">优惠卷</div> 
                             </li> 
                             <li class="time">2016-3-12至2016-3-30</li> 
-                        </ul> 
-                    </div> 
-                    <div class="add_coupons"> 
-                        <h3>添加优惠劵序列号</h3> 
-                        <div>优惠券序列号 
-                            <input name="" type="text" class="textcoupons" />
-                            <input name="" type="submit" value="添加优惠劵" class="ADD_btn" />
-                        </div> 
-                        <div class="prompt">
-                            该优惠劵获取方式： 
-                            <br />1.用户消费满一定金额系统自动发放相应优惠劵金额。
-                            <br />2.需向管理领取优惠劵序列号 
-                        </div> 
-                    </div> 
+                        </ul>
+                        @endif
+                        @endif
+                        @endforeach
+                    </div>
+                    <div id="pages">{{$data->render()}}</div>
+                    @endif
                 </div> 
             </div> 
         </div> 

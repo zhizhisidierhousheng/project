@@ -59,5 +59,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         //后台登录中间件注册 adminlogin 中间件的规则名
         'adminlogin' => \App\Http\Middleware\AdminLoginMiddleware::class, 
+        //前台登录中间件
+        'homelogin' => \App\Http\Middleware\HomeLoginMiddleware::class,
     ];
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB; //引入DB类
-use App\Models\Coupon; //引入优惠券模型类
+use Session;
 
 class UserscouponController extends Controller
 {
@@ -16,11 +16,19 @@ class UserscouponController extends Controller
      */
     public function index()
     {
+        // $uid = getuid();
+        $uid = 1;
         //会员优惠券页
         //获取该会员优惠券信息
-        $data = Coupon::where("uid", "=", 1)->paginate(6);
+        $data = DB::table("coupon")->where("uid", "=", $uid)->orderBy("status", "DESC")->paginate(6);
 
-        return view("Home.Users.userscoupon", ["data" => $data]);
+        //获取头像
+        $pic = DB::select("select pic from users_info where uid = :uid", ["uid" => $uid])[0];
+
+        //分类
+        $cates = getcatesbypid(0);
+
+        return view("Home.Users.userscoupon", ["data" => $data, "pic" => $pic, "cates" => $cates]);
     }
 
     /**

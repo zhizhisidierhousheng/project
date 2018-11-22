@@ -83,16 +83,10 @@
         <!--结束图层-->
         <div class="Search">
             <p>
-                <input name="" type="text" class="text" />
-                <input name="" type="submit" value="搜 索" class="Search_btn" />
-            </p>
-            <p class="Words">
-                <a href="#">苹果</a>
-                <a href="#">香蕉</a>
-                <a href="#">菠萝</a>
-                <a href="#">西红柿</a>
-                <a href="#">橙子</a>
-                <a href="#">苹果</a>
+                <form action="/home/goodslist" method="get">
+                <input name="keyword" type="text" class="text" value="{{$request['keyword'] or ''}}" />
+                <input type="submit" value="搜 索" class="Search_btn" />
+                </form>
             </p>
         </div>
         <!--购物车样式-->
@@ -147,10 +141,10 @@
                 <div class="hd_allsort_out_box_new">
                     <!--左侧栏目开始-->
                     <ul class="Menu_list">
-                        @foreach($data as $row)
+                        @foreach($cates as $row)
                         <li class="name">
                             <div class="Menu_name">
-                                <a href="product_list.html">{{$row->name}}</a>
+                                <a href="javascript:;">{{$row->name}}</a>
                                 <span>&lt;</span>
                             </div>
                             <div class="link_name"></div>
@@ -160,7 +154,7 @@
                                         <dl class="clearfix" data-tpc="1">
                                         @foreach($row->suv as $value)
                                             <dd>
-                                                <a href="#">{{$value->name}}</a>
+                                                <a href="/home/goodslist/{{$value->id}}">{{$value->name}}</a>
                                             </dd>
                                         @endforeach    
                                         </dl>
@@ -340,17 +334,10 @@
     <div class="fixedBox">
         <ul class="fixedBoxList">
             <li class="fixeBoxLi user">
-            @if(session('name'))
                 <a href="/home/userscenter">
                     <span class="fixeBoxSpan iconfont icon-yonghu"></span>
                     <strong>用户</strong>
                 </a>
-            @else
-                <a href="/login">
-                    <span class="fixeBoxSpan iconfont icon-yonghu"></span>
-                    <strong>用户</strong>
-                </a>
-            @endif
             </li>
             <li class="fixeBoxLi cart_bd" style="display:block;" id="cartboxs">
                 <p class="good_cart">0</p>
@@ -362,7 +349,7 @@
                 </div>
             </li>
             <li class="fixeBoxLi Home">
-                <a href="./">
+                <a href="/home/userscollect">
                     <span class="fixeBoxSpan iconfont  icon-shoucang"></span>
                     <strong>收藏</strong>
                 </a>

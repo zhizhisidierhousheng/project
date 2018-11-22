@@ -35,10 +35,10 @@
                         @foreach($data->info as $info)
                             <tr> 
                                 <td class="Product_info"> 
-                                    <a href="#">
-                                        <img src="/static/home/products/p_11.jpg" width="100px" height="100px" />
+                                    <a href="/homegoods/{{$info->gid}}">
+                                        <img src="{{$info->gpic}}" width="100px" height="100px" />
                                     </a> 
-                                    <a href="#" class="product_name">麻阳冰糖橙子甜橙冰糖柑8斤新鲜水果甜过永兴冰糖橙赣南脐橙包邮</a> 
+                                    <a href="/homegoods/{{$info->gid}}" class="product_name">{{$info->gdcr}}</a> 
                                 </td> 
                                 <td><i>￥</i>{{$info->gprice}}</td> 
                                 <td>{{$info->num}}</td> 
@@ -51,16 +51,6 @@
                     <div class="price_style"> 
                         <div class="right_direction"> 
                         <ul> 
-                            <li>
-                                <label>商品总价</label>
-                                <i>￥</i>
-                                <span>{{$data->total + $data->money}}</span>
-                            </li>
-                            <li>
-                                <label>优惠金额</label>
-                                <i>￥</i>
-                                <span>-{{$data->money}}</span>
-                            </li>
                             <li class="shiji_price">
                                 <label>实&nbsp;&nbsp;付&nbsp;&nbsp;款</label>
                                 <i>￥</i>

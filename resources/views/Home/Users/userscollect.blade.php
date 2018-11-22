@@ -11,7 +11,7 @@
     <div class="user_center"> 
         <div class="left_style"> 
             <div class="menu_style"> 
-                <div class="user_title">用户中心</div> 
+                <div class="user_title">会员中心</div> 
                 <div class="user_Head"> 
                     <div class="user_portrait"> 
                         <a href="/home/usersinfo" title="修改头像" class="btn_link"></a> 
@@ -19,8 +19,8 @@
                         <div class="background_img"></div> 
                     </div> 
                     <div class="user_name"> 
-                        <p><span class="name">化海天堂</span><a href="#">[修改密码]</a></p> 
-                        <p>访问时间：2016-1-21 10:23</p> 
+                        <p><span class="name">{{Session::get('username')}}</span><a href="/forget">[修改密码]</a></p> 
+                        <p>访问时间：{{Session::get('time')}}</p> 
                     </div> 
                 </div> 
                 <div class="sideMen"> 
@@ -44,7 +44,6 @@
                             <ul> 
                                 <li> <a href="/home/usersinfo"> 会员信息</a></li> 
                                 <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                                <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
                                 <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
                             </ul> 
                         </dd> 
@@ -55,7 +54,7 @@
                         </dt> 
                         <dd> 
                             <ul> 
-                                <li> <a href="user.php?act=bonus">优惠券</a></li> 
+                                <li> <a href="/home/userscoupon">优惠券</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 
@@ -65,7 +64,7 @@
                         </dt> 
                         <dd> 
                             <ul> 
-                                <li> <a href="user.php?act=myshop">密保管理</a></li> 
+                                <li> <a href="/forget"> 修改密码</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 
@@ -82,10 +81,10 @@
                     </div> 
                     <div class="collect"> 
                         <ul class="Quantity">
-                            <li>收藏数：{{$num or '0'}}条</li>
+                            <li>收藏数：{{count($num)}}条</li>
                             <li></li>
                         </ul>
-                        @if(empty($goods))
+                        @if(count($goods) < 1)
                         <center><h1>您还没有收藏商品，快去收藏吧！</h1></center>
                         @else
                         <div class="collect_list"> 
@@ -97,34 +96,32 @@
                                         {{method_field('DELETE')}}
                                         <a href="javascript:document.getElementById('collect_del').submit();"><em class="iconfont icon-close2 delete"></em></a>
                                         <a href="#" class="buy_btn">立即购买</a> 
-                                        <div class="collect_info"> 
-                                            <div class="img_link"> 
-                                                <a href="#" class="center "><img src="/static/home/products/p_4.jpg" /></a>
-                                            </div> 
-                                            <dl class="xinxi"> 
-                                                <dt>
-                                                    <a href="#" class="name">{{$row->name}}</a>
-                                                </dt> 
-                                                <dd>
-                                                    <span class="Price"><b>￥</b>{{$row->price}}</span>
-                                                    <span class="collect_Amount"><i class="iconfont icon-shoucang"></i>{{$row->collect}}</span>
-                                                </dd> 
-                                            </dl> 
-                                        </div>
                                     </form>
+                                    <div class="collect_info"> 
+                                        <div class="img_link"> 
+                                            <a href="#" class="center "><img src="{{$row->pic}}" width="180px"/></a>
+                                        </div> 
+                                        <dl class="xinxi">
+                                            <dt>
+                                                <a href="" class="name">{{strip_tags($row->dcr)}}</a>
+                                            </dt>
+                                            <dd>
+                                                <span class="Price"><b>￥</b>{{$row->price}}</span>
+                                                <span class="collect_Amount"><i class="iconfont icon-shoucang"><i>{{$row->collect}}</i></i></span>
+                                            </dd>
+                                        </dl>
+                                    </div> 
                                 </li>
                             @endforeach
-                            </ul> 
-                        </div> 
-                        <div class="Paging"> 
-                            <div class="Pagination" id="pages">
-                                {{$goods->render()}}
-                            </div>
+                            </ul>
+                        </div>
+                        <div id="pages" style="margin-left: 50px">
+                        {{$goods->render()}}
                         </div> 
                         @endif
                     </div> 
                 </div> 
-            </div> 
+            </div>
         </div> 
     </div> 
 </div>  

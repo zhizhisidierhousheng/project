@@ -25,3 +25,24 @@ function sendphone($p)
 	//70字内（含70字）计一条，超过70字，按67字/条计费，超过长度短信平台将会自动分割为多条发送。分割后的多条短信将按照具体占用条数计费。
 	echo $ucpass->SendSms($appid,$templateid,$param,$mobile,$uid);
 }
+
+// 无限分类方法
+function getcatesbypid($pid)
+{
+    $res = DB::table("cates")->where("pid", "=", $pid)->get();
+    $data = [];
+    //遍历 把对应得到的子类信息 添加到SUV下标里面
+    foreach ($res as $key => $value) {
+        $value->suv = getcatesbypid($value->id);
+        $data[] = $value;
+    }
+    return $data;
+}
+
+// 根据session获取会员id
+function getuid()
+{
+    $name = session('username');
+    $res = DB::select("select id from users where name = :name", ["name" => $name])[0];
+    return $res->id;
+}

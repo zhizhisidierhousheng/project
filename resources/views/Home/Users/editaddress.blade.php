@@ -15,7 +15,7 @@
         <!--左侧菜单栏--> 
         <div class="left_style"> 
             <div class="menu_style"> 
-                <div class="user_title">用户中心</div> 
+                <div class="user_title">会员中心</div> 
                 <div class="user_Head"> 
                     <div class="user_portrait"> 
                         <a href="/home/usersinfo" title="修改头像" class="btn_link"></a> 
@@ -23,8 +23,8 @@
                         <div class="background_img"></div> 
                     </div> 
                     <div class="user_name"> 
-                        <p><span class="name">化海天堂</span><a href="#">[修改密码]</a></p> 
-                        <p>访问时间：2016-1-21 10:23</p> 
+                        <p><span class="name">{{Session::get('username')}}</span><a href="/forget">[修改密码]</a></p> 
+                        <p>访问时间：{{Session::get('time')}}</p> 
                     </div> 
                 </div> 
                 <div class="sideMen"> 
@@ -48,7 +48,6 @@
                             <ul> 
                                 <li> <a href="/home/usersinfo"> 会员信息</a></li> 
                                 <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                                <li> <a href="user.php?act=message_list"> 修改密码</a></li> 
                                 <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
                             </ul> 
                         </dd> 
@@ -59,7 +58,7 @@
                         </dt> 
                         <dd> 
                             <ul> 
-                                <li> <a href="user.php?act=bonus">优惠券</a></li> 
+                                <li> <a href="/home/userscoupon">优惠券</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 
@@ -69,7 +68,7 @@
                         </dt> 
                         <dd> 
                             <ul> 
-                                <li> <a href="user.php?act=myshop">密保设置</a></li> 
+                                <li> <a href="/forget"> 修改密码</a></li>
                             </ul> 
                         </dd> 
                     </dl> 
