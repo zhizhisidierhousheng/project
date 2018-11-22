@@ -6,15 +6,15 @@ function sendphone($p)
 
 	//初始化必填
 	//填写在开发者控制台首页上的Account Sid
-	$options['accountsid'] = '3346d44029a59272ba94edfd75e418be';
+	$options['accountsid'] = '1fb00bb3d9c48aa36cd2de5df1be8f17';
 	//填写在开发者控制台首页上的Auth Token
-	$options['token'] = 'db7aa0c0b0aa74db760be14fcd9e1c3a';
+	$options['token'] = '7a497453fa7436b63a6a66ddb5b89dd0';
 	//初始化$options必填
 	$ucpass = new Ucpaas($options);
-	$appid = '0c5bd719714e4bc0b9987445f81375f4';//应用的ID，可在开发者控制台内的短信产品下查看
+	$appid = '9b5f2c5ffa704dabac2a2b824cadcab1';//应用的ID，可在开发者控制台内的短信产品下查看
 	// $appid = 'xxxxxxxx';//应用的ID，可在开发者控制台内的短信产品下查看
 	//短信模板id
-	$templateid = '387159';//可在后台短信产品→选择接入的应用→短信模板-模板ID,查看改模板ID
+	$templateid = '387105';//可在后台短信产品→选择接入的应用→短信模板-模板ID,查看改模板ID
 	//发送的短信校验码
 	$param = rand(1, 999999);//多个参数使用英文逗号隔开（如：param="a,b,c"),若无参数则留空
 	//放置在cookie 1分钟后过期
@@ -55,7 +55,7 @@ function sendphone($p)
         $total_fee = 0.01;
 
         //商品描述，可空
-        $body = $_POST['oid'];
+        $body = $_POST['gdcr'];
  
  
  
@@ -86,5 +86,25 @@ $parameter = array(
 $alipaySubmit = new AlipaySubmit($alipay_config);
 $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
 echo $html_text;    
+}
+// 无限分类方法
+function getcatesbypid($pid)
+{
+    $res = DB::table("cates")->where("pid", "=", $pid)->get();
+    $data = [];
+    //遍历 把对应得到的子类信息 添加到SUV下标里面
+    foreach ($res as $key => $value) {
+        $value->suv = getcatesbypid($value->id);
+        $data[] = $value;
+    }
+    return $data;
+}
+
+// 根据session获取会员id
+function getuid()
+{
+    $name = session('username');
+    $res = DB::select("select id from users where name = :name", ["name" => $name])[0];
+    return $res->id;
 }
 ?>

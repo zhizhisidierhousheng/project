@@ -51,7 +51,6 @@
     @endforeach
 	@endif
 	
-
 <script type="text/javascript">
 // 获取删除按钮 管理员删除
     $('.del').click(function() {

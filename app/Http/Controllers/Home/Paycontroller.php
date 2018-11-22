@@ -87,8 +87,7 @@ class Paycontroller extends Controller
     {
         //将订单id存进session 以便改变付款状态
         $request->session()->push('oid',$_POST['oid']);
-        // $request->session()->pull('oid');
-        // dd(session('oid'));
+        //跳转到支付宝支付
         pay();
     }
  

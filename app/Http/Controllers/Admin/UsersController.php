@@ -36,22 +36,17 @@ class UsersController extends Controller
         //偏移量
         $offset = ($page-1)*$rev;
         //准备sql语句
-        $sql = "select * from users limit $offset,$rev";
+        $sql = "select * from users limit {$offset},{$rev}";
         //执行sql
         $data = DB::select($sql);
 
-        // dd($request->input('keywords'));
-        // 获取搜素的关键词
-        $K = $request->input('keywords');
-        // 会员列表
-        $search = DB::table('users')->where('name', 'like', '%'.$k.'%');
         //判断当前请求是否为Ajax请求
         if($request->ajax()){
             //加载一个独立的模板界面
-            return view("Admin.Users.test", ['data' => $data, 'search' => $search, 'request' => $request->all()]);
+            return view("Admin.Users.test", ['data' => $data]);
         } 
         //加载模板
-        return view("Admin.Users.index", ['pp' => $pp, 'data' => $data, 'search' => $search, 'request' => $request->all()]);
+        return view("Admin.Users.index", ['pp' => $pp, 'data' => $data]);
     }
 
     /**

@@ -62,24 +62,56 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	// 公告列表
 	Route::resource('/admin/notice', 'Admin\NoticeController');
 
-// 后台首页
-	Route::resource('/admin', 'Admin\AdminController');
+// 类别模块
+	// 类别列表
+	Route::resource('/admincates', 'Admin\CatesController');
+
+// 商品模块
+	// 商品列表
+	Route::resource('/admingoods', 'Admin\AdmingoodsController');
+	// Ajax删除商品
+    Route::get('/admingoodsdel', 'Admin\AdmingoodsController@del');
+    // Ajax修改状态
+    Route::get('/goodsstatus', 'Admin\AdmingoodsController@goodsstatus');
+    // 商品详情表
+    Route::get('/goodsinfo/{id}', 'Admin\AdmingoodsController@goodsinfo');
+    // 商品详情添加
+    Route::get('/addgoodsinfo/{id}', 'Admin\AdmingoodsController@addgoodsinfo');
+    // 执行添加
+    Route::post('/doaddgoodsinfo', 'Admin\AdmingoodsController@doaddgoodsinfo');
+    // 执行商品详情修改
+    Route::post('/updateinfo/{id}', 'Admin\AdmingoodsController@updateinfo');
+    // Ajax删除商品详情
+    Route::get('/goodsinfodel', 'Admin\AdmingoodsController@delete');
+
+// 评论管理
+    // 评论列表
+    Route::resource('/comment', 'Admin\CommentController');
 
 //友情链接模块
-	//后台友情链接列表
+	// 后台友情链接列表
 	Route::resource('/adminlink','Admin\LinkController');
 	// 后台友情链接管理
 	Route::resource('/adminrelink','Admin\RelinkController');
-	//后台友情链接删除选中
+	// 后台友情链接删除选中
 	Route::get('/relinkchoosedel','Admin\RelinkController@choosedel');
 
 //轮播图管理模块
 	// 后台轮播图管理
 	Route::resource('/adminlooppic','Admin\LooppicController');
 	// 后台轮播图添加
-	Route::get('/adminpicadd','Admin\LooppicController@adminpicadd');
-	//后台轮播图删除选中
+	Route::get('/looppicadd','Admin\LooppicController@adminpicadd');
+	// 后台轮播图删除选中
 	Route::get('/looppicchoosedel','Admin\LooppicController@choosedel');
+
+
+
+
+
+
+// 后台首页
+	Route::resource('/admin', 'Admin\AdminController');
+
 });
 
 
@@ -112,17 +144,16 @@ Route::get('/forgetcheckcode', 'Home\LoginController@forgetcheckcode');
 Route::post('/doforget', 'Home\LoginController@doforget');
 // 重置密码方法
 Route::post('/reset', 'Home\LoginController@reset');
-//前台友情链接
+
+// 前台友情链接
 Route::resource('/link','Home\linkController');
+/*******购物车*********/
 // 前台购物车
 Route::resource('/cart','Home\CartController');
 // 列表到购物车
-Route::post('/listaddcart/{$id}','Home\CartController@listaddcart');
+Route::get('/listaddcart/{id}','Home\CartController@listaddcart');
 // 商品详情到购物车
-Route::post('/goodsaddcart/{$id}','Home\CartController@goodsaddcart');
-
-
-
+Route::get('/goodsaddcart','Home\CartController@goodsaddcart');
 // 前台购物车记录商品数量加减删除
 // 加
 Route::post('/cartnumadd','Home\CartController@numadd');
@@ -130,11 +161,10 @@ Route::post('/cartnumadd','Home\CartController@numadd');
 Route::post('/cartnumsub','Home\CartController@numsub');
 // 删除
 Route::post('/cartdel','Home\CartController@del');
-// 删除选中
-Route::post('/choosedel','Home\CartController@choosedel');
-
 // 前台购物车删除选中
 Route::get('/cartchoosedel','Home\CartController@choosedel');
+// 商品详情->立即购买
+Route::get('/settle','Home\SettleController@goodssettle');
 // 前台结算
 Route::post('/settle','Home\SettleController@settle');
 // 生成订单
@@ -150,30 +180,45 @@ Route::get("/returnurl","Home\PayController@returnurl");
 Route::resource('/addaddress', 'Home\UsersaddressController');
 
 // 前台中间件
-Route::group([''], function () 
-{ 
-    //会员中心
+// Route::group(['middleware' => 'homelogin'], function () 
+// { 
+//会员中心
     Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
-    //会员商品收藏
+//会员商品收藏
     Route::resource('/home/userscollect', 'Home\UserscollectController');
-//ajax修改个人信息
-Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
-//会员个人信息
-Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
-Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
-Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
-Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
-Route::resource('/home/usersinfo', 'Home\UsersinfoController');
+//会员优惠券
+    Route::resource('/home/userscoupon', 'Home\UserscouponController');
+//会员个人信息    
+    //ajax修改个人信息
+    Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');
+    //获取验证码
+    Route::get('/home/myphone/code', 'Home\UsersinfoController@phone');
+    //比较验证码
+    Route::get('/home/myphone/checkcode', 'Home\UsersinfoController@checkcode');
+    //执行修改
+    Route::get('/home/myphone/change', 'Home\UsersinfoController@change');
+    //更绑手机步骤页
+    Route::get('/home/myphone', 'Home\UsersinfoController@myphone');
+    //发送邮件
+    Route::get('/home/myemail/send', 'Home\UsersinfoController@change');
+    //确认绑定
+    Route::get('/home/myemail/upemail', 'Home\UsersinfoController@upemail');
+    //更绑邮箱步骤页
+    Route::get('/home/myemail', 'Home\UsersinfoController@myemail');
+    Route::resource('/home/usersinfo', 'Home\UsersinfoController');
 //会员订单
-Route::resource('/home/usersorder', 'Home\UsersorderController');
+    Route::resource('/home/usersorder', 'Home\UsersorderController');
 //收货地址
-Route::resource('/home/usersaddress', 'Home\UsersaddressController');
-});
+    Route::resource('/home/usersaddress', 'Home\UsersaddressController');
+
+//商品列表
+    Route::resource('/home/goodslist', 'Home\GoodslistController');
+
+// });
 
 // 前台首页
-Route::get('/index', function () 
-{
-	return view('Home.home.index');
-});
+Route::resource('/index', 'Home\HomeController');
 
 
+// 前台商品详情
+Route::resource('/homegoods', 'Home\GoodsinfoController');

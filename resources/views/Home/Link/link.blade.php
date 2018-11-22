@@ -65,6 +65,10 @@
 					<li>
 						2.做好链接后，请在右侧填写申请信息。讨食只接受申请文字友情链接。
 					</li>
+<<<<<<< HEAD
+=======
+					<li>2.做好链接后，请在右侧填写申请信息。淘食只接受申请文字友情链接。</li>
+>>>>>>> 8c2cf29f33e6097b6fa2e2820d34a0ecf848a131
 					<li>
 						<div class="float_Left"> 3.</div>
 						<div class="margin_l_12">
@@ -130,11 +134,19 @@
 	<script>
 	function page(page)
 	{
+<<<<<<< HEAD
 	  //触发ajax
 	  $.get('/link',{page:page},function(data){
 	    //赋值
 	    $('#uid').html(data);
 	 });
+=======
+	    //触发ajax
+	    $.get('/link',{page:page},function(data){
+		    //赋值
+		    $('#uid').html(data);
+		});
+>>>>>>> 8c2cf29f33e6097b6fa2e2820d34a0ecf848a131
 	}
 	</script>
 </html>

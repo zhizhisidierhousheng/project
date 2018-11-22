@@ -69,7 +69,7 @@
                             <p hidden id="hidden"></p>
                             <tr class="tr">
                                 <td class="checkbox">
-                                    <input name="goods[]" type="checkbox" value="{{$row['id']}}" />
+                                    <input name="goods[]" type="checkbox" value="{{$row['id']}}" checked/>
                                 </td>
                                 
                                 <td class="name">
@@ -120,7 +120,6 @@
                     <div class="sp_Operation clearfix">
                         <div class="select-all">
                         <div class="cart-checkbox"><a href="javascript:void(0);" class="allchoose" style="float:left;margin-left:7px">全选</a></div>
-                        <div class="operation"><a href="javascript:void(0);" class="delchoose" style="float:left;margin-left:7px" onclick="">删除选中</a></div> 
                     </div>    
                     <!--结算-->
                     <div class="toolbar_right">
@@ -323,32 +322,6 @@
       })
 
     });
-    // 删除选中
-    $('.delchoose').click(function(){
-      arr = [];
-      $(':checkbox').each(function(){
-        if($(this).prop('checked')){
-          id = $(this).val();
-          arr.push(id);
-        }
-      });
-      alert(arr);
-      //ajax
-      $.post('/choosedel',{arr:arr,"_token":"{{csrf_token()}}",}
-        ,function(data){
-        // alert(data);
-        if(data == 1){
-          alert('删除成功');
-          
-          for (var i = 0;i < arr.length;i++){
-             $('input[value="'+arr[i]+'"]').parents('tr').remove();
-             alert(data);
-          }
-        }else{
-          alert(data);
-        }
-      });
-    });
 </script>
 @endsection
-@section('title','会员列表')
+@section('title','购物车')

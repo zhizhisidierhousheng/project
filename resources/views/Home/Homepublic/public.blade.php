@@ -18,20 +18,32 @@
 <div id="header_top">
     <div id="top">
         <div class="Inside_pages">
-            <div class="Collection">下午好，欢迎光临锦宏颜！
-                <em></em>
-                <a href="#">收藏我们</a></div>
             <div class="hd_top_manu clearfix">
                 <ul class="clearfix">
-                    <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本店！
-                        <a href="#" class="red">[请登录]</a>新用户
-                        <a href="#" class="red">[免费注册]</a></li>
+                    @if(session('username'))
+                    <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">     欢迎你
+                        {{session('username')}}
+                        <a href="/login" class="red">[退出]</a>
+                    </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">我的订单</a></li>
+                        <a href="/order">我的订单</a>
+                    </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">购物车</a></li>
+                        <a href="/cart">购物车</a>
+                    </li>
+                    @else
+                    <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本商城！
+                        <a href="/login/create" class="red">[请登录]</a>新用户
+                        <a href="/register" class="red">[免费注册]</a>
+                    </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">联系我们</a></li>
+                        <a href="#">购物车</a>
+                    </li>
+                    @endif
+
+                    <li class="hd_menu_tit" data-addclass="hd_menu_hover">
+                        <a href="#">联系我们</a>
+                    </li>
                     <li class="hd_menu_tit list_name" data-addclass="hd_menu_hover">
                         <a href="#" class="hd_menu">客户服务</a>
                         <div class="hd_menu_list">
@@ -49,10 +61,12 @@
                     </li>
                     <li class="hd_menu_tit phone_c" data-addclass="hd_menu_hover">
                         <a href="#" class="hd_menu ">
-                            <em class="iconfont icon-shouji"></em>手机版</a>
+                            <em class="iconfont icon-shouji"></em>手机版
+                        </a>
                         <div class="hd_menu_list erweima">
                             <ul>
-                                <img src="/static/home/images/erweima.jpg" width="100px" height="100" /></ul>
+                                <img src="/static/home/images/erweima.jpg" width="100px" height="100" />
+                            </ul>
                         </div>
                     </li>
                 </ul>
@@ -62,56 +76,104 @@
     <!--顶部样式1-->
     <div id="header" class="header page_style">
         <div class="logo">
-            <a href="index.html">
-                <img src="/static/home/images/logo.png" /></a>
+            <a href="/index">
+                <img src="/static/home/images/logo.png" />
+            </a>
         </div>
         <!--结束图层-->
         <div class="Search">
             <p>
-                <input name="" type="text" class="text" />
-                <input name="" type="submit" value="搜 索" class="Search_btn" /></p>
-            <p class="Words">
-                <a href="#">苹果</a>
-                <a href="#">香蕉</a>
-                <a href="#">菠萝</a>
-                <a href="#">西红柿</a>
-                <a href="#">橙子</a>
-                <a href="#">苹果</a></p>
+                <form action="/home/goodslist" method="get">
+                <input name="keyword" type="text" class="text" value="{{$request['keyword'] or ''}}" />
+                <input type="submit" value="搜 索" class="Search_btn" />
+                </form>
+            </p>
         </div>
         <!--购物车样式-->
         <div class="hd_Shopping_list" id="Shopping_list">
             <div class="s_cart">
                 <em class="iconfont icon-cart2"></em>
-                <a href="#">我的购物车</a>
+                <a href="/cart"我的>购物车</a>
                 <i class="ci-right">&gt;</i>
                 <i class="ci-count" id="shopping-amount">0</i></div>
             <div class="dorpdown-layer">
                 <div class="spacer"></div>
-                <!--<div class="prompt"></div><div class="nogoods"><b></b>购物车中还没有商品，赶紧选购吧！</div>-->
+                @if (empty(session('shop')))
+                <div class="prompt"></div><div class="nogoods"><b></b>购物车中还没有商品，赶紧选购吧！</div>
+                @else
+                @foreach (session('shop') as $row)
                 <ul class="p_s_list">
+                    
                     <li>
                         <div class="img">
-                            <img src="/static/home/products/p_7.jpg"></div>
+                            <img src="{{$row['goodsInfo']->pic}}">
+                        </div>
                         <div class="content">
                             <p>
-                                <a href="#">产品名称</a></p>
-                            <p>颜色分类:紫花8255尺码:XL</p>
+                                <a href="/homegoods/{{$row['id']}}">{{$row['goodsInfo']->name}}</a>
+                            </p>
+                            <p>{{$row['goodsInfo']->dcr}}</p>
                         </div>
                         <div class="Operations">
-                            <p class="Price">￥55.00</p>
-                            <p>
-                                <a href="#">删除</a></p>
+                            <p class="Price">￥{{$row['goodsInfo']->price}}</p>
+                                <a href="javascript:;" onclick="publicdelline(this,{{$row['goodsInfo']->id}})">删除</a>
                         </div>
+                        <p hidden="hidden" class="publicxiaoji">{{$row['num'] * $row['goodsInfo']->price}}</p>
+                        <p hidden="hidden" class="publicnum">{{$row['num']}}</p>
+                        <p hidden="hidden" class="publicid">{{count($row['id'])}}</p>
                     </li>
+                    
                 </ul>
+                @endforeach
                 <div class="Shopping_style">
                     <div class="p-total">共
-                        <b>1</b>件商品　共计
-                        <strong>￥ 515.00</strong></div>
-                    <a href="Shop_cart.html" title="去购物车结算" id="btn-payforgoods" class="Shopping">去购物车结算</a></div>
+                        <b><span id="publictotalnum"></span></b>件商品　共计
+                        <strong>￥<span id="publictotalprice"></span></strong>
+                    </div>
+                    <a href="Shop_cart.html" title="去购物车结算" id="btn-payforgoods" class="Shopping">去购物车结算</a>
+                </div>
+                
+                @endif
             </div>
         </div>
     </div>
+    <script>
+        //小气泡
+        $(function(){
+                var t = 0;
+                $('.publicid').each(function(){
+                    t += parseInt($(this).html());//循环出每个小计数目并相加
+                });
+                $('#shopping-amount').html(t);//初始总价
+            });
+        //商品总数
+        $(function(){
+                var t = 0;
+                $('.publicnum').each(function(){
+                    t += parseInt($(this).html());//循环出每个小计数目并相加
+                });
+                $('#publictotalnum').html(t);//初始总价
+            });
+        //商品总价
+        $(function(){
+                var t = 0;
+                $('.publicxiaoji').each(function(){
+                    t += parseFloat($(this).html());//循环出每个小计数目并相加
+                });
+                $('#publictotalprice').html(t);//初始总价
+            });
+        //删除商品
+        function publicdelline(obj,id)
+        {
+                    $.post('/cartdel',{id:id,"_token":"{{csrf_token()}}",},function(data){
+                        if (data) {
+                            //删除
+                            $(obj).parent().parent().remove();
+                            alert('删除成功');
+                        }
+                    })
+        }
+    </script>
     <!--菜单导航样式-->
     <div id="Menu" class="clearfix">
         <div class="index_style clearfix">
@@ -119,39 +181,28 @@
                 <div class="t_menu_img"></div>
                 <div class="Category">
                     <a href="#">
-                        <em></em>所有产品分类</a>
+                        <em></em>所有产品分类
+                    </a>
                 </div>
                 <div class="hd_allsort_out_box_new">
                     <!--左侧栏目开始-->
                     <ul class="Menu_list">
+                        @foreach($cates as $row)
                         <li class="name">
                             <div class="Menu_name">
-                                <a href="product_list.html">面部护理</a>
+                                <a href="javascript:;">{{$row->name}}</a>
                                 <span>&lt;</span>
                             </div>
-                            <div class="link_name">
-                                <p>
-                                    <a href="product_Detailed.html">茅台</a>
-                                    <a href="#">五粮液</a>
-                                    <a href="#">郎酒</a>
-                                    <a href="#">剑南春</a>
-                                </p>
-                            </div>
+                            <div class="link_name"></div>
                             <div class="menv_Detail">
                                 <div class="cat_pannel clearfix">
                                     <div class="hd_sort_list">
                                         <dl class="clearfix" data-tpc="1">
-                                            <dt>
-                                                <a href="#">面膜
-                                                    <i>></i>
-                                                </a>
-                                            </dt>
+                                        @foreach($row->suv as $value)
                                             <dd>
-                                                <a href="#">撕拉面膜</a>
-                                                <a href="#">面膜贴</a>
-                                                <a href="#">免洗面膜</a>
-                                                <a href="#">水洗面膜</a>
+                                                <a href="/home/goodslist/{{$value->id}}">{{$value->name}}</a>
                                             </dd>
+                                        @endforeach    
                                         </dl>
                                       
                                     </div>
@@ -159,28 +210,28 @@
                                 </div>
                             </div>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
-            <!-- <script>
-                $("#allSortOuterbox").slide({
+            <script>$("#allSortOuterbox").slide({
                     titCell: ".Menu_list li",
                     mainCell: ".menv_Detail",
-                });</script> -->
+                });
+            </script>
             <!--菜单栏-->
             <div class="Navigation" id="Navigation">
                 <ul class="Navigation_name">
                     <li>
-                        <a href="product_list.html">首页</a>
+                        <a href="/index">首页</a>
                     </li>
                 </ul>
             </div>
-            <!-- <script>
-                $("#Navigation").slide({
+            <script>$("#Navigation").slide({
                     titCell: ".Navigation_name li"
                 });
-            </script> -->
-            </div>
+            </script>
+        </div>
     </div>
 </div>
     @section('home')
@@ -235,59 +286,80 @@
                 <dl>
                     <dt>新手上路</dt>
                     <dd>
-                        <a href="#">售后流程</a></dd>
+                        <a href="#">售后流程</a>
+                    </dd>
                     <dd>
-                        <a href="#">购物流程</a></dd>
+                        <a href="#">购物流程</a>
+                    </dd>
                     <dd>
-                        <a href="#">订购方式</a></dd>
+                        <a href="#">订购方式</a>
+                    </dd>
                     <dd>
-                        <a href="#">隐私声明</a></dd>
+                        <a href="#">隐私声明</a>
+                    </dd>
                     <dd>
-                        <a href="#">推荐分享说明</a></dd>
+                        <a href="#">推荐分享说明</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>配送与支付</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>售后保障</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>支付方式</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>帮助中心</dt>
                     <dd>
-                        <a href="#">保险需求测试</a></dd>
+                        <a href="#">保险需求测试</a>
+                    </dd>
                     <dd>
-                        <a href="#">专题及活动</a></dd>
+                        <a href="#">专题及活动</a>
+                    </dd>
                     <dd>
-                        <a href="#">挑选保险产品</a></dd>
+                        <a href="#">挑选保险产品</a>
+                    </dd>
                     <dd>
-                        <a href="#">常见问题</a></dd>
+                        <a href="#">常见问题</a>
+                    </dd>
                 </dl>
             </div>
         </div>
@@ -297,6 +369,7 @@
                 <a href="#">公开信息披露</a>｜
                 <a href="#">加入我们</a>｜
                 <a href="#">联系我们</a>｜
+                <a href="">友情链接</a>｜
                 <a href="#">版权声明</a>｜
                 <a href="#">隐私声明</a>｜
                 <a href="#">网站地图</a></p>
@@ -307,7 +380,7 @@
     <div class="fixedBox">
         <ul class="fixedBoxList">
             <li class="fixeBoxLi user">
-                <a href="User.html">
+                <a href="/home/userscenter">
                     <span class="fixeBoxSpan iconfont icon-yonghu"></span>
                     <strong>用户</strong>
                 </a>
@@ -322,13 +395,13 @@
                 </div>
             </li>
             <li class="fixeBoxLi Home">
-                <a href="./">
+                <a href="/home/userscollect">
                     <span class="fixeBoxSpan iconfont  icon-shoucang"></span>
                     <strong>收藏</strong>
                 </a>
             </li>
             <li class="fixeBoxLi Home">
-                <a href="./">
+                <a href="#">
                     <span class="fixeBoxSpan iconfont  icon-fankui"></span>
                     <strong>反馈</strong>
                 </a>

@@ -9,59 +9,6 @@ use DB;
 class SettleController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // $uid = session['uid'];
-        // echo $uid;exit;
-        $uid = session('uid');
-        // dd($uid);
-        
-        // $data = DB::table('cart')->where('user_id','=',$uid)->get();
-        $data=DB::table('cart')->join('goods','cart.goods_id','=','goods.id')->where('cart.user_id','=',$uid)->get();
-        // var_dump($data);exit;
-        $address = DB::table('users_address')->where('uid','=',$uid)->get();
-        // var_dump($address);exit;
-        return view('Home.Order.Order',['address'=>$address,'data'=>$data,'uid'=>$uid]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // 生成临时订单
-    public function create(Request $request)
-    {
-        // $uid = $request->input('uid');
-        // $totalprice = $request->input('totalprice');
-        // echo $uid;
-        // echo $totalprice;
-        // session(['uid'=>$uid]);
-
-        // $uid        = $request->input('uid');
-        // $totalprice = $request->input('totalprice');
-        // $_SESSION['uid']=$uid;
-        // session(['totalprice'=>$totalprice]);
-        // var_dump($uid);exit;
-        // echo $totalprice;
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -69,56 +16,16 @@ class SettleController extends Controller
      */
     public function show($uid)
     {
-        // echo $id;exit;
         session(['uid'=>$uid]);
         
         return redirect('/order');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    //购物车到结算页
     public function settle(Request $request)
     {
-        //查询当前用户的收货地址
-        // $uid = session('******.id');
-        // $name = session('name');
-        //根据杨明存下的name 查询到相应用户的uid
-        $id = DB::table("users")->select()->where('name','=','user')->get();
-        // 取出用户ID
-        foreach ($id as $r){
-            $uid = $r->id;
-        }
+        if($request->input('goods')){
+        //得到用户ID
+        $uid = getuid();
         //获取用户地址
         $address = \DB::table("users_address")->select()->where('uid','=',$uid)->where('status','=',0)->get();
         //拿到用户在购物车选中的商品的数组
@@ -139,8 +46,52 @@ class SettleController extends Controller
                 }
             }
         }
+        //设置公共模板
+        $cates = getcatesbypid(0);
 
-        // dd($newArr);
-        return view('Home.Settle.settle')->with('shop',$newArr)->with('address',$address);
+        return view('Home.Settle.settle', ['cates' => $cates])->with('shop',$newArr)->with('address',$address);
+        }else{
+            return redirect()->back();
+        }
+    }
+    //商品详情内直接购买
+    public function goodssettle(Request $request)
+    {
+        //数据处理
+        $data=session('shop')?session('shop'):array();
+        $a = 0;
+        if ($data) {
+            foreach ($data as $key => &$value) {
+
+                if ($value['id'] == $_GET['id']) {
+                    $value['num'] = $value['num'] + $_GET['num'];
+
+                    $a = 1;
+                }
+            }
+        }
+        //添加数据到session
+        if(!$a){
+            $data[]=array(        
+            'id'=>$_GET['id'],
+            'num'=>$_GET['num'],
+            'goodsInfo'=>\DB::table('goods')->where('id',$_GET['id'])->first(),
+            );
+        }
+        
+        $request->session()->put('shop',$data);
+        /****************/
+        //获取用户id
+        $uid = getuid();
+        // 获取用户地址
+        $address = \DB::table("users_address")->select()->where('uid','=',$uid)->where('status','=',0)->get();
+        //拿到用户选中的商品的数组
+        $idArr = $request->input('goods');
+        //读取session
+        $shop = session('shop');
+        //设置公共模板
+        $cates = getcatesbypid(0);
+
+        return view('Home.Settle.settle', ['cates' => $cates])->with('shop',$shop)->with('address',$address);
     }
 }

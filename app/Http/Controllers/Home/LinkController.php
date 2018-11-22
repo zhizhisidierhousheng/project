@@ -48,10 +48,6 @@ class LinkController extends Controller
             return view('Home.Page.homelinkpage',['pp'=>$pp,'data'=>$data]);
         }
         //返回第一页数据
-        
-        // echo $page;
-        // dd($pp);
-        // dd($data);
         return view('Home.Link.link',['data'=>$data,'pp'=>$pp,'count'=>$count]);
     }
 
@@ -64,14 +60,18 @@ class LinkController extends Controller
     {
         // echo 111;
         // dd($Request->all());
+        //获取所有数据
         $data=$Request->all();
+        //得到相应的数据
         $name=$data['name'];
         $email=$data['email'];
         $url=$data['url'];
+        //status默认为0(未审核)
         $status=0;
-        // dd($name);
+        //添加入库
+        
         $db=DB::table('link')->insert(['name'=>$name,'email'=>$email,'url'=>$url,'status'=>$status]);
-        // dd($db);
+
         return redirect('/link');
     }
 

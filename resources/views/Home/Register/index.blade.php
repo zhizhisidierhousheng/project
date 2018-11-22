@@ -254,14 +254,14 @@ $(document).ready(function(){
                     // 按钮禁用
                     pp.prop('disabled', true);
                     // 按钮样式变化
-                    pp.css({'color':'#999', 'cursor':'default'});
+                    pp.css({'background':'#999', 'cursor':'default'});
                     if (m == 0) {
                         // 清除定时器
                         clearInterval(mytime);
                         pp.html('重新发送');
                         // 按钮激活
                         pp.prop('disabled', false);
-                        pp.css({'color':'white', 'cursor':'pointer'});
+                        pp.css({'background':'white', 'cursor':'pointer'});
                     }
                 },1000);
             }

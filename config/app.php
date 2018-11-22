@@ -163,6 +163,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        // // 图片处理
+        // Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +231,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // 添加验证码
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        // 图片处理
+        // 'Image' => Intervention\Image\Facades\Image::class,
     ],
+    // 商品图片上传
+    'app_upload' => './uploads/goods/'.date('Y-m-d'),
 ];

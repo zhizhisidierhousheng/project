@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB; //引入DB类
 use App\Models\Orders; //引入订单模型类
+use Session;
 
 class UsersorderController extends Controller
 {
@@ -20,7 +21,7 @@ class UsersorderController extends Controller
         //获取传递参数
         $page = $request->input('page');
         $status = $request->input('status');
-        $uid = 1;
+        $uid = getuid();
         //获取头像
         $pic = DB::select("select pic from users_info where uid = :uid", ["uid" => $uid])[0];
 
@@ -28,7 +29,7 @@ class UsersorderController extends Controller
         //获取数据总条数
         $tot = DB::table("orders")->where("uid", "=", $uid)->count();
         //每页显示数据条数
-        $rev = 5;
+        $rev = 4;
         //获取最大页
         $maxpage = ceil($tot / $rev);
         //判断
@@ -39,15 +40,22 @@ class UsersorderController extends Controller
 
         //获取订单信息
         //获取订单
-        $orders = DB::table("orders")->where("uid", "=", $uid)->orderBy("time", "DESC")->paginate(5);
+        $orders = DB::table("orders")->where("uid", "=", $uid)->orderBy("time", "DESC")->paginate(4);
         //订单表与订单详情表联查获取数据
         $sql = "select * from orders as od,orders_info as oi where od.id = oi.oid and od.uid = :uid";
         $info = DB::select($sql, ['uid' => $uid]);
         //将订单号相同的订单详情信息统一存入订单数组的info键里
-        foreach ($orders as $value) {
-            $value->time = date("Y-m-d H:i:s", $value->time);
-            $value->info = $info;
+        foreach ($orders as $order) {
+            $order->time = date("Y-m-d H:i:s", $order->time);
+            $arr = array();
+            foreach ($info as $value) {
+                if ($order->id == $value->oid) {
+                    $arr[] = $value;
+                }
+            }
+            $order->info = $arr;
         }
+        // dd($orders);
         //待发货
         $a = DB::table("orders")->where("uid", "=", $uid)->where("status", "=", 0)->get();
         //已发货
@@ -62,6 +70,9 @@ class UsersorderController extends Controller
         for ($i = 1;$i < $maxpage;$i ++) {
             $pagenum[$i] = $i;
         }
+
+        //分类
+        $cates = getcatesbypid(0);
 
         //判断请求是否为ajax
         if ($request->ajax()) {
@@ -88,15 +99,21 @@ class UsersorderController extends Controller
             $sql = "select * from orders as od,orders_info as oi where od.id = oi.oid and od.uid = :uid and od.status = :status";
             $info = DB::select($sql, ['uid' => $uid, 'status' => $status]);
             //将订单号相同的订单详情信息统一存入订单数组的info键里
-            foreach ($orders as $value) {
-                $value->time = date("Y-m-d H:i:s", $value->time);
-                $value->info = $info;
+            foreach ($orders as $order) {
+                $order->time = date("Y-m-d H:i:s", $order->time);
+                $arr = array();
+                foreach ($info as $value) {
+                    if ($order->id == $value->oid) {
+                        $arr[] = $value;
+                    }
+                }
+                $order->info = $arr;
             }
-            // dd($orders);
-            return view("Home.Users.ajaxorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "status" => $status, "pagenum" => $pagenum]);
+            // dd($pagenum);
+            return view("Home.Users.ajaxorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "status" => $status, "pagenum" => $pagenum, "cates" => $cates]);
         }
         
-        return view("Home.Users.usersorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "pagenum" => $pagenum]);
+        return view("Home.Users.usersorder", ["orders" => $orders, "pic" => $pic, "a" => $a, "b" => $b, "c" => $c, "d" => $d, "pagenum" => $pagenum, "cates" => $cates]);
     }
 
     /**
@@ -128,17 +145,21 @@ class UsersorderController extends Controller
      */
     public function show($id)
     {
-        $uid = 1;
+        $uid = getuid();
         //订单详情页
         //获取订单详细信息
         $info = DB::select("select * from orders as o,orders_info as i where o.id = i.oid and o.uid = :uid", ["uid" => $uid]);
+        // dd($info);
         //获取地址
-        $data = $address = DB::select("select a.*,o.id as oid,o.coupon_id,o.total,c.money from orders as o,users_address as a,coupon as c where o.uid = a.uid and o.coupon_id = c.id and o.id = :oid and o.uid = :uid", ["oid" => $id, "uid" => $uid])[0];
+        $data = $address = DB::select("select a.*,o.id as oid,o.total from orders as o,users_address as a where o.uid = a.uid and o.id = :oid and o.uid = :uid", ["oid" => $id, "uid" => $uid])[0];
         //整合数据
         $data->info = $info;
+
+        //分类
+        $cates = getcatesbypid(0);
         // dd($data);
 
-        return view("Home.Users.ordersinfo", ["data" => $data]);
+        return view("Home.Users.ordersinfo", ["data" => $data, "cates" => $cates]);
     }
 
     /**

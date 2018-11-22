@@ -1,0 +1,1 @@
+<a href="http://www.welaravel.com/home/myemail/upemail?id={{$id}}&email={{$email}}&token={{$token}}">确认修改</a>

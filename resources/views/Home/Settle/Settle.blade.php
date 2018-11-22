@@ -2,17 +2,13 @@
 @section("home")
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="/static/home/fonts/iconfont.css"  rel="stylesheet" type="text/css" />
-    <link href="/static/home/css/style.css" rel="stylesheet" type="text/css" />
+<head>>
     <link href="/static/home/css/Orders.css" rel="stylesheet" type="text/css" />
     <link href="/static/home/css/show.css" rel="stylesheet" type="text/css" />
     <link href="/static/home/css/purebox-metro.css" rel="stylesheet" id="skin">
-    <link rel="stylesheet" type="text/css" href="/static/admin/static/h-ui/css/H-ui.min.css" />
     <script src="/static/home/js/jquery.sumoselect.min.js" type="text/javascript"></script>
-    <script src="/static/home/js/footer.js" type="text/javascript"></script>
-    <script src="/static/home/dizhi/public/js/bootstrap.min.js"></script>
+    <link href="/static/home/css/sumoselect.css" rel="stylesheet" type="text/css" />
+
     <title>订单确认页</title>
 </head>
 <body>
@@ -29,7 +25,7 @@
             <div class="title_name">
         
                 默认收货地址
-                <button class="btn btn-success" style="float:right" onclick="opens()" disabled>自定义收货地址&nbsp;+</button>
+                <button type="button" class="btn btn-success" style="float:right" onclick="opens()">自定义收货地址&nbsp;+</button>
             </div>
             <p>
                 <input type="hidden" name="aid[]" value="{{$row->id}}">
@@ -47,52 +43,69 @@
                     <input type="hidden" name="postalcode" value="{{$row->postalcode}}">
                     <span>{{$row->postalcode}}</span>
             </p>
-                    
-            <div class="addaddr" style="display:none">
-                <div class="">
-                    <div class="">
-                        <!-- 这是模态框的头 -->
-                        <div class="modal-header">
-                            <!-- 关闭modal框的 data-dismiss -->
-                            <button class="close" onclick="closes()" data-dismiss="modal">&times;</button>
-                            <h3>添加收货地址</h3>
-                        </div>
-                        <div class="modal-body">
-                                <div class="form-group" style="margin-left:40px">
-                                    <label>收货人:</label>
-                                    <input type="text" class="form-control" name="addname" value="">
-                                </div>
-                                <br>
-                                <div class="form-group" style="margin-left:40px">
-                                    <label>电话:</label>
-                                    <input type="text" class="form-control" name="addphone">
-                                </div>
-                                <br>
-                                <div class="form-group" style="margin-left:40px">
-                                    <label>地址:</label>
-                                    <input type="text" name="addcity">
-                                </div>
-                                <br>
-                                <div class="form-group" style="margin-left:40px">
-                                    <label>详细地址:</label>
-                                    <input type="text" class="form-control" name="addaddress">
-                                </div>
-                                <br>
-                                <div class="form-group" style="margin-left:40px">
-                                    <label>邮编:</label>
-                                    <input type="text" class="form-control" name="addpostalcode">
-                                </div>
-
-                                 <button class="btn btn-success" style="float:right" onclick="editaddr()">提交</button>
-                                <span style="float:right;color:red;size:10px">*请确保所填写信息真实有效</span>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn  btn-info" data-dismiss="modal" onclick="closes()">关闭</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <!-- 自定义地址 -->
+            <!-- <form action="/home/usersaddress" method="post" id="addr"> 
+                        <div class="Add_Addresss"> 
+                            <div class="title_name">
+                                <i></i>添加地址
+                            </div> 
+                            <table> 
+                                <tbody>
+                                    <tr> 
+                                        <td class="label_name" width="250px">收货区域</td> 
+                                        <td colspan="3" class="select">
+                                            <label> 省份 </label>
+                                            <select class="kitjs-form-suggestselect " id="s_province" name="s_province"></select>
+                                            <label> 市/县 </label>
+                                            <select class="kitjs-form-suggestselect " id="s_city" name="s_city"></select>
+                                            <label> 区/县 </label><select class="kitjs-form-suggestselect" id="s_county" name="s_county"></select>
+                                            <script class="resources library" src="/static/home/address/area.js"></script>
+                                            <script>_init_area();</script>
+                                        </td> 
+                                    </tr> 
+                                    <tr>
+                                        <td class="label_name">详细地址</td>
+                                        <td>
+                                            <input name="address" type="text" class="Add-text" />
+                                            <i>（必填）</i>
+                                        </td> 
+                                        <td class="label_name">手&nbsp;&nbsp;机</td>
+                                        <td>
+                                            <input name="phone" type="text" class="Add-text" />
+                                            <i>（必填）</i>
+                                        </td> 
+                                    </tr> 
+                                    <tr> 
+                                        <td class="label_name">收件人姓名</td>
+                                        <td>
+                                            <input name="name" type="text" class="Add-text" />
+                                            <i>（必填）</i>
+                                        </td> 
+                                        <td class="label_name">邮&nbsp;&nbsp;编</td>
+                                        <td>
+                                            <input name="postacode" type="text" class="Add-text" value="000000" />
+                                            <i>（必填）</i>
+                                        </td> 
+                                    </tr> 
+                                    <tr>
+                                        <td class="label_name"></td>
+                                        <td></td>
+                                        <td class="label_name"></td>
+                                        <td></td> 
+                                    </tr> 
+                                </tbody>
+                            </table> 
+                            <div class="address_Note" style="color:red">
+                                <span>注：</span>只能添加5个收货地址信息。请乎用假名填写地址，如造成损失由收货人自己承担。
+                            </div>
+                            <div class="btn">
+                                {{csrf_field()}}
+                                <input type="button" value="添加地址" class="Add_btn" onclick="check()">
+                            </div> 
+                        </div> 
+                    </form> -->
         </div>
+    </div>
         @endforeach
         <script>
             //打开添加地址框
@@ -116,8 +129,8 @@
                 alert($('input[name="postalcode"]').html());
             }
         </script>
-    </div>
- 
+    
+    
     <fieldset>
         <!-- 付款方式 -->
         <div class="payment">
@@ -193,7 +206,7 @@
                         </li>    
                     </ul>  
                     
-                        <input type="submit" value="生成订单" class=" submit_btn btn btn-success"/>
+                        <input type="submit" value="生成订单" class=" submit_btn btn btn-success" style="margin-right: " />
                         <input name="" type="button"  onclick="window.location.href = '/cart'" value="返回购物车"  class="return_btn btn btn-danger"/>
                     <div class="integral right">
                         待订单确认后，你将获得<span>345</span>积分
@@ -221,14 +234,30 @@ $(function(){
   $('input[name=total]').val(t);
 });
 
-$(function(){
-	$(':input').labelauty();
-});
+// $(function(){
+// 	$(':input').labelauty();
+// });
 
 
 
 
 </script>
+<script src="/static/home/purebox/bootstrap-transition.js"></script> 
+<script src="/static/home/purebox/bootstrap-alert.js"></script> 
+<script src="/static/home/purebox/bootstrap-modal.js"></script> 
+<script src="/static/home/purebox/bootstrap-dropdown.js"></script> 
+<script src="/static/home/purebox/bootstrap-scrollspy.js"></script> 
+<script src="/static/home/purebox/bootstrap-tab.js"></script> 
+<script src="/static/home/purebox/bootstrap-tooltip.js"></script> 
+<script src="/static/home/purebox/bootstrap-popover.js"></script> 
+<script src="/static/home/purebox/bootstrap-button.js"></script> 
+<script src="/static/home/purebox/bootstrap-collapse.js"></script> 
+<script src="/static/home/purebox/bootstrap-carousel.js"></script> 
+<script src="/static/home/purebox/bootstrap-typeahead.js"></script> 
+<script src="/static/home/purebox/bootstrap-affix.js"></script> 
+<script src="/static/home/purebox/holder/holder.js"></script> 
+<script src="/static/home/purebox/google-code-prettify/prettify.js"></script>
+<script src="/static/home/purebox/jquery.resizable.js"></script>
 </html>
 @endsection
 @section('title','订单')

@@ -4,6 +4,7 @@
 <title>@yield('title')</title>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 会员详情 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+	
 	@if (count($errors) > 0)
   	@foreach ($errors->all() as $error)
     <div style="width:300px;height:20px;margin:auto;color:red;">{{ $error }}</div>
@@ -23,6 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			@if(!empty($info))
 			<tr class="text-c">
 				<td>{{$info->uid}}</td>
 				<td>{{$info->username}}</td>
@@ -30,6 +32,11 @@
 				<td>{{$info->age}}</td>
 				<td>{{$info->sex}}</td>
 			</tr>
+			@else
+			<tr class="text-c">
+				<td colspan="5">暂无数据</td>
+			</tr>
+			@endif
 		</tbody>
 	</table>
 </div>

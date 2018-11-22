@@ -33,9 +33,9 @@
 </article>
 <script type="text/javascript" src="/static/admin/lib/jquery/1.9.1/jquery.min.js"></script>
 <script>
-   $('.div').click(function(){
+    $('.div').click(function(){
         $(this).hide();
-   });
+    });
 </script>
 @endsection
 @section('title', '角色权限分配')
