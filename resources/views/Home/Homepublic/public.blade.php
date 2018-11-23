@@ -26,7 +26,7 @@
                         <a href="/login" class="red">[退出]</a>
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="/order">我的订单</a>
+                        <a href="/home/usersorder">我的订单</a>
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
                         <a href="/cart">购物车</a>
@@ -37,7 +37,7 @@
                         <a href="/register" class="red">[免费注册]</a>
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">购物车</a>
+                        <a href="/cart">购物车</a>
                     </li>
                     @endif
 

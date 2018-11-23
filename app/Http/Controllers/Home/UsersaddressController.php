@@ -48,7 +48,7 @@ class UsersaddressController extends Controller
     public function store(Request $request)
     {
         //获取id
-        $uid = 1;
+        $uid = getuid();
         //执行地址添加
         //获取数据
         $data = $request->only('phone', 'name', 'address', 'postacode');
@@ -89,7 +89,7 @@ class UsersaddressController extends Controller
     public function edit($id)
     {
         //地址修改页
-        $uid = 1;
+        $uid = getuid();
         //获取头像
         $info = Users::find($uid)->info;
         //获取需修改的那条地址数据
@@ -150,7 +150,7 @@ class UsersaddressController extends Controller
      */
     public function destroy($id)
     {
-        $uid = 1;
+        $uid = getuid();
         //执行地址删除
         $status = DB::select("select status from users_address where id = :id", ["id" => $id])[0];
         // dd($status);

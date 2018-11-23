@@ -51,7 +51,7 @@ class RolelistController extends Controller
     public function saveauth(Request $request)
     {
         // 获取当前角色id
-        $id = $_POST['id'];
+        $rid = $_POST['rid'];
         // 向role_node 插入数据
         // 判断是否有权限赋予
         if (empty($_POST['nid'])) {
@@ -77,7 +77,7 @@ class RolelistController extends Controller
             }
         }
         // 转回权限分配页并提示信息
-        return redirect("/authrole/{$id}")->with('success', '权限分配成功');
+        return redirect("/authrole/{$rid}")->with('success', '权限分配成功');
     }
 
     /**
