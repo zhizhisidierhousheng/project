@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Config;
 use App\Http\Requests\AdminGoodsRequest;// 导入商品添加校验类
+use App\Http\Requests\GoodsRequest;// 导入商品修改校验类
 use App\Http\Requests\GoodsInfoInsert;// 导入添加详情校验类
 
 class AdmingoodsController extends Controller
@@ -19,7 +20,6 @@ class AdmingoodsController extends Controller
     // 加载后台商品模块列表页
     public function index()
     {
-        // dd($request->input('status'));
         //获取商品的数据
         $goods = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->select(DB::raw('*,goods.name as sname,goods.id as sid,cates.name as cname,cates.id as csid'))->paginate(10);
         // dd($goods);
@@ -81,25 +81,9 @@ class AdmingoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // 修改状态
     public function show($id)
     {
-        $te = DB::table('goods')->where('id', '=', $id)->get();
-
-        // 状态
-        $stu = $te[0]->status;
-        //进来的status的值是1就变为0 是0就变为1
-        if ($stu == 0) {
-            $stu = 1;
-        } else {
-            $stu = 0;   
-        }
-        //修改数据库中的status
-        $db = DB::table('goods')->where('id', '=', $id)->update(['status'=>$stu]);
-        $goods = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->select(DB::raw('*,goods.name as sname,goods.id as sid,cates.name as cname,cates.id as csid'))->paginate(10);
-        // dd($db);
-        return view('Admin.Goods.index', ['goods'=>$goods]);
-        // return redirect('/admingoods');
+        // 
     }
 
     // 修改状态
@@ -113,13 +97,10 @@ class AdmingoodsController extends Controller
         } else {
             $sta = 0;
         }
-        // dd($status);
-        // $arr = $request->except('_token');
-        // var_dump($arr);
         if (DB::update("update goods set status={$sta} where id={$id}")) {
-            return response()->json(['msg' => 1, 'status' => $sta]);
+            return response()->json(['msg' => 1, 'sta' => $sta]);
         }else{
-            return response()->json(['msg' => 0, 'status' => $sta]);
+            return response()->json(['msg' => 0, 'sta' => $sta]);
         }
     }
 
@@ -129,12 +110,11 @@ class AdmingoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // 修改
+    // 修改商品信息
     public function edit($id)
     {
         //获取到需要修改的信息
         $info = DB::table('goods')->where('id', '=', $id)->first();
-        // dd($info);
         //加载模板
         return view('Admin.Goods.edit', ['info' => $info]);
     }
@@ -146,35 +126,36 @@ class AdmingoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // 执行方法
+    public function update(GoodsRequest $request, $id)
     {
         //修改图片
         //获取需要修改的数据
-        $info=DB::table('goods')->where('id','=',$id)->first();
+        $info = DB::table('goods')->where('id','=',$id)->first();
         //获取pic
-        $m=".".$info->pic;
+        $m = ".".$info->pic;
         //获取参数
-        $data=$request->except(['_token','_method']);
-        if($request->hasFile('pic')){
+        $data = $request->except(['_token', '_method']);
+        if ($request->hasFile('pic')) {
         //获取后缀
-            $extension=$request->file('pic')->getClientOriginalExtension();
+            $extension = $request->file('pic')->getClientOriginalExtension();
             //随机文件名字
-            $s=time()+rand(1,9999);
-            $request->file('pic')->move(Config::get('app.app_upload'),$s.".".$extension);
-            $data['pic']=trim(Config::get('app.app_upload').'/'.$s.".".$extension,".");
+            $s = time() + rand(1,9999);
+            $request->file('pic')->move(Config::get('app.app_upload'), $s.".".$extension);
+            $data['pic'] = trim(Config::get('app.app_upload').'/'.$s.".".$extension,".");
             //执行数据库的修改操作
-            if(DB::table('goods')->where('id','=',$id)->update($data)){
-            //删除原图
+            if (DB::table('goods')->where('id','=',$id)->update($data)) {
+                //删除原图
                 unlink($m);
-                return redirect('/admingoods')->with('success','修改成功');
-            }else{
-                return redirect('/admingoods')->with('with','修改失败');
+                return redirect('/admingoods')->with('success', '修改成功');
+            } else {
+                return redirect('/admingoods')->with('with', '修改失败');
             }
-        }else{
+        } else {
             //不修改图片
-            if(DB::table('goods')->where('id','=',$request->input('id'))->update($data)){
+            if (DB::table('goods')->where('id', '=', $request->input('id'))->update($data)) {
                 return redirect('/admingoods')->with('success','修改成功');
-            }else{
+            } else {
                 return redirect('/admingoods')->with('with','修改失败');
             }
         }
@@ -245,7 +226,14 @@ class AdmingoodsController extends Controller
         // 排除掉信息
         $data = $request->except('_token', 'id');
         $data['gid'] = $request->input('id');// 商品id
-        $data['package'] = '箱装/盒装';// 包装
+        // 包装方式
+        if ($data['package'] == 0) {
+            $data['package'] = '箱装';
+        } elseif ($data['package'] == 1) {
+            $data['package'] = '盒装';
+        } elseif ($data['package'] == 2) {
+            $data['package'] = '袋装';
+        }
         $data['pro_time'] = date('Y-m-d h:i:s', time());// 生产日期
         $data['lmt_time'] = date('Y-m-d h:i:s', strtotime("+15days",time()));// 过期日期
         // dd($data);
@@ -267,49 +255,42 @@ class AdmingoodsController extends Controller
     // 详情修改
     public function updateinfo(GoodsInfoInsert $request,$id)
     {
-        // dd($request->all());
         // 获取要修改的数据
         $info = DB::table('goods_info')->where('gid', '=', $id)->first();
         // 获取接收的数据
         $data = $request->except('_token');
-        // dd($request->hasFile('pic_up'));
         // 修改
-        if($request->hasFile('pic_up') || $request->hasFile('pic_down')){
-
-            $str = $info['pic_up'];
-            if (preg_match_all('/src="(.+?)"/', $str, $matches)) {
-                foreach ($matches[1] as $key => $value) {
-                $m = '.'.$value;
-                unlink($m);
-                }
-            }
-            $str1 = $info['pic_down'];
-            if (preg_match_all('/src="(.+?)"/', $str1, $matches1)) {
-                foreach ($matches1[1] as $k => $v) {
-                $m1 = '.'.$v;
-                unlink($m1);
-                }
-            }
-            dd($str);
-            $data['gid'] = $id;
-            $data['package'] = '箱装/盒装';// 包装
-            $data['pro_time'] = date('Y-m-d h:i:s', time());// 生产日期
-            $data['lmt_time'] = date('Y-m-d h:i:s', strtotime("+15days",time()));// 过期日期
-            if(DB::table('goods_info')->where('gid', '=', $id)->update($data)){
-                return redirect('/admingoods')->with('success', '修改成功');
-            }else{
-                return redirect('/admingoods')->with('error', '修改失败');
-            }
-        }else{
-            $data['gid'] = $id;
-            $data['package'] = '箱装/盒装';// 包装
-            $data['pro_time'] = date('Y-m-d h:i:s', time());// 生产日期
-            $data['lmt_time'] = date('Y-m-d h:i:s', strtotime("+15days",time()));// 过期日期
-            if(DB::table('goods_info')->where('gid', '=', $id)->update($data)){
-                return redirect('/admingoods')->with('success', '修改成功');
-            }else{
-                return redirect('/admingoods')->with('error', '修改失败');
-            }
+        // dd($data);
+        // $str = $info['pic_up'];
+        // if (preg_match_all('/src="(.+?)"/', $str, $matches)) {
+        //     foreach ($matches[1] as $key => $value) {
+        //     $m = '.'.$value;
+        //     unlink($m);
+        //     }
+        // }
+        // $str1 = $info['pic_down'];
+        // if (preg_match_all('/src="(.+?)"/', $str1, $matches1)) {
+        //     foreach ($matches1[1] as $k => $v) {
+        //     $m1 = '.'.$v;
+        //     unlink($m1);
+        //     }
+        // }
+        // 包装方式
+        if ($data['package'] == 0) {
+            $data['package'] = '箱装';
+        } elseif ($data['package'] == 1) {
+            $data['package'] = '盒装';
+        } elseif ($data['package'] == 2) {
+            $data['package'] = '袋装';
         }
+        $data['gid'] = $id;// 商品id
+        $data['pro_time'] = date('Y-m-d h:i:s', time());// 生产日期
+        $data['lmt_time'] = date('Y-m-d h:i:s', strtotime("+15days",time()));// 过期日期
+        if(DB::table('goods_info')->where('gid', '=', $id)->update($data)){
+            return redirect('/admingoods')->with('success', '修改成功');
+        }else{
+            return redirect('/admingoods')->with('error', '修改失败');
+        }
+   
     }
 }

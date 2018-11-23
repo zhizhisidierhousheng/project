@@ -45,6 +45,14 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">包装方式:</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="package" value="0" @if($data->package == '箱装')checked="checked"@endif>箱装
+				<input type="radio" name="package" value="1" @if($data->package == '盒装')checked="checked"@endif>盒装
+				<input type="radio" name="package" value="2" @if($data->package == '袋装')checked="checked"@endif>袋装
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">生产许可编码:</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" name="pro_num" value="{{$data->pro_num}}" class="input-text Wdate">

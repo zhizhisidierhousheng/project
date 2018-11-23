@@ -190,8 +190,8 @@
 </div>
     @section('home')
     @show
-    
-    <div class="slogen">
+    <div class="clearfix"></div>
+    <div class="slogen ">
         <div class="index_style">
             <ul class="wrap">
                 <li>
@@ -323,7 +323,7 @@
                 <a href="#">公开信息披露</a>｜
                 <a href="#">加入我们</a>｜
                 <a href="#">联系我们</a>｜
-                <a href="">友情链接</a>｜
+                <a href="/link">友情链接</a>｜
                 <a href="#">版权声明</a>｜
                 <a href="#">隐私声明</a>｜
                 <a href="#">网站地图</a></p>

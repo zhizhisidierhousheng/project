@@ -104,11 +104,6 @@ Route::group(['middleware' => 'adminlogin'], function ()
 	// 后台轮播图删除选中
 	Route::get('/looppicchoosedel','Admin\LooppicController@choosedel');
 
-
-
-
-
-
 // 后台首页
 	Route::resource('/admin', 'Admin\AdminController');
 
@@ -153,8 +148,8 @@ Route::post('/reset', 'Home\LoginController@reset');
     Route::get('/home/userscenter', 'Home\UserscenterController@userscenter');
 //会员商品收藏
     Route::resource('/home/userscollect', 'Home\UserscollectController');
-//会员优惠券
-    Route::resource('/home/userscoupon', 'Home\UserscouponController');
+// 会员评价查看
+    Route::resource('/home/userscomment', 'Home\UserscommentController');
 //会员个人信息    
     //ajax修改个人信息
     Route::get('/home/ajaxinfo', 'Home\UsersinfoController@ajaxinfo');

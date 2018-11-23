@@ -22,41 +22,39 @@
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <div style="float:left;">
       
-     <a class="btn btn-success allchoose" style="float:left;margin-left:7px">全选</a>
-     <a class="btn btn-success fchoose" style="float:left;margin-left:7px">反选</a>
-     <a class="btn btn-danger delchoose" style="float:left;margin-left:7px" onclick="">删除选中</a>
-     <a href="javascript:;" onclick="picture_add('添加图片','/adminpicadd','800','500')" class="ml-5" style="text-decoration:none;margin-left:30px;float:right;">      
-            <i class="Hui-iconfont btn btn-success">&#xe600;图片添加&nbsp;</i>
-      </a>
-    </div>
-    <span class="r">共有数据：<strong>{{$count}}</strong> 条</span>
+            <a class="btn btn-success allchoose" style="float:left;margin-left:7px">全选</a>
+            <a class="btn btn-success fchoose" style="float:left;margin-left:7px">反选</a>
+            <a class="btn btn-danger delchoose" style="float:left;margin-left:7px" onclick="">删除选中</a>
+            <a href="javascript:;" onclick="picture_add('添加图片','/adminpicadd','800','500')" class="ml-5" style="text-decoration:none;margin-left:30px;float:right;">      
+                <i class="Hui-iconfont btn btn-success">&#xe600;图片添加&nbsp;</i>
+            </a>
+        </div>
+        <span class="r">共有数据：<strong>{{$count}}</strong> 条</span>
 @if ($count == 0)
     <!-- 全选反选删除 -->
-  </div>
-  <div id="uid">
-  <table class="table table-border table-bordered table-bg looppictable">
-    <thead>
-      <tr>
-        <th scope="col" colspan="9">
-          轮播图列表          
-        </th>     
-      </tr>
-      <tr class="text-c">
-        <th width="25"></th>
-        <th width="40">ID</th>
-        <th width="150">图片描述</th>
-        <th width="250">图片</th>
-        <th width="100">是否已启用</th>
-        <th width="100">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="text-c">
-        <td colspan="6">暂无数据 请添加</td>
-      </tr>    
-    </tbody>
-  </table>
-  </div>
+    </div>
+    <div id="uid">
+        <table class="table table-border table-bordered table-bg looppictable">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="9">轮播图列表</th>     
+                </tr>
+                <tr class="text-c">
+                    <th width="25"></th>
+                    <th width="40">ID</th>
+                    <th width="150">图片描述</th>
+                    <th width="250">图片</th>
+                    <th width="100">是否已启用</th>
+                    <th width="100">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c">
+                    <td colspan="6">暂无数据 请添加</td>
+                </tr>    
+            </tbody>
+        </table>
+    </div>
 
 </div>
 @else

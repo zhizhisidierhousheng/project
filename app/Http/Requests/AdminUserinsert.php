@@ -1,5 +1,5 @@
 <?php
-
+// 用户注册验证类
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;

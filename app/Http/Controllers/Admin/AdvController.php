@@ -14,6 +14,7 @@ class AdvController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 广告列表
     public function index(Request $request)
     {
         //广告列表页

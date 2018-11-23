@@ -1,5 +1,5 @@
 <?php
-
+// 友情管理
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -13,6 +13,7 @@ class RelinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 列表页
     public function index(Request $request)
     {   
         //获取所有数据
@@ -86,10 +87,9 @@ class RelinkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /************这是删除！！！！！*************/
+    /************这是普通删除！！！！！*************/
     public function show($id)
     {
-
         //执行删除
         DB::table('link')->where('id','=',$id)->delete();
         return redirect('/adminrelink');
@@ -101,6 +101,7 @@ class RelinkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 修改状态
     public function edit($id)
     {
         //获取数据
@@ -145,8 +146,10 @@ class RelinkController extends Controller
      */
     public function destroy($id)
     {
-        echo 111;
+        // 
     }
+
+    // Ajax删除
     public function choosedel(request $request)
     {
         $arr = $request->input('arr');

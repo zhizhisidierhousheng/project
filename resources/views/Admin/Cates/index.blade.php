@@ -1,6 +1,6 @@
 ﻿@extends("Admin.AdminPublic.public")
 @section("admin")
-
+<link rel="stylesheet" href="/mypage.css">
 <style>
 	.div{margin: 30px auto; width: 20%; text-align: center;border-radius: 10px; background: lightgreen;}
 </style>
@@ -60,7 +60,7 @@
 				</tbody>
 			</table>
 			<div id="pages">
-				{!!$cate->appends($request)->render()!!}
+				{{$cate->appends($request)->render()}}
 			</div>
 		</div>
 	</div>

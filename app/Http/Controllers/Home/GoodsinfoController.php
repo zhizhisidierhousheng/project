@@ -13,18 +13,7 @@ class GoodsinfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // 无限分类方法
-    public function getcatesbypid($pid)
-    {
-        $res = DB::table("cates")->where("pid", "=", $pid)->get();
-        $data = [];
-        //遍历 把对应得到的子类信息 添加到SUV下标里面
-        foreach ($res as $key => $value) {
-            $value->suv = $this->getcatesbypid($value->id);
-            $data[] = $value;
-        }
-        return $data;
-    }
+   
     public function index($id)
     {
 
@@ -46,37 +35,9 @@ class GoodsinfoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // 提交评论
     public function store(Request $request)
     {
-        // 定义用户
-        $request['name'] = 'user';
-        // 获取商品id
-        $id = $request->id;
-        // 查询出用户购买过的所有商品id
-        $info = DB::table('users')->join('orders', 'orders.uid', '=', 'users.id')->join('orders_info', 'orders.id', '=', 'orders_info.oid')->select('orders_info.gid')->where('name', '=', $request['name'])->get();
-        // 遍历商品id
-        foreach($info as $value){
-            if($value->gid == $id){
-                // 排除字段
-                $data = $request->except('_token', 'name', 'id');
-                // 商品id
-                $data['gid'] = $id;
-                // 会员id
-                $data['uid'] = DB::table('users')->where('name', '=', $request->name)->value('id');
-                // 评论时间
-                $data['inputtime'] = date('Y-m-d h:i:s', time());
-                // 判断
-                if(DB::table('comment')->insert($data)){
-                    return redirect("/homegoods/{$id}");
-                }else{
-                    return redirect("/homegoods/{$id}");
-                }
-            }else{
-                return redirect("/homegoods/{$id}")->with('error', '未购买过此商品,请先购买商品');
-            }
-        }
-
+       // 
     }
 
     /**
@@ -85,9 +46,10 @@ class GoodsinfoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 跳转商品详情表
     public function show($id)
     {
-        $data = $this->getcatesbypid(0);
+        $data = getcatesbypid(0);
 
         // 商品详情
         $goods = DB::table('goods')->join('goods_info', 'goods.id', '=', 'goods_info.gid')->where('id', '=', $id)->first();
@@ -102,7 +64,7 @@ class GoodsinfoController extends Controller
         $goods->pic_down = $matches1[1];
 
         // 获取评论内容
-        $comment = DB::table('comment')->join('users', 'comment.uid', '=', 'users.id')->where('gid', '=', $id)->select('comment.*', 'users.name')->get();
+        $comment = DB::table('comment')->join('users', 'comment.uid', '=', 'users.id')->where('gid', '=', $id)->orderBy('inputtime', 'desc')->select('comment.*', 'users.name')->get();
         // 获取评论总数
         $commentTot = DB::table('comment')->where('gid', '=', $id)->count();
         // 好评总数
@@ -117,7 +79,7 @@ class GoodsinfoController extends Controller
             'lowTot' => $lowTot,
             'inTot' => $inTot,
             );
-        
+
         // 获取分类id
         $cates = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->where('goods.id', '=', $id)->select('cates.id')->first();
         // 得到当前分类下最新的3个商品

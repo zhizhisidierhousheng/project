@@ -1,5 +1,5 @@
 <?php
-
+// 公告模块
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;

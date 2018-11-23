@@ -55,15 +55,15 @@
 						<div class="float_Left">
 							1.</div>
 						<div class="margin_l_12">
-							请先在贵网站做好讨食的文字友情链接：
-							<br> 链接文字：讨食链接地址：
+							请先在贵网站做好淘食的文字友情链接：
+							<br> 链接文字：淘食链接地址：
 							<a href="//www.welaravel.com" target="_blank">www.welaravel.com</a></div>
 					</li>
 					<li>2.做好链接后，请在右侧填写申请信息。淘食只接受申请文字友情链接。</li>
 					<li>
 						<div class="float_Left"> 3.</div>
 						<div class="margin_l_12">
-							已经开通我站友情链接且内容健康，符合本站友情链接要求的网站，经讨食管理员审核后，可以显示在此友情链接页面。</div>
+							已经开通我站友情链接且内容健康，符合本站友情链接要求的网站，经淘食管理员审核后，可以显示在此友情链接页面。</div>
 					</li>
 					<li>
 						<div class="float_Left"> 4.</div>

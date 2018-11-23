@@ -1,5 +1,5 @@
 <?php
-
+// 链接列表模拟显示前台页面
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;

@@ -44,6 +44,14 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">包装方式:</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" name="package" value="0" >箱装
+				<input type="radio" name="package" value="1" >盒装
+				<input type="radio" name="package" value="2" >袋装
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">生产许可编码:</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" name="pro_num" value="" class="input-text Wdate">

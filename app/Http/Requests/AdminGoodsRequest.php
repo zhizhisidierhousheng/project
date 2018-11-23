@@ -1,5 +1,5 @@
 <?php
-
+// 商品添加验证类
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;

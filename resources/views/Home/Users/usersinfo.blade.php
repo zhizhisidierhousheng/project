@@ -45,7 +45,7 @@
                             <ul> 
                                 <li> <a href="/home/usersinfo"> 会员信息</a></li>
                                 <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                                <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
+                                <li><a href="/home/userscomment"> 我的评论</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 

@@ -5,7 +5,7 @@
 	.div{margin: 30px auto; width: 20%; text-align: center;border-radius: 10px; background: lightgreen;}
 </style>
 <title>商品列表</title>
-
+<link rel="stylesheet" href="/mypage.css">
 <div>
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 商品管理 <span class="c-gray en">&gt;</span> 商品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="page-container">
@@ -42,12 +42,12 @@
 			       		<td>{{$row->price}}</td>
 			       		<td>{!!$row->dcr!!}</td>
 			       		<td><img src="{{$row->pic}}" width="100px" height="100px"></td>
-		       			<td class="td-status" >
+		       			<td>
 		       				<a href="javascript:;">
-				            @if($row->status == 0)
-				                <span class="label label-success radius" >1</span>
+				            @if($row->status == 1)
+				                <span class="label label-success radius" onclick="gstatus(this, 1)" >上架</span>
 				            @else
-				                <span class="label label-warning radius" >0</span> 
+				                <span class="label label-warning radius" onclick="gstatus(this, 0)" >下架</span> 
 				            @endif
 				            </a>
 			            </td>
@@ -55,7 +55,7 @@
 							<a style="text-decoration:none" href="/addgoodsinfo/{{$row->sid}}" title="详情添加" class="ml-5">
 								<i class="Hui-iconfont">&#xe604;</i>
 							</a>
-							<a style="text-decoration:none" class="ml-5"  href="/admingoods/{{$row->id}}/edit" title="修改">
+							<a style="text-decoration:none" class="ml-5"  href="/admingoods/{{$row->sid}}/edit" title="修改">
 								<i class="Hui-iconfont">&#xe6df;</i>
 							</a> 
 							<a style="text-decoration:none" class="ml-5 del"  href="javascript:;" title="删除">
@@ -92,18 +92,25 @@
 	        }, 'json');
     	} 
     });
-	$('.label').click(function(){
-		id = $(this).parents('tr').find('td:first').html();
-		status = $(this).html();
+    // 修改状态
+	function gstatus(obj, sta)
+	{
+		id = $(obj).parents('tr').find('td:first').html();
+		status = sta;
+		newobj = $(obj);
 		$.get('/goodsstatus', {id:id, status:status}, function(data){
 			if(data.msg == 1){
+				if (data.sta) {
+					newobj.removeClass('label-warning').addClass('label-success').html('上架');
+				} else {
+					newobj.removeClass('label-success').addClass('label-warning').html('下架');
+				}
 				alert('修改成功');
-				// status=0;
 			}else{
 				alert('修改失败');
 			}
-		}, 'json')
-	});
+		}, 'json');
+	}
 	
 </script>
 @endsection

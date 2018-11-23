@@ -11,7 +11,11 @@
 
 <div class="page-container">
 	<form class="form form-horizontal" id="form-article-add" action="/admingoods/{{$info->id}}" method="post" enctype="multipart/form-data">
-
+		@if(count($errors) > 0)
+	        @foreach($errors->all() as $error)
+	            <div style="text-align:center;margin:auto;color:red">{{$error}}</div>
+	        @endforeach
+    	@endif
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">商品名:</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -37,7 +41,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">数量:</label>
+			<label class="form-label col-xs-4 col-sm-2">单价:</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" name="price" value="{{$info->price}}" class="input-text Wdate">
 			</div>

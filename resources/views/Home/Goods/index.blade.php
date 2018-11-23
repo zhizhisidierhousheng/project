@@ -506,7 +506,7 @@
                     </div>
                 </div>
                 <div class="commentBox" style="display:none;">
-                     <form action="/homegoods"  method="post" name="commentForm" id="commentForm">
+                     <form action="/home/userscomment"  method="post" name="commentForm" id="commentForm">
                         <h3>商品评分</h3>
                         <div id="star">
                             <div id="sta">
@@ -520,7 +520,6 @@
 								<span></span>
 								<p></p>
 							</div>
-                            <input type="hidden" name="name" value="{{session('name')}}">
                             <input type="hidden" name="id" value="{{$goods->id}}">
                         </div>
                         <h4>评论内容</h4>
@@ -594,7 +593,9 @@
                         </dl>
                         <dl>
                             <dt>差评
-                                <span>({{round($arr['lowTot']/$arr['commentTot']*100)}}%)</span>
+                                <span>
+                                ({{ 100 - round($arr['goodTot']/$arr['commentTot']*100) - round($arr['inTot']/$arr['commentTot']*100) }}%)
+                                </span>
                             </dt>
                             <dd class="d1">
                                 <div style="width:{{round($arr['lowTot']/$arr['commentTot']*100)}}px;"></div>
@@ -616,7 +617,7 @@
                 @if(session('error'))
 	            {{session('error')}}
 	            @endif
-                    <form action="/homegoods"  method="post" name="commentForm" id="commentForm">
+                    <form action="/home/userscomment"  method="post" name="commentForm" id="commentForm">
                         <h3>商品评分</h3>
                         <div id="star">
                             <div id="sta">
@@ -630,7 +631,6 @@
 								<span></span>
 								<p></p>
 							</div>
-                            <input type="hidden" name="name" value="{{session('name')}}">
                             <input type="hidden" name="id" value="{{$goods->id}}">
                         </div>
                         <h4>评论内容</h4>

@@ -1,13 +1,12 @@
 <?php
-
+// 轮播图控制器
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //引入DB
 use DB;
-use Validator;
-use Illuminate\Support\Facades\Storage;
+
 class LooppicController extends Controller
 {
     /**
@@ -15,6 +14,7 @@ class LooppicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 显示列表页
     public function index(Request $request)
     {   
         //获取图片总数
@@ -66,7 +66,7 @@ class LooppicController extends Controller
      */
     public function create()
     {
-        echo 'create';
+        // 
     }
 
     /**
@@ -90,10 +90,10 @@ class LooppicController extends Controller
             $dcr = $request->input('dcr');
             // dd($url);
             DB::table('looppic')->insert([
-                                            'dcr'=>$dcr,
-                                            'url'=>$url,
-                                            'status'=>0
-                                        ]);
+                                    'dcr'=>$dcr,
+                                    'url'=>$url,
+                                    'status'=>0
+                                ]);
             // echo "<script>window.location.href = '/admin/';</script>";
             // return redirect("/adminlooppic");
             return redirect('/adminlooppic');
@@ -122,6 +122,7 @@ class LooppicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 修改状态
     public function edit($id)
     {
         //获取数据
@@ -166,13 +167,15 @@ class LooppicController extends Controller
      */
     public function destroy($id)
     {
-        echo 111;
+        // 
     }
+
     //这是用于跳转轮播图添加页面
     public function adminpicadd()
     {
         return view('Admin.Looppic.add');
     }
+    // Ajax删除
     public function choosedel(request $request)
     {
         $arr = $request->input('arr');

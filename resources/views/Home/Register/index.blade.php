@@ -241,6 +241,13 @@ $(document).ready(function(){
         }
         // 当前元素
         pp = $(this);
+        // 点击一次后禁止点击
+        pp.prop('disabled', true);
+        // 1秒后恢复点击
+        mytimes = setTimeout(function(){
+            pp.prop('disabled', false);
+        },1000);
+
         // Ajax
         $.get('/codeget', {p:p}, function(data) {
             // 确认短信发送成功
@@ -261,7 +268,7 @@ $(document).ready(function(){
                         pp.html('重新发送');
                         // 按钮激活
                         pp.prop('disabled', false);
-                        pp.css({'background':'white', 'cursor':'pointer'});
+                        pp.css({'background':'orange', 'cursor':'pointer'});
                     }
                 },1000);
             }
