@@ -21,15 +21,12 @@
 
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <div style="float:left;">
-      
-            <a class="btn btn-success allchoose" style="float:left;margin-left:7px">全选</a>
-            <a class="btn btn-success fchoose" style="float:left;margin-left:7px">反选</a>
-            <a class="btn btn-danger delchoose" style="float:left;margin-left:7px" onclick="">删除选中</a>
-            <a href="javascript:;" onclick="picture_add('添加图片','/adminpicadd','800','500')" class="ml-5" style="text-decoration:none;margin-left:30px;float:right;">      
-                <i class="Hui-iconfont btn btn-success">&#xe600;图片添加&nbsp;</i>
-            </a>
-        </div>
-        <span class="r">共有数据：<strong>{{$count}}</strong> 条</span>
+
+     <a class="btn btn-success allchoose" style="float:left;margin-left:7px">全选</a>
+     <a class="btn btn-success fchoose" style="float:left;margin-left:7px">反选</a>
+     <a class="btn btn-danger delchoose" style="float:left;margin-left:7px" onclick="">删除选中</a>
+    </div>
+    <span class="r">共有数据：<strong>{{$count}}</strong> 条</span>
 @if ($count == 0)
     <!-- 全选反选删除 -->
     </div>
@@ -178,10 +175,6 @@ function page(page)
         //赋值
         $('#uid').html(data);
     });
-}
-/*轮播图-添加*/
-function picture_add(title,url,w,h){
-    layer_show(title,url,w,h);
 }
 /*轮播图-删除*/
 function picture_del(obj,id)

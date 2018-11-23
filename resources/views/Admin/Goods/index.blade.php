@@ -101,9 +101,9 @@
 		$.get('/goodsstatus', {id:id, status:status}, function(data){
 			if(data.msg == 1){
 				if (data.sta) {
-					newobj.removeClass('label-warning').addClass('label-success').html('上架');
+					newobj.removeClass('label-warning').addClass('label-success').attr('onclick', 'gstatus(this, 1)').html('上架');
 				} else {
-					newobj.removeClass('label-success').addClass('label-warning').html('下架');
+					newobj.removeClass('label-success').addClass('label-warning').attr('onclick', 'gstatus(this, 0)').html('下架');
 				}
 				alert('修改成功');
 			}else{

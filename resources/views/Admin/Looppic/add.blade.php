@@ -1,3 +1,5 @@
+@extends("Admin.AdminPublic.public")
+@section('admin')
 <!doctype html>
 <html>
 <head>    
@@ -32,3 +34,8 @@
     </form>
 </body>
 </html>
+@endsection
+<!-- 这是网页大标题 -->
+@section('title','轮播图管理')
+<!-- 这是下面小窗口标题 -->
+@section('smalltitle','轮播图管理')

@@ -50,10 +50,6 @@ class RelinkController extends Controller
             return view('Admin.Page.relinkpage',['data'=>$data]);
         }
         //返回第一页数据
-        
-        // echo $page;
-        // dd($pp);
-        // dd($data);
         return view('Admin.Link.relink',['data'=>$data,'pp'=>$pp,'count'=>$count]);
         }else{
             return view('Admin.Link.relink',['count'=>$count]);
@@ -116,14 +112,7 @@ class RelinkController extends Controller
         }
         //修改数据库中的status
         $db=DB::table('link')->where('id','=',$id)->update(['status'=>$stu]);
-
-        //执行修改
-        // $data1=DB::table("stu")->where("id",'=',8)->update(['name'=>'yaoming']);
-        // var_dump($db);exi
-        $data=DB::table('link')->paginate(8);
-        $count=DB::table('link')->count();
         return redirect('/adminrelink');
-        // return view('Admin.Admin.relink',['data'=>$data,'count'=>$count,'stu'=>$stu]);
     }
 
     /**
@@ -152,12 +141,14 @@ class RelinkController extends Controller
     // Ajax删除
     public function choosedel(request $request)
     {
+        //获取需要修改的数字
         $arr = $request->input('arr');
+        //判断数组是否为空
         if ($arr == ""){
             echo "请至少选中一条";
         }else{
-            // echo json_encode($arr);
             foreach($arr as $key => $value){
+                //执行删除
                 DB::table('link')->where('id','=',$value)->delete();
             }
             echo 1;

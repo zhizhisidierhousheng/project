@@ -30,52 +30,65 @@
 				<div class="Pagination">
 				</div>
 			</div>
-			<div class="link_bottom"><div class="bottom_right"></div><div class="bottom_left"></div></div>
 		</div>
-		</div>
-@else
-     <body>
-	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 友情链接管理 <span class="c-gray en">&gt;</span> 链接列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-	<div class="w">
-		<!-- 这里取出ajax分页内容 -->
-		<div id="uid">
-		<div class="link_box">
-			<div class="link_top"><div class="top_right"></div><div class="top_left"></div></div>	
-			<div class="link_content">
-				<h3 class="link_tit">友情链接(已上架)</h3>
-				<ul class="link_list">
-					@foreach($data as $row)
+	@else
+    <body>
+		<nav class="breadcrumb">
+			<i class="Hui-iconfont">&#xe67f;</i> 
+			首页 <span class="c-gray en">&gt;</span> 
+			友情链接管理 <span class="c-gray en">&gt;</span> 
+			链接列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+				<i class="Hui-iconfont">&#xe68f;</i>
+			</a>
+		</nav>
+		<div class="w">
+			<!-- 这里取出ajax分页内容 -->
+			<div id="uid">
+				<div class="link_box">
+					<div class="link_top">
+						<div class="top_right"></div>
+						<div class="top_left"></div>
+					</div>	
+					<div class="link_content">
+						<h3 class="link_tit">友情链接(已上架)</h3>
+						<ul class="link_list">
+							@foreach($data as $row)
 					
-						<li><a href="{{$row->url}}" target="_blank">{{$row->name}}</a></li>
-					
-					@endforeach
-				</ul>
-				<div class="Pagination">
+								<li>
+									<a href="{{$row->url}}" target="_blank">{{$row->name}}</a>
+								</li>
+							
+							@endforeach
+						</ul>
+						<div class="Pagination">
+						</div>
+					</div>
+					<div class="link_bottom">
+						<div class="bottom_right"></div>
+						<div class="bottom_left"></div>
+					</div>
 				</div>
 			</div>
-			<div class="link_bottom"><div class="bottom_right"></div><div class="bottom_left"></div></div>
-		</div>
-		</div>
-		<!-- 结束ajax -->
-		<div class="link_box_a">
-			<div class="link_top">
-				<div class="top_right"></div>
-				<div class="top_left"></div>
-			</div>
+			<!-- 结束ajax -->
+			<div class="link_box_a">
+				<div class="link_top">
+					<div class="top_right"></div>
+					<div class="top_left"></div>
+				</div>
 				<div class="link_bottom">
-				<div class="bottom_right"></div>
-				<div class="bottom_left"></div>
+					<div class="bottom_right"></div>
+					<div class="bottom_left"></div>
+				</div>
 			</div>
-		</div>
-	</div>   
-	<!-- 分页按钮 -->     
-    <div style="float:right;margin-right:50px">
-	    @foreach($pp as $row)
-	    	<a href="javascript:void(0)" class="btn btn-success" style="float:left;margin-left:7px" onclick="page({{$row}})">{{$row}}</a>
-	    @endforeach
-    </div>
-@endif
-<!-- js -->
+		</div>   
+		<!-- 分页按钮 -->     
+  		<div style="float:right;margin-right:50px">
+      		@foreach($pp as $row)
+     		<a href="javascript:void(0)" class="btn btn-success" style="float:left;margin-left:7px" onclick="page({{$row}})">{{$row}}</a>
+     		@endforeach
+     	</div>
+ 	@endif
+	<!-- js -->
 <script type="text/javascript">
 	//分页
 	function page(page)
@@ -88,7 +101,7 @@
 	    })
 	}
 </script>
-</body>
+	</body>
 </html>
 @endsection
 <!-- 这是网页大标题 -->

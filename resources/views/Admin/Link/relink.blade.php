@@ -194,16 +194,8 @@ function admin_del(obj,id)
 }
 // 修改状态
 function admin_stop(obj,id)
-{
-    if($('.hidden').html()==1){
-        if(confirm('确定要停用吗？')){
-           window.location.href = "/adminrelink/"+id+"/edit";
-        }
-    }else{
-        if(confirm('确定要启用吗？')){
-           window.location.href = "/adminrelink/"+id+"/edit";
-        }
-    }
+{ 
+    window.location.href = "/adminrelink/"+id+"/edit";
 }
 </script>
 </body>

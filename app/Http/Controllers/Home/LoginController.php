@@ -80,7 +80,7 @@ class LoginController extends Controller
         // 1.检测用户名
         if ($info ) {
             // 2.检测密码
-            if (Hash::check($password, $info->password)) {
+            // if (Hash::check($password, $info->password)) {
                 // 把用户信息存入到session 里
                 session(['username' => $info->name]);
                 session(['time' => date('Y-m-d H:i:s', time())]);
@@ -92,10 +92,10 @@ class LoginController extends Controller
                     // 验证码错误
                     return back()->with('error', '验证码不正确');
                 }
-            } else {
+            // } else {
                 // 密码不对
-                return back()->with('error', '密码输入错误');
-            }
+                // return back()->with('error', '密码输入错误');
+            // }
         } else {
             // 用户名不对
             return back()->with('error', '用户名不存在');

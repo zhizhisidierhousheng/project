@@ -99,7 +99,7 @@ class NoticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //执行公告删除
         if ($request->has('notices')) {

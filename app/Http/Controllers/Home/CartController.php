@@ -5,120 +5,160 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Session;
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //购物车页面
     public function index()
     {
-
-        $uid=1;
-        $data=DB::table('cart')->join('goods','cart.goods_id','=','goods.id')->where('cart.user_id','=',$uid)->get();
-        // var_dump(count($data));exit;
-        // if(empty($data)){
-
-        // }
-        
-        return view('Home.Cart.Cart',['data'=>$data,'uid'=>$uid]);
-        //三表关联
-        // $data1=DB::table("cates")->join('brands','cates.id','=','brands.cates_id')->join('shops','brands.id','=','shops.brands_id')->get();   
+        //分类
+        $cates = getcatesbypid(0);
+        //获取session中的商品
+        $data = session('shop');
+        // dd($data);
+        return view('Home.Cart.Cart',['cates'=>$cates])->with('data',$data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    //删除商品(session)
+    public function del(Request $request)
     {
-        echo 'create';
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $goodsid = $request->except(['id']);
-        
-        $request->session()->push('cart',$goodsid);
-        //跳转
-        return redirect('/cart');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-
-        $num     = $request->input('num');
-        $goodsid = $request->input('goodsid');
-        $uid     = $request->input('uid');
-        // echo $num;
-        // echo $goodsid;
-        // echo $uid;
-        DB::table('cart')->where('user_id','=',$uid)->where('goods_id','=',$goodsid)->update(['total'=>$num]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    //删除商品
-    public function destroy($id)
-    {
-        // echo 'destroy';
-        // echo $id; exit;
-        DB::table('cart')->where('goods_id','=',$id)->delete();
-        return redirect('/cart');
-    }
-    public function choosedel(request $request)
-    {
-        $arr = $request->input('arr');
-        $uid = $request->input('uid');
-        if ($arr == ""){
-            echo "请至少选中一条";
-        }else{
-            // echo json_encode($arr);
-            foreach($arr as $key => $value){
-                DB::table('cart')->where('goods_id','=',$value)->where('user_id','=',$uid)->delete();
+        // 获取ID
+        $id = $request->input('id');
+        //获取商品数据
+        $shop = session('shop');
+        //遍历数据
+        foreach ($shop as $key => $value) {
+            //判断需要删除的数据
+            if ($value['id'] == $id) {
+                unset($shop[$key]);
             }
-            echo 1;
         }
+        //写入session
+        $request->session()->put('shop',$shop);
+        //用来判断是否删除成功
+        echo 1;
+
+    }
+    //ajax删除选中
+    // public function choosedel(Request $request)
+    // {
+    //     //获取要删除的数组
+    //     $arr = $request->input('arr');
+    //     //判断数组是否为空
+    //     if ($arr == ""){
+    //         echo "请至少选中一条";
+    //     }else{
+    //         //获取商品数据
+    //         $shop = session('shop');
+    //         //遍历数据
+    //         foreach ($shop as $key => $value) {
+    //             //判断需要删除的数据
+    //             if ($value['id'] == $arr) {
+    //                 unset($shop[$key]);
+    //             }
+    //         }
+    //         //写入session
+    //         $request->session()->put('shop',$shop);
+    //         //用来判断是否删除成功
+    //         echo 1;
+    //     }
+    // }
+    //购物车数量加（ajax）
+    public function numadd(Request $request)
+    {
+        // var_dump($request->all());
+        //获取修改的ID
+        $id = $request->input('goodsid');
+        //获取session数据
+        $shop = session('shop');
+
+        //遍历数据
+        foreach ($shop as $key => $value) {
+
+            if ($value['id'] == $id) {
+
+                $shop[$key]['num']=++$shop[$key]['num'];
+            }
+        }
+        //写入session
+        $request->session()->put('shop',$shop);
+        echo 1;
+    }
+    //购物车数量减（ajax）
+    public function numsub(Request $request)
+    {
+        //获取修改的ID
+        $id = $request->input('goodsid');
+        //获取session数据
+        $shop = session('shop');
+
+        //遍历数据
+        foreach ($shop as $key => $value) {
+
+            if ($value['id'] == $id) {
+
+                $shop[$key]['num']=--$shop[$key]['num'];
+            }
+        }
+        //写入session
+        $request->session()->put('shop',$shop);
+        //用来判断是否删除成功
+        echo 1;
+    }
+    //商品详情添加至购物车
+    public function goodsaddcart(Request $request)
+    {
+        //数据处理
+        $data=session('shop')?session('shop'):array();
+        $a = 0;
+        if ($data) {
+            foreach ($data as $key => &$value) {
+
+                if ($value['id'] == $_GET['id']) {
+                    
+                    $value['num'] = $value['num'] + $_GET['num'];
+
+                    $a = 1;
+                }
+            }
+        }
+        if(!$a){
+            $data[]=array(        
+            'id'=>$_GET['id'],
+            // 'id'=>"1",
+            'num'=>$_GET['num'],
+            // 'num'=>"20",
+            'goodsInfo'=>\DB::table('goods')->where('id',$_GET['id'])->first(),
+            );
+        }
+        
+        $request->session()->put('shop',$data);
+        return redirect('/cart');
+    }
+    //商品列表添加至购物车
+    public function listaddcart(Request $request)
+    {
+        //数据处理
+        //加入购物车
+        $data=session('shop')?session('shop'):array();
+        $a = 0;
+        if ($data) {
+            foreach ($data as $key => &$value) {
+                if ($value['id'] == 1) {
+                    $value['num'] = $value['num'] + 1;
+
+                    $a = 1;
+                }
+            }
+        }
+        if(!$a){
+            $data[]=array(        
+            'id'=>"1",
+            'num'=>"1",
+            'goodsInfo'=>\DB::table('goods')->where('id',1)->first(),
+            );
+        }
+        
+        $request->session()->put('shop',$data);
+        return redirect('/cart');
     }
 }

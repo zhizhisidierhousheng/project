@@ -140,12 +140,15 @@
         </div>
         <!-- 广告 -->
         <div class="AD_tu">
+            @if(!empty($adv))
             <a href="{{$adv->url}}">
                 <img src="{{$adv->pic}}" width="1200" height="200" />
             </a>
+            @endif
         </div>
         <!--产品类样式-->
-        @foreach($hotcate as $hcate)
+        @if(!empty($list))
+        @foreach($list as $hcate)
         <div class="product_Sort">
             <div class="title_name">
                 <span class="floor">{{$loop->iteration}}F</span>
@@ -164,8 +167,8 @@
                                 @foreach($hcate as $hc)
                                 @if($loop->first)
                                 <li style="display: list-item;">
-                                    <a href="#">
-                                        <img src="{{$hc['gpic']}}" width="398" height="469">
+                                    <a href="/homegoods/{{$hc->id}}">
+                                        <img src="{{$hc->pic}}" width="398" height="469">
                                     </a>
                                    
                                 </li>
@@ -173,40 +176,31 @@
                                 @endif
                                 @if($loop->last)
                                 <li style="display: none;">
-                                    <a href="#">
-                                        <img src="{{$hc['gpic']}}" width="398" height="469">
+                                    <a href="/homegoods/{{$hc->id}}">
+                                        <img src="{{$hc->pic}}" width="398" height="469">
                                     </a>
                                 </li>
-                                
                                 @endif
                                 @endforeach
                             </ul>
                         </div>
+                        <a class="prev" href="javascript:void(0)"><em class="arrow"></em></a>
+                        <a class="next" href="javascript:void(0)"><em class="arrow"></em></a>
                     </div>
-                    <script>jQuery(".slideTxtBox .picMarquee-top").slide({
-                            mainCell: ".bd ul",
-                            autoPlay: true,
-                            effect: "topMarquee",
-                            vis: 2,
-                            interTime: 50,
-                            trigger: "click"
-                        });</script>
+                    <script type="text/javascript">jQuery(".pro_ad_slide").slide({titCell:".hd ul",mainCell:".bd ul",autoPlay:true,autoPage:true,interTime:6000});</script>
                 </div>
                 <!--产品列表-->
                 <div class="pro_list">
                     <ul>
                         @foreach($hcate as $goods)
                         <li>
-                            <a href="#">
-                                <img src="{{$goods['gpic']}}" width="180px" height="160px">
+                            <a href="/homegoods/{{$goods->id}}">
+                                <img src="{{$goods->pic}}" width="180px" height="160px">
                             </a>
-                            <a href="#" class="p_title_name">{{$goods['gname']}}</a>
+                            <a href="/homegoods/{{$goods->id}}" class="p_title_name">{{$goods->name}} {!!$goods->dcr!!}</a>
                             <div class="Numeral">
                                 <span class="price">
-                                    <i>￥</i>{{$goods['gprice']}}
-                                </span>
-                                <span class="Sales">销量
-                                    <i>{{$goods['num']}}</i>
+                                    <i>￥</i>{{$goods->price}}
                                 </span>
                             </div>
                         </li>
@@ -216,6 +210,7 @@
             </div>
         </div>
         @endforeach
+        @endif
         <!--最新商品样式-->
         <div class="like_p">
             <div class="title_name">

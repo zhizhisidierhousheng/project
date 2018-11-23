@@ -70,6 +70,7 @@ class HomeController extends Controller
 
         //分类
         $cates = getcatesbypid(0);
+        // dd($cate);
         //热销
         $time = strtotime('-7 day');
         $hotgoods = DB::table("orders")
@@ -95,27 +96,35 @@ class HomeController extends Controller
         $hotgoods = array_slice($arr, 0, 8);
 
         //按分类遍历商品
+        $list = array();
+        $arr = array();
         foreach ($cates as $cate) {
             foreach ($cate->suv as $row) {
-                $a = $this->hot($row->id);
-                if (!empty($a)) {
-                    array_multisort($num, SORT_DESC, $a);
-                    $hotcate[$cate->id][] = array_slice($a, 0, 1)[0];
-                    // dd($hotcate[$cate->id]);
-                }
-            }
-            if (!empty($hotcate[$cate->id])) {
-                $hotcate[$cate->id] = array_slice($hotcate[$cate->id], 0, 8);
+                $list[$cate->id][$row->id] = DB::table('goods')->where('cid', '=', $row->id)->where('status', '=', 1)->get();
             }
         }
-                // dd($hotcate);
+        foreach ($list as $key => $val) {
+            foreach ($val as $v) {
+                foreach ($v as $l) {
+                    $arr[$key][] = $l;
+                }
+            }
+            if (!empty($arr[$key])) {
+                shuffle($arr[$key]);
+                $arr[$key] = array_slice($arr[$key], 0, 8);
+            }
+        }
+        $list = $arr;
 
         //最新商品
-        $bnew = DB::table("goods")->orderBy("id", "DESC")->where("status", "=", 1)->limit(4)->get();
+        $bnew = DB::table("goods")->orderBy("id", "DESC")->where("status", "=", 1)->limit(8)->get();
         // dd($hotcate);
-
+        
+        //获取session中的商品
+        $shop = session('shop');
+        // dd($shop);
         //加载前台模版
-        return view("Home.Home.index", ["cates" => $cates, "orders" => $orders, "notice" => $notice, "adv" => $adv, "hotgoods" => $hotgoods, "hotcate" => $hotcate, "bnew" => $bnew, 'loop' => $loop]);
+        return view("Home.Home.index", ["cates" => $cates, "orders" => $orders, "notice" => $notice, "adv" => $adv, "hotgoods" => $hotgoods, "list" => $list, "bnew" => $bnew, 'loop' => $loop, 'shop' => $shop]);
     }
 
     /**

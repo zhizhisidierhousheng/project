@@ -16,7 +16,7 @@
     <!--图片放大效果-->
     <script src="/static/home/js/jqzoom.js" type="text/javascript"></script>
     <script type="text/javascript" src="/static/home/js/num-alignment.js"></script>
-    <title>商品页</title>
+    <title>{{$goods->name}}</title>
 	<style>
 	#sta{position:relative;width:600px;margin:20px auto;height:24px;}
 	#sta ul,#sta span{float:left;display:inline;height:19px;line-height:19px;}
@@ -26,6 +26,13 @@
 	#sta li.on{background-position:0 -28px;}
 	#sta p{position:absolute;top:20px;width:159px;height:60px;display:none;background:url(/static/home/images/icon.gif) no-repeat;padding:7px 10px 0;}
 	#sta p em{color:#f60;display:block;font-style:normal;}
+    .title{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        }
 	</style>
 
 </head>
@@ -36,9 +43,9 @@
         <div class="Inside_pages">
             <div class="hd_top_manu clearfix">
                 <ul class="clearfix">
-                    @if(session('name'))
+                    @if(session('username'))
                     <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">     欢迎你
-                        {{session('name')}}
+                        <a href="/home/userscenter">{{session('username')}}</a>
                         <a href="/login" class="red">[退出]</a>
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
@@ -246,15 +253,17 @@
             </div>
            	<div class="Sharing">
 				<div class="Collect">
-					<a href="javascript:;">
-						<em class="ico1"></em>收藏商品( 2345 )
-					</a>
+                     <form action="/home/userscollect" id="collect"  method="post">
+                        <input type="hidden" value="{{$goods->id}}" name="gid">
+                        {{csrf_field()}}
+                        <a href="javascript:document.getElementById('collect').submit();" class="p-o-btn Collect" style="margin-top:-32px"><em class="ico1"></em>收藏商品</a>
+                    </form>
 				</div>
 			</div>
         </div>
         <!--产品信息-->
         <div class="property">
-            <form action="" name="ECS_FORMBUY" id="ECS_FORMBUY">
+            <form action="/goodsaddcart" method="get" name="ECS_FORMBUY" id="ECS_FORMBUY">
                 <h2>{{$goods->name}} {{strip_tags($goods->dcr)}}</h2>
                 <div class="goods_info"></div>
                 <div class="ProductD clearfix">
@@ -267,10 +276,6 @@
                                 </span>
                             </dd>
                         </dl>
-                        <!-- <dl>
-                            <dt>总 重 量：</dt>
-                            <dd>140克</dd>
-                        </dl> -->
                         <dl>
                             <dt>包&nbsp;&nbsp;装：</dt>
                             <dd>
@@ -299,19 +304,14 @@
                     <dl>
                         <dt>数量</dt>
                         <dd>
-                            <!-- <div class="choose-amount left">
-                                <a class="btn-reduce" href="javascript:;" onclick="set_reduce()">-</a>
-                                <a class="btn-add" href="javascript:;" onclick="set_add()">+</a>
-                                <input class="text" id="buy_num" name="buy_num" value="1">
-                            </div> -->
                             <input id="buy_num" name="buy_num" class="alignment" min="1" data_max="{{$goods->num}}" value="1" data_edit="true" />
                             <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
                             <div class="P_Quantity">剩余：{{$goods->num}}件</div>
                         </dd>
                         <dd>
                             <div class="wrap_btn">
-                                <a href="javascript:addToCart_bak(92)" class="wrap_btn1" title="加入购物车"></a>
-                                <a href="javascript:addToCart(92)" class="wrap_btn2" title="立即购买"></a>
+                                <a href="javascript:void(0)" class="wrap_btn1" id="gocart" title="加入购物车"></a>
+                                <a href="javascript:void(0)" class="wrap_btn2" id="gobuy" title="立即购买"></a>
                             </div>
                         </dd>
                     </dl>
@@ -343,8 +343,8 @@
                     @foreach($goodss as $good)
                         <li class="clearfix">
                             <div class="pic_img">
-                                <a href="/homegoods/{{$good->id}}">
-                                    <img src="{{$good->pic}}" data-bd-imgshare-binded="1">
+                                <a href="/homegoods/{{$good->id}}" title="{{$good->name}} {{strip_tags($good->dcr)}}">
+                                    <img src="{{$good->pic}}" data-bd-imgshare-binded="1" title="{{$good->name}} {{strip_tags($good->dcr)}}">
                                 </a>
                             </div>
                             <div class="r_content">
@@ -363,48 +363,6 @@
     <!--样式-->
     <div class="clearfix">
         <div class="left_style">
-          <!--   <div class="user_Records">
-                <div class="title_name">用户浏览记录</div>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <p>
-                                <img src="Products/p_4.jpg" data-bd-imgshare-binded="1">
-                            </p>
-                            <p class="p_name">SanmiuSunflower新苗向日葵 乳酪夹心饼干 270g 菲律宾进口</p>
-                        </a>
-                        <p>
-                            <span class="p_Price">
-                                <i>￥</i>5.30</span>
-                            <b>10.4</b>
-                        </p>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <p>
-                                <img src="Products/p_5.jpg" data-bd-imgshare-binded="1"></p>
-                            <p class="p_name">商品名称</p>
-                        </a>
-                        <p>
-                            <span class="p_Price">
-                                <i>￥</i>5.30</span>
-                            <b>10.4</b>
-                        </p>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <p>
-                                <img src="Products/p_3.jpg" data-bd-imgshare-binded="1"></p>
-                            <p class="p_name">商品名称</p>
-                        </a>
-                        <p>
-                            <span class="p_Price">
-                                <i>￥</i>5.30</span>
-                            <b>10.4</b>
-                        </p>
-                    </li>
-                </ul>
-            </div> -->
         </div>
         <!--介绍信息样式-->
         <div class="right_style">
@@ -842,7 +800,7 @@
             </div>
         </li>
         <li class="fixeBoxLi Home">
-            <a href="./">
+            <a href="/home/userscollect">
                 <span class="fixeBoxSpan iconfont  icon-shoucang"></span>
                 <strong>收藏</strong>
             </a>
@@ -863,6 +821,18 @@
 
 </html>
 <script type="text/javascript">
+//加入购物车
+$('#gocart').click(function(){
+    var num = $('input[name=buy_num]').val();
+    var id = $('input[name=id]').val();
+    window.location.href="/goodsaddcart?id="+id+"&num="+num;
+});
+//立即购买
+$('#gobuy').click(function(){
+    var num = $('input[name=buy_num]').val();
+    var id = $('input[name=id]').val();
+    window.location.href="/settle?id="+id+"&num="+num;
+});
 // 评论星级 
 	window.onload = function (){
 		var osta = document.getElementById("sta");

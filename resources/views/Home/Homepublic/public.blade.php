@@ -22,14 +22,14 @@
                 <ul class="clearfix">
                     @if(session('username'))
                     <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">     欢迎你
-                        {{session('username')}}
+                        <a href="/home/userscenter">{{session('username')}}</a>
                         <a href="/login" class="red">[退出]</a>
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
                         <a href="/order">我的订单</a>
                     </li>
                     <li class="hd_menu_tit" data-addclass="hd_menu_hover">
-                        <a href="#">购物车</a>
+                        <a href="/cart">购物车</a>
                     </li>
                     @else
                     <li class="hd_menu_tit zhuce" data-addclass="hd_menu_hover">欢迎光临本商城！
@@ -93,41 +93,87 @@
         <div class="hd_Shopping_list" id="Shopping_list">
             <div class="s_cart">
                 <em class="iconfont icon-cart2"></em>
-                <a href="#">我的购物车</a>
+                <a href="/cart"我的>购物车</a>
                 <i class="ci-right">&gt;</i>
                 <i class="ci-count" id="shopping-amount">0</i></div>
             <div class="dorpdown-layer">
                 <div class="spacer"></div>
-                <!--<div class="prompt"></div><div class="nogoods"><b></b>购物车中还没有商品，赶紧选购吧！</div>-->
+                @if (empty(session('shop')))
+                <div class="prompt"></div><div class="nogoods"><b></b>购物车中还没有商品，赶紧选购吧！</div>
+                @else
+                @foreach (session('shop') as $row)
                 <ul class="p_s_list">
+                    
                     <li>
                         <div class="img">
-                            <img src="/static/home/products/p_7.jpg">
+                            <img src="{{$row['goodsInfo']->pic}}">
                         </div>
                         <div class="content">
                             <p>
-                                <a href="#">产品名称</a>
+                                <a href="/homegoods/{{$row['id']}}">{{$row['goodsInfo']->name}}</a>
                             </p>
-                            <p>颜色分类:紫花8255尺码:XL</p>
+                            <p>{{$row['goodsInfo']->dcr}}</p>
                         </div>
                         <div class="Operations">
-                            <p class="Price">￥55.00</p>
-                            <p>
-                                <a href="#">删除</a>
-                            </p>
+                            <p class="Price">￥{{$row['goodsInfo']->price}}</p>
+                                <a href="javascript:;" onclick="publicdelline(this,{{$row['goodsInfo']->id}})">删除</a>
                         </div>
+                        <p hidden="hidden" class="publicxiaoji">{{$row['num'] * $row['goodsInfo']->price}}</p>
+                        <p hidden="hidden" class="publicnum">{{$row['num']}}</p>
+                        <p hidden="hidden" class="publicid">{{count($row['id'])}}</p>
                     </li>
+                    
                 </ul>
+                @endforeach
                 <div class="Shopping_style">
                     <div class="p-total">共
-                        <b>1</b>件商品　共计
-                        <strong>￥ 515.00</strong>
+                        <b><span id="publictotalnum"></span></b>件商品　共计
+                        <strong>￥<span id="publictotalprice"></span></strong>
                     </div>
                     <a href="Shop_cart.html" title="去购物车结算" id="btn-payforgoods" class="Shopping">去购物车结算</a>
                 </div>
+                
+                @endif
             </div>
         </div>
     </div>
+    <script>
+        //小气泡
+        $(function(){
+                var t = 0;
+                $('.publicid').each(function(){
+                    t += parseInt($(this).html());//循环出每个小计数目并相加
+                });
+                $('#shopping-amount').html(t);//初始总价
+            });
+        //商品总数
+        $(function(){
+                var t = 0;
+                $('.publicnum').each(function(){
+                    t += parseInt($(this).html());//循环出每个小计数目并相加
+                });
+                $('#publictotalnum').html(t);//初始总价
+            });
+        //商品总价
+        $(function(){
+                var t = 0;
+                $('.publicxiaoji').each(function(){
+                    t += parseFloat($(this).html());//循环出每个小计数目并相加
+                });
+                $('#publictotalprice').html(t);//初始总价
+            });
+        //删除商品
+        function publicdelline(obj,id)
+        {
+            $.post('/cartdel',{id:id,"_token":"{{csrf_token()}}",},function(data){
+                if (data) {
+                    //删除
+                    $(obj).parent().parent().remove();
+                    alert('删除成功');
+                }
+            })
+        }
+    </script>
     <!--菜单导航样式-->
     <div id="Menu" class="clearfix">
         <div class="index_style clearfix">

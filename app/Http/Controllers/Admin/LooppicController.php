@@ -60,16 +60,6 @@ class LooppicController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // 
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,25 +67,24 @@ class LooppicController extends Controller
      */
     public function store(Request $request)
     {
+        //得到图片描述
         $dcr = $request->input('dcr');
-
+        //判断是否得到数据（图片描述是否为空）
         if($request->hasFile('pic') && $dcr!='' ){
-
+            //获取图片后缀
             $ext=$request->file("pic")->getClientOriginalExtension();
-            // dd($ext);
+            // 设置图片文件名
             $filename = time()+rand(1,10000);
-            // dd($filename);
+            // 上传图片
             $request->file('pic')->move('./uploads/looppic/',$filename.'.'.$ext);
+            //获取上传路径
             $url = '/uploads/looppic/'.$filename.'.'.$ext;
-            $dcr = $request->input('dcr');
-            // dd($url);
+            //添加到数据库
             DB::table('looppic')->insert([
-                                    'dcr'=>$dcr,
-                                    'url'=>$url,
-                                    'status'=>0
-                                ]);
-            // echo "<script>window.location.href = '/admin/';</script>";
-            // return redirect("/adminlooppic");
+                                            'dcr'=>$dcr,
+                                            'url'=>$url,
+                                            'status'=>0
+                                        ]);
             return redirect('/adminlooppic');
         }else{
             return view('Admin.Looppic.add');
@@ -131,20 +120,13 @@ class LooppicController extends Controller
         //进来的status的值是1就变为0 是0就变为1
         if ($stu==0) {
             $stu=1;
-                    } else {
+        } else {
             $stu=0;
             
         }
         //修改数据库中的status
         $db=DB::table('looppic')->where('id','=',$id)->update(['status'=>$stu]);
-
-        //执行修改
-        // $data1=DB::table("stu")->where("id",'=',8)->update(['name'=>'yaoming']);
-        // var_dump($db);exi
-        $data=DB::table('looppic')->paginate(8);
-        $count=DB::table('looppic')->count();
         return redirect('/adminlooppic');
-        // return view('Admin.Admin.relooppic',['data'=>$data,'count'=>$count,'stu'=>$stu]);
     }
 
     /**

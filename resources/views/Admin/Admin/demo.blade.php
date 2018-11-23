@@ -152,6 +152,9 @@
                     <li>
                         <a data-href="/adminlooppic" data-title="轮播图管理" href="javascript:void(0)">轮播图管理</a>
                     </li>
+                    <li>
+                        <a data-href="/looppicadd" data-title="轮播图管理" href="javascript:void(0)">轮播图添加</a>
+                    </li>
                 </ul>
             </dd>
         </dl>
