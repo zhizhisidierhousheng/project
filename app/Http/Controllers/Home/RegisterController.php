@@ -28,6 +28,7 @@ class RegisterController extends Controller
         // 获取name一列的信息
         $names = DB::table('users')->pluck('name');
         // 把对象集合转换为数组
+        $arr = array();
         foreach ($names as $key => $value) {
             $arr[$key] = $value;
         }
@@ -47,6 +48,7 @@ class RegisterController extends Controller
         // 获取phone一列的信息
         $phones = DB::table('users')->pluck('phone');
         // 把对象集合转换为数组
+        $arrs = array();
         foreach ($phones as $key => $value) {
             $arrs[$key] = $value;
         }
@@ -132,7 +134,7 @@ class RegisterController extends Controller
                 // 添加相应的用户详情的id和默认头像
                 DB::table('users_info')->insert(['uid' => $id, 'pic' => $pic]);
                 // 跳转登录页
-                return redirect('/login')->with('success', '注册成功');
+                return redirect('/login/create')->with('success', '注册成功');
             }
         }else{
             return redirect('/register/create')->with('error', '校验码有误,请重新输入');

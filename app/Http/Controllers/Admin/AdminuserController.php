@@ -111,6 +111,9 @@ class AdminuserController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         if (DB::table('admin_users')->insert($data)) {
+            // 默认超级管理员
+            $id = DB::getPdo()->lastInsertId();
+            DB::table('user_role')->insert(['uid' => $id, 'rid' => 1]);
             return redirect('/adminuser')->with('success', '添加成功');
         } else {
             return redirect('/adminuser/create')->with('error', '添加失败');
@@ -180,12 +183,19 @@ class AdminuserController extends Controller
     {
         //获取参数id
         $id = $request->input('id');
-        
-        if (DB::table('admin_users')->where('id', '=', $id)->delete()) {
-            //json格式
-            return response()->json(['msg' => 1]);
-        } else {
-            return response()->json(['msg' => 0]);
+        $data = DB::table('admin_users')
+                   ->join('user_role', 'admin_users.id', '=', 'user_role.uid')
+                   ->where('id', '=', $id)
+                   ->limit(1)
+                   ->first();
+        if ($data->rid != 1) {
+            if (DB::table('admin_users')->where('id', '=', $id)->delete()) {
+                //json格式
+                return response()->json(['msg' => 1]);
+            } else {
+                return response()->json(['msg' => 0]);
+            }
         }
+        return response()->json(['msg' => 0]);
     }
 }

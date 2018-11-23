@@ -19,7 +19,7 @@ class HomeLoginMiddleware
         if ($request->session()->has('username')) {
             return $next($request);
         } else {
-            return redirect('/login');
+            return redirect('/login/create');
         }
     }
 }

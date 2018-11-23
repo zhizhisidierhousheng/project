@@ -45,6 +45,9 @@ class UsersController extends Controller
             //加载一个独立的模板界面
             return view("Admin.Users.test", ['data' => $data]);
         } 
+        if (empty($pp)) {
+            $pp = '';
+        }
         //加载模板
         return view("Admin.Users.index", ['pp' => $pp, 'data' => $data]);
     }

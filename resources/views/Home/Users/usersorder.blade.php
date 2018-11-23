@@ -50,17 +50,7 @@
                             <ul> 
                                 <li> <a href="/home/usersinfo"> 会员信息</a></li> 
                                 <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                                <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
-                            </ul> 
-                        </dd> 
-                    </dl> 
-                    <dl class="accountSideOption1"> 
-                        <dt class="transaction_manage">
-                            <em class="icon_3"></em>账户中心
-                        </dt> 
-                        <dd> 
-                            <ul> 
-                                <li> <a href="/home/userscoupon">优惠劵</a></li> 
+                                <li><a href="/home/userscomment"> 我的评论</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 

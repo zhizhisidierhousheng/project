@@ -24,6 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			@if($pp != '')
 			@foreach($data as $row)
 			<tr class="text-c">
 				<td>{{$row->id}}</td>
@@ -36,15 +37,18 @@
 				</td>
 			</tr>
 			@endforeach
+			@endif
 		</tbody>
 	</table>
 </div>
+@if($pp != '')
 <!-- 分页 -->
 <div style="float:right;margin-right:20px;">
 	@foreach($pp as $v)
 	<a href="javascript:void(0)" onclick="page({{$v}})" class="btn btn-primary">{{$v}}</a>
 	@endforeach
 </div>
+@endif
 <script>
 // ajax分页
 	function page(page){

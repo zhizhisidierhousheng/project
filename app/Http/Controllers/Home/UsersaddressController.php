@@ -18,7 +18,7 @@ class UsersaddressController extends Controller
     public function index()
     {
         //会员收货地址
-        $uid = 1;
+        $uid = getuid();
         //获取头像
         $info = Users::find($uid)->info;
         $addr = DB::table("users_address")->where("uid", "=", $uid)->get();
