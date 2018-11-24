@@ -51,16 +51,6 @@
                     </dl> 
                     <dl class="accountSideOption1"> 
                         <dt class="transaction_manage">
-                            <em class="icon_3"></em>账户中心
-                        </dt> 
-                        <dd> 
-                            <ul> 
-                                <li> <a href="/home/userscoupon">优惠券</a></li> 
-                            </ul> 
-                        </dd> 
-                    </dl> 
-                    <dl class="accountSideOption1"> 
-                        <dt class="transaction_manage">
                             <em class="icon_4"></em>安全中心
                         </dt> 
                         <dd> 

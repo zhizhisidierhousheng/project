@@ -45,17 +45,7 @@
                         <ul> 
                             <li> <a href="/home/usersinfo"> 会员信息</a></li> 
                             <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                            <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
-                        </ul> 
-                    </dd> 
-                </dl> 
-                <dl class="accountSideOption1"> 
-                    <dt class="transaction_manage">
-                        <em class="icon_3"></em>账户中心
-                    </dt> 
-                    <dd> 
-                        <ul> 
-                            <li> <a href="/home/userscoupon">优惠券</a></li> 
+                            <li><a href="/home/userscomment"> 我的评论</a></li> 
                         </ul> 
                     </dd> 
                 </dl> 
@@ -106,6 +96,7 @@
                                     <th>操作</th> 
                                 </tr> 
                             </thead> 
+                            @if(count($orders) > 0)
                             <tbody> 
                                 @foreach($orders as $row)
                                 {{--//判断订单是否由多种商品构成--}}
@@ -138,10 +129,19 @@
                                 @endif
                                 @endforeach
                             </tbody> 
-                        </table> 
+                            @else
+                            <tbody>
+                            <tr>
+                                <td colspan="4"><h1>你还没有订单，快去购物吧！</h1></td>
+                            </tr>
+                            </tbody>
+                            @endif
+                        </table>
+                        @if(count($orders) > 0)
                         <div id="pages" style="margin-left: 50px">
                             {{$orders->render()}}
                         </div>
+                        @endif
                     </div> 
                 </div> 
                 <!--右侧记录样式--> 

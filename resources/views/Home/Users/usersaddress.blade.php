@@ -1,7 +1,6 @@
 @extends("Home.HomePublic.public")
 @section('home')
 <head> 
-
     <link href="/static/home/css/sumoselect.css" rel="stylesheet" type="text/css" /> 
     <link href="/static/home/css/purebox-metro.css" rel="stylesheet" id="skin" /> 
     <script src="/static/home/js/jquery.min.1.8.2.js" type="text/javascript"></script> 
@@ -49,17 +48,7 @@
                             <ul> 
                                 <li> <a href="/home/usersinfo"> 会员信息</a></li> 
                                 <li> <a href="/home/userscollect"> 我的收藏</a></li> 
-                                <li><a href="user.php?act=comment_list"> 我的评论</a></li> 
-                            </ul> 
-                        </dd> 
-                    </dl> 
-                    <dl class="accountSideOption1"> 
-                        <dt class="transaction_manage">
-                            <em class="icon_3"></em>账户中心
-                        </dt> 
-                        <dd> 
-                            <ul> 
-                                <li> <a href="/home/userscoupon">优惠券</a></li> 
+                                <li><a href="home/userscomment"> 我的评论</a></li> 
                             </ul> 
                         </dd> 
                     </dl> 
@@ -205,7 +194,7 @@
         address = $('input[name=address]').val();
         bool = false;
 
-  creg = /^[0-9][0-9]{5}$/;
+        creg = /^[0-9][0-9]{5}$/;
         preg = /^1[34578]\d{9}$/;
         areg = /^([\u4e00-\u9fa5]+(省|自治区|市))?[\u4e00-\u9fa5]+(市|区|州)[\u4e00-\u9fa5]+(区|县|镇)$/;
         if (phone == '' || address == '' || name == '') {

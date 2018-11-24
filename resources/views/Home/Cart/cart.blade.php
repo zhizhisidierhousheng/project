@@ -263,55 +263,6 @@
                 </div>
             </div>
         </div>
-        <div class="fixedBox">
-            <ul class="fixedBoxList">
-                <li class="fixeBoxLi user">
-                    <a href="User.html">
-                        <span class="fixeBoxSpan iconfont icon-yonghu"></span>
-                        <strong>用户</strong>
-                    </a>
-                </li>
-                <li class="fixeBoxLi cart_bd" style="display:block;" id="cartboxs">
-                    <p class="good_cart">0</p>
-                    <span class="fixeBoxSpan iconfont icon-cart"></span>
-                    <strong>购物车</strong>
-                    <div class="cartBox">
-                        <div class="bjfff"></div>
-                        <div class="message">购物车内暂无商品，赶紧选购吧</div>
-                    </div>
-                </li>
-                <li class="fixeBoxLi code cart_bd " style="display:block;" id="cartboxs">
-                    <span class="fixeBoxSpan iconfont icon-erweima"></span>
-                    <strong>微信</strong>
-                    <div class="cartBox">
-                        <div class="bjfff"></div>   
-                    </div>
-                </li>
-
-                <li class="fixeBoxLi Home"> 
-                    <a href="./"> 
-                        <span class="fixeBoxSpan iconfont  icon-shoucang"></span> 
-                        <strong>收藏</strong> 
-                    </a> 
-                </li>
-                <li class="fixeBoxLi Home">
-                    <a href="./">
-                        <span class="fixeBoxSpan iconfont  icon-zuji"></span>
-                        <strong>足迹</strong>
-                    </a>
-                </li>
-                <li class="fixeBoxLi Home">
-                    <a href="./">
-                        <span class="fixeBoxSpan iconfont  icon-fankui"></span>
-                        <strong>反馈</strong>
-                    </a>
-                </li>
-                <li class="fixeBoxLi BackToTop">
-                    <span class="fixeBoxSpan iconfont icon-top"></span>
-                    <strong>返回顶部</strong>
-                </li>
-            </ul>
-        </div>
     </body>
 </html>
 <script>

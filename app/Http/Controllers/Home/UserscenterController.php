@@ -66,13 +66,9 @@ class UserscenterController extends Controller
         //最新公告
         $notice = DB::select("select * from notice order by inputtime desc limit 1")[0];
 
-        //获取优惠券数
-        $cnum = DB::table("coupon")->where("uid", "=", $uid)->count();
-        // dd($collect);
-
         //分类
         $cates = getcatesbypid(0);
 
-        return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic, "onum" => $onum, "cnum" => $cnum, "cates" => $cates]);
+        return view("Home.Users.userscenter", ["orders" => $orders, "advs" => $advs, "collect" => $collect, "notice" => $notice, "pic" => $pic, "onum" => $onum, "cates" => $cates]);
     }
 }

@@ -57,9 +57,9 @@
                         <td><input type="checkbox" name="advs[]" value="{{$adv->id}}"></td> 
                         <td>{{$adv->id}}</td> 
                         <td><img src="{{$adv->pic}}" width="50" height="50"></td> 
-                        <td>{{$adv->title}}</td>
-                        <td class="text-l">{{$adv->dcr}}</td> 
-                        <td class="text-l">{{$adv->url}}</td>
+                        <td style="width:200px">{{$adv->title}}</td>
+                        <td class="text-l" style="width:200px">{{$adv->dcr}}</td> 
+                        <td class="text-l" style="width:200px">{{$adv->url}}</td>
                         <td>
                         @if($adv->status == 0)
                             <span class="label radius">隐藏</span>
@@ -67,7 +67,7 @@
                             <span class="label label-success radius">显示</span>
                         @endif
                         </td>
-                        <td>
+                        <td style="width:60px">
                         @if($adv->status == 0)
                             <a title="显示" href="javascript:;" style="text-decoration:none" onclick="status(this, 1)"><i class="Hui-iconfont">&#xe6dc;</i></a>
                         @else
