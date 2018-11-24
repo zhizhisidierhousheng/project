@@ -26,12 +26,14 @@ class RolelistController extends Controller
     // 分配权限
     public function auth($id)
     {
+        // dd($id);
         // 获取当前操作的角色信息
         $role = DB::table('role')->where('id', '=', $id)->first();
         // 获取所有的权限信息
         $node = DB::table('node')->get();
         // 获取当前角色已有的权限信息
         $data = DB::table('role_node')->where('rid', '=', $id)->get();
+        // dd($data);
         // 判断
         if (count($data)) {
             //当前角色有权限信息
@@ -51,7 +53,7 @@ class RolelistController extends Controller
     public function saveauth(Request $request)
     {
         // 获取当前角色id
-        $id = $_POST['id'];
+        $rid = $_POST['rid'];
         // 向role_node 插入数据
         // 判断是否有权限赋予
         if (empty($_POST['nid'])) {
@@ -77,7 +79,7 @@ class RolelistController extends Controller
             }
         }
         // 转回权限分配页并提示信息
-        return redirect("/authrole/{$id}")->with('success', '权限分配成功');
+        return redirect("/authrole/{$rid}")->with('success', '权限分配成功');
     }
 
     /**

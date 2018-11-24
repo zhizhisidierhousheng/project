@@ -21,7 +21,7 @@ class AdmingoodsController extends Controller
     public function index()
     {
         //获取商品的数据
-        $goods = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->select(DB::raw('*,goods.name as sname,goods.id as sid,cates.name as cname,cates.id as csid'))->paginate(10);
+        $goods = DB::table('goods')->join('cates', 'goods.cid', '=', 'cates.id')->select(DB::raw('*,goods.name as sname,goods.id as sid,cates.name as cname,cates.id as csid'))->orderBy('goods.id', 'dscr')->paginate(10);
         // dd($goods);
         //加载模板
         return view('Admin.Goods.index', ['goods'=>$goods]);

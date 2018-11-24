@@ -19,7 +19,6 @@
         <div style="width:340px;margin:10px auto;text-align:center;">
             {{csrf_field()}}
             <input type="hidden" name="rid" value="{{$role->id}}">
-            <input type="hidden" name="id" value="{{$row->id}}">
             <input value="分配权限" class="btn btn-success" type="submit">
             <input value="恢复默认" class="btn btn-danger" type="reset">
         </div>

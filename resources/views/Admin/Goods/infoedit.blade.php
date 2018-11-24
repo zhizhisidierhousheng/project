@@ -40,7 +40,7 @@
 			<label class="form-label col-xs-4 col-sm-2">库存:</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div>
-					<input type="text" name="num" value="{{$data->num}}" class="input-text">
+					<input type="text" name="num" value="{{$data->num}}" class="input-text" maxlength="9">
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">生产许可编码:</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="pro_num" value="{{$data->pro_num}}" class="input-text Wdate">
+				<input type="text" name="pro_num" value="{{$data->pro_num}}" class="input-text Wdate" maxlength="14">
 			</div>
 		</div>
 		<div class="row cl">

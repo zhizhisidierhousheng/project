@@ -220,10 +220,10 @@
                 <ul class="list_style">
                     @foreach($bnew as $row)
                     <li class="p_info_u">
-                        <a href="#" class="p_img">
+                        <a href="/homegoods/{{$row->id}}" class="p_img">
                             <img src="{{$row->pic}}" width="200px">
                         </a>
-                        <a href="#" class="name">{{$row->name}}</a>
+                        <a href="/homegoods/{{$row->id}}" class="name">{{$row->name}} {!!$row->dcr!!}</a>
                         <div class="Numeral">
                             <span class="price">
                                 <i>￥</i>{{$row->price}}

@@ -110,9 +110,8 @@
                         </div>
                         <div class="content">
                             <p>
-                                <a href="/homegoods/{{$row['id']}}">{{$row['goodsInfo']->name}}</a>
+                                <a href="/homegoods/{{$row['id']}}">{{$row['goodsInfo']->name}} {!!$row['goodsInfo']->dcr!!}</a>
                             </p>
-                            <p>{{$row['goodsInfo']->dcr}}</p>
                         </div>
                         <div class="Operations">
                             <p class="Price">￥{{$row['goodsInfo']->price}}</p>

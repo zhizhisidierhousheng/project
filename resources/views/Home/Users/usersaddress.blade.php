@@ -173,66 +173,6 @@
                         </form>
                     </div> 
                 </div> 
-                <form action="/home/usersaddress" method="post" id="addr"> 
-                    <div class="Add_Addresss"> 
-                        <div class="title_name">
-                            <i></i>添加地址
-                        </div> 
-                        <table> 
-                            <tbody>
-                                <tr> 
-                                    <td class="label_name">收货区域</td> 
-                                    <td colspan="3" class="select">
-                                        <label> 省份 </label>
-                                        <select class="kitjs-form-suggestselect " id="s_province" name="s_province"></select>
-                                        <label> 市/县 </label>
-                                        <select class="kitjs-form-suggestselect " id="s_city" name="s_city"></select>
-                                        <label> 区/县 </label><select class="kitjs-form-suggestselect" id="s_county" name="s_county"></select>
-                                        <script class="resources library" src="/static/home/address/area.js"></script>
-                                        <script>_init_area();</script>
-                                    </td> 
-                                </tr> 
-                                <tr>
-                                    <td class="label_name">详细地址</td>
-                                    <td>
-                                        <input name="address" type="text" class="Add-text" />
-                                        <i>（必填）</i>
-                                    </td> 
-                                    <td class="label_name">手&nbsp;&nbsp;机</td>
-                                    <td>
-                                        <input name="phone" type="text" class="Add-text" />
-                                        <i>（必填）</i>
-                                    </td> 
-                                </tr> 
-                                <tr> 
-                                    <td class="label_name">收件人姓名</td>
-                                    <td>
-                                        <input name="name" type="text" class="Add-text" />
-                                        <i>（必填）</i>
-                                    </td> 
-                                    <td class="label_name">邮&nbsp;&nbsp;编</td>
-                                    <td>
-                                        <input name="postacode" type="text" class="Add-text" value="000000" />
-                                        <i>（必填）</i>
-                                    </td> 
-                                </tr> 
-                                <tr>
-                                    <td class="label_name"></td>
-                                    <td></td>
-                                    <td class="label_name"></td>
-                                    <td></td> 
-                                </tr> 
-                            </tbody>
-                        </table> 
-                        <div class="address_Note" style="color:red">
-                            <span>注：</span>只能添加5个收货地址信息。请乎用假名填写地址，如造成损失由收货人自己承担。
-                        </div>
-                        <div class="btn">
-                            {{csrf_field()}}
-                            <input type="button" value="添加地址" class="Add_btn" onclick="check()">
-                        </div> 
-                    </div> 
-                </form>
             </div> 
         </div> 
     </div> 

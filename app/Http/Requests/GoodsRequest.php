@@ -26,8 +26,7 @@ class GoodsRequest extends FormRequest
         return [
             //
             'name' => 'required',
-            'dcr'=> 'required',
-            'pic' => 'required|image',
+            'dcr' => 'required',
             'price' => 'required|numeric',
         ];
     }
@@ -36,8 +35,6 @@ class GoodsRequest extends FormRequest
         return [
             "name.required" => '商品名字不能为空',
             "dcr.required "=> '商品的描述不能为空',
-            "pic.required" => '商品的图片不能为空',
-            "pic.image" => '商品的图片类型不符合',
             "price.required" => '商品的单价不能为空',
             "price.numeric" => '商品的单价必须为数字',
         ];

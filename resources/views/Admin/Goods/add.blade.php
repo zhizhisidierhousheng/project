@@ -35,10 +35,10 @@
 		<div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">类别:</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <select class="select" size="1" name="cid">
+                <select class="select" size="1" name="cid" >
                     <option value="0" disabled="disabled">--请选择--</option>
 					@foreach($cate as $row)
-                    <option value="{{$row->id}}" >{{$row->name}}</option>
+                    <option value="{{$row->id}}" @if($row->pid == 0) disabled @endif>{{$row->name}}</option>
 					@endforeach
                 </select>
             </div>
