@@ -110,6 +110,14 @@ Route::group(['middleware' => 'adminlogin'], function ()
 });
 
 
+// 前台首页
+Route::resource('/index', 'Home\HomeController');
+Route::resource('/', 'Home\HomeController');
+
+//商品列表
+    Route::resource('/home/goodslist', 'Home\GoodslistController');
+// 前台商品详情
+	Route::resource('/homegoods', 'Home\GoodsinfoController');
 
 // 前台注册
 Route::resource('/register', 'Home\RegisterController');
@@ -158,10 +166,6 @@ Route::post('/cartnumsub','Home\CartController@numsub');
 Route::post('/cartdel','Home\CartController@del');
 // 前台购物车删除选中
 Route::get('/cartchoosedel','Home\CartController@choosedel');
-// 商品详情->立即购买
-Route::get('/settle','Home\SettleController@goodssettle');
-// 前台结算
-Route::post('/settle','Home\SettleController@settle');
 // 生成订单
 Route::post('/order','Home\OrderController@index');
 // 前台支付页
@@ -173,7 +177,7 @@ Route::get("/returnurl","Home\PayController@returnurl");
 
 //订单页自定义收货地址
 Route::resource('/addaddress', 'Home\UsersaddressController');
-
+	
 // 前台中间件
 Route::group(['middleware' => 'homelogin'], function () 
 { 
@@ -205,15 +209,11 @@ Route::group(['middleware' => 'homelogin'], function ()
     Route::resource('/home/usersorder', 'Home\UsersorderController');
 //收货地址
     Route::resource('/home/usersaddress', 'Home\UsersaddressController');
-
-//商品列表
-    Route::resource('/home/goodslist', 'Home\GoodslistController');
-
+    // 商品详情->立即购买
+	Route::get('/settle','Home\SettleController@goodssettle');
+	// 前台结算
+	Route::post('/settle','Home\SettleController@settle');
 });
 
-// 前台首页
-Route::resource('/index', 'Home\HomeController');
 
 
-// 前台商品详情
-Route::resource('/homegoods', 'Home\GoodsinfoController');

@@ -83,12 +83,13 @@
                                 <td class="list_name_title0">评价商品</td> 
                                 <td class="list_name_title1">评价内容</td> 
                                 <td class="list_name_title2">评级</td> 
+                                <td class="list_name_title2">操作</td> 
                             </tr>
                         </thead>
-                        @foreach($comment as $row)
+                        @foreach($comment as $com)
                         <tbody> 
                             <tr class="Order_info">
-                                <td colspan="3" class="Order_form_time" style="cursor:pointer">评价时间：{{$row->inputtime}}<em></em></td>
+                                <td colspan="4" class="Order_form_time" style="cursor:pointer">评价时间：{{$com->inputtime}}<em></em></td>
                             </tr> 
                             <tr class="Order_Details"> 
                                 <td> 
@@ -97,17 +98,17 @@
                                             <tr> 
                                                 <td> 
                                                     <div class="product_name clearfix"> 
-                                                        <a href="#" class="product_img"><img src="{{$row->pic}}" width="80px" height="80px" /></a>
+                                                        <a href="/homegoods/{{$com->gid}}" class="product_img"><img src="{{$com->pic}}" width="80px" height="80px" /></a>
                                                     </div> 
                                                 </td>
                                             </tr> 
                                         </tbody>
                                     </table>
                                 </td> 
-                                <td class="split_line">{{$row->content}}</td> 
-                                <td class="split_line">{{str_repeat('★', $row->start)}}{{str_repeat('☆', 5 - $row->start)}}</td>
+                                <td class="split_line">{{$com->content}}</td> 
+                                <td class="split_line">{{str_repeat('★', $com->start)}}{{str_repeat('☆', 5 - $com->start)}}</td>
                                 <td class="operating">
-                                    <form action="/home/userscomment/{{$row->id}}" method="post" id="com_del">
+                                    <form action="/home/userscomment/{{$com->id}}" method="post" id="com_del">
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
                                         <a href="javascript:document.getElementById('com_del').submit();">删除</a>

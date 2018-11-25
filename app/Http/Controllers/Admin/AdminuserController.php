@@ -188,12 +188,15 @@ class AdminuserController extends Controller
                    ->where('id', '=', $id)
                    ->limit(1)
                    ->first();
-        if ($data->rid != 1) {
-            if (DB::table('admin_users')->where('id', '=', $id)->delete()) {
-                //json格式
-                return response()->json(['msg' => 1]);
-            } else {
-                return response()->json(['msg' => 0]);
+                   // dd($data);
+        if (!empty($data)){           
+            if ($data->rid != 1) {
+                if (DB::table('admin_users')->where('id', '=', $id)->delete()) {
+                    //json格式
+                    return response()->json(['msg' => 1]);
+                } else {
+                    return response()->json(['msg' => 0]);
+                }
             }
         }
         return response()->json(['msg' => 0]);

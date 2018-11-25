@@ -30,7 +30,7 @@ class UserscommentController extends Controller
 
         //获取头像
         $pic = DB::select("select pic from users_info where uid = :uid", ["uid" => $uid])[0];
-
+        // dd($com);
         return view("Home.Users.userscomment", ["cates" => $cates, "pic" => $pic, "comment" => $com]);
     }
 
@@ -52,12 +52,17 @@ class UserscommentController extends Controller
      */
     public function store(Request $request)
     {
+
         // 获取商品id
         $id = $request->input('id');
         // 会员id
         $uid = getuid();
         // 查询出用户购买过的所有商品id
         $info = DB::table('users')->join('orders', 'orders.uid', '=', 'users.id')->join('orders_info', 'orders.id', '=', 'orders_info.oid')->select('orders_info.gid')->where('orders.uid', '=', $uid)->get();
+        // dd($info);
+        if(count($info)<1){
+            return redirect("/homegoods/{$id}");
+        }
         // 遍历商品id
         foreach($info as $value){
             if($value->gid == $id){
@@ -69,6 +74,7 @@ class UserscommentController extends Controller
                 $data['uid'] = $uid;
                 // 评论时间
                 $data['inputtime'] = date('Y-m-d h:i:s', time());
+                dd($id);
                 // 判断
                 if(DB::table('comment')->insert($data)){
                     return redirect("/homegoods/{$id}");
@@ -76,9 +82,11 @@ class UserscommentController extends Controller
                     return redirect("/homegoods/{$id}");
                 }
             }else{
+                dd($id);
                 return redirect("/homegoods/{$id}");
             }
         }
+
     }
 
     /**

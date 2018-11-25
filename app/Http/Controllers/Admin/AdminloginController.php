@@ -104,6 +104,7 @@ class AdminloginController extends Controller
                 // 初始化权限信息
                 // 让所有管理员都具有访问后台首页权限
                 $nodelist['AdminController'][] = "index";
+                $nodelist['AdminController'][] = "create";
                 // 遍历
                 foreach ($list as $key => $value) {
                     // 把登录用户的所有权限写入$nodelist数组里

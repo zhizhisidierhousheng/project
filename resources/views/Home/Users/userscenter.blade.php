@@ -227,7 +227,7 @@
                             @if(count($collect) > 0)
                             @foreach($collect as $coll)
                                 @if($coll->status == 0)
-                                <li> 
+                                <li style="float:left"> 
                                     <div class="pic">
                                         <a href="javascript:void(0)" onclick="alert('该商品已下架')"><img src="{{$coll->pic}}" /></a>
                                     </div> 
@@ -239,7 +239,7 @@
                                     </div>
                                 </li>
                                 @else
-                                <li> 
+                                <li style="float:left"> 
                                     <div class="pic">
                                         <a href=""><img src="{{$coll->pic}}" /></a>
                                     </div> 

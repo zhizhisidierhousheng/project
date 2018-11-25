@@ -79,7 +79,7 @@
                 </td>
                 <td>{{$row1->id}}</td>
                 <td>{{$row1->dcr}}</td>
-                <td><img src="{{$row1->url}}" alt=""></td>
+                <td><img src="{{$row1->url}}" width="1000px"></td>
                 <td class="td-status">
                     @if($row1->status == 0)
                         <span class="label label-warning radius">

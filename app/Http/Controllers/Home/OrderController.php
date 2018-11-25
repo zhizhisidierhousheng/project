@@ -77,7 +77,7 @@ class Ordercontroller extends Controller
     {
         //获得数据
         $orders = DB::table('orders')->join('orders_info','orders.id','=','orders_info.oid')->join('users_address','orders.address_id','=','users_address.id')->where('orders.id','=',$code)->get();
-        
+        // dd($orders);
         return view('Home.Pay.pay')->with('order',$orders);
     }
 }

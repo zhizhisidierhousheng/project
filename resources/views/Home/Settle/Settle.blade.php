@@ -40,8 +40,8 @@
                     <input type="hidden" name="phone" value="{{$row->phone}}">
                     <span>{{$row->phone}}</span><br>
                     <span>目标地址邮编：</span>
-                    <input type="hidden" name="postalcode" value="{{$row->postalcode}}">
-                    <span>{{$row->postalcode}}</span>
+                    <input type="hidden" name="postalcode" value="{{$row->postacode}}">
+                    <span>{{$row->postacode}}</span>
             </p>
                     <!-- 自定义地址 -->
             <!-- <form action="/home/usersaddress" method="post" id="addr"> 
@@ -208,9 +208,7 @@
                     
                         <input type="submit" value="生成订单" class=" submit_btn btn btn-success" style="margin-right: " />
                         <input name="" type="button"  onclick="window.location.href = '/cart'" value="返回购物车"  class="return_btn btn btn-danger"/>
-                    <div class="integral right">
-                        待订单确认后，你将获得<span>345</span>积分
-                    </div>
+                    
                 </div>
             </div>
         </div>  

@@ -30,7 +30,6 @@
         {{csrf_field()}}        
         <br>
         <input type="submit" class="btn btn-success" value="提交">
-        <a href="javascript:window.opener=null;window.open('','_self');window.close();" class="btn btn-warning">关闭</a>
     </form>
 </body>
 </html>

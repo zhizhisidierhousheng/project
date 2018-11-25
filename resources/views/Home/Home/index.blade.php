@@ -1,5 +1,6 @@
 @extends("Home.HomePublic.public")
 @section("home")
+
 <!--幻灯片样式-->
 <div id="slideBox" class="slideBox">
     <div class="hd">
@@ -11,7 +12,7 @@
             @foreach($loop as $loops)
             <li>
                 <a href="" target="_blank">
-                    <div style="background:url({{$loops->url}})  no-repeat  #999; background-position:center; width:100%; height:460px;"></div>
+                    <div style="background:url({{$loops->url}})  no-repeat;background-size:1024px 625px; background-position:center; width:100%; height:460px;"></div>
                 </a>
             </li>
             @endforeach
@@ -51,10 +52,10 @@
                                         @if(count($orders) > 0)
                                         @foreach($orders as $row)
                                         <li class="clearfix">
-                                            <a href="#" target="_blank" class="img_link">
+                                            <a href="/homegoods/{{$row->gid}}" target="_blank" class="img_link">
                                                 <img src="{{$row->gpic}}" width="60" height="60" />
                                             </a>
-                                            <a href="#" class="name">{{$row->gdcr}}</a>
+                                            <a href="/homegoods/{{$row->gid}}" class="name">{{$row->gdcr}}</a>
                                             <h2>总价：
                                                 <b>￥{{$row->num * $row->gprice}}</b>
                                             </h2>
@@ -102,10 +103,10 @@
                         <ul>
                             @foreach($hotgoods as $hg)
                             <li>
-                                <a href="#" class="imglibk">
+                                <a href="/homegoods/{{$hg['gid']}}" class="imglibk">
                                     <img src="{{$hg['gpic']}}" width="160" height="160" />
                                 </a>
-                                <a href="#" class="name">{{$hg['gname']}}</a>
+                                <a href="/homegoods/{{$hg['gid']}}" class="name">{{$hg['gname']}}</a>
                                 <div class="infostyle">
                                     <span class="Price">
                                         <b>￥</b>{{$hg['gprice']}}
@@ -197,7 +198,7 @@
                             <a href="/homegoods/{{$goods->id}}">
                                 <img src="{{$goods->pic}}" width="180px" height="160px">
                             </a>
-                            <a href="/homegoods/{{$goods->id}}" class="p_title_name">{{$goods->name}} {!!$goods->dcr!!}</a>
+                            <a href="/homegoods/{{$goods->id}}" class="p_title_name" title="{!!$goods->dcr!!}">{!!$goods->dcr!!}</a>
                             <div class="Numeral">
                                 <span class="price">
                                     <i>￥</i>{{$goods->price}}

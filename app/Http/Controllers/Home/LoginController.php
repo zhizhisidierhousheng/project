@@ -25,6 +25,7 @@ class LoginController extends Controller
     {
         // 退出销毁session
         $request->session()->pull('username');
+        $request->session()->pull('shop');//清除购物车
         
         // 返回首页
         return redirect('/index');

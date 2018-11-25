@@ -15,7 +15,8 @@ class LinkController extends Controller
      */
     public function index(Request $request)
     {
-
+        //分类
+        $cates = getcatesbypid(0);
         //获取所有数据
         // $data=DB::table('link')->get();
         //获取数据总条数
@@ -48,7 +49,7 @@ class LinkController extends Controller
             return view('Home.Page.homelinkpage',['pp'=>$pp,'data'=>$data]);
         }
         //返回第一页数据
-        return view('Home.Link.link',['data'=>$data,'pp'=>$pp,'count'=>$count]);
+        return view('Home.Link.link',['data'=>$data,'pp'=>$pp,'count'=>$count, 'cates' => $cates]);
     }
 
     /**
@@ -58,6 +59,8 @@ class LinkController extends Controller
      */
     public function create(Request $Request)
     {
+        //分类
+        $cates = getcatesbypid(0);
         // echo 111;
         // dd($Request->all());
         //获取所有数据

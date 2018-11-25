@@ -100,8 +100,7 @@
                                     <p id="littleprice" hidden></p>
                                 </td>
                                 <td class="cz">
-                                        <a href="javascript:;" onclick="delline(this,{{$row['goodsInfo']->id}})">删除</a>
-                                    <p><a href="">收藏该商品</a></p>
+                                    <a href="javascript:;" onclick="delline(this,{{$row['goodsInfo']->id}})">删除</a>
                                 </td>
                                 <td class="scj sp"><span id="Original_Price_1"></span></td>
                             </tr>
@@ -210,59 +209,6 @@
             $('#totalprice').html(t);//修改总价
          });
         </script>
-
-         <!--推荐产品样式-->
-        <div class="recommend_shop">
-            <div class="title_name">推荐购买</div>
-            <div class="recommend_list">
-                <div class="hd">
-                    <a class="prev" href="javascript:void(0)">&gt;</a>
-                    <a class="next" href="javascript:void(0)">&lt;</a>
-                </div>
-                <!-- 推荐购买 -->
-                <div class="bd">
-              <ul>
-               <li class="recommend_info">
-               <a href="#" class="buy_btn">立即购买</a>
-               <a href="#" class="img"><img src="/static/home/products/p_45.jpg" width="160px" height="160px"/></a>
-               <a href="#" class="name">光明莫斯利安酸牛奶 巴氏杀菌常温200g*12盒钻石装</a>
-               <h4><span class="Price"><i>RNB</i>123.00</span></h4>
-               </li>
-               <li class="recommend_info">
-               <a href="#" class="buy_btn">立即购买</a>
-               <a href="#" class="img"><img src="/static/home/products/p_5.jpg" width="160px" height="160px"/></a>
-               <a href="#" class="name">光明莫斯利安酸牛奶 巴氏杀菌常温200g*12盒钻石装</a>
-               <h4><span class="Price"><i>RNB</i>123.00</span></h4>
-               </li>
-               <li class="recommend_info">
-               <a href="#" class="buy_btn">立即购买</a>
-               <a href="#" class="img"><img src="/static/home/products/p_36.jpg" width="160px" height="160px"/></a>
-               <a href="#" class="name">光明莫斯利安酸牛奶 巴氏杀菌常温200g*12盒钻石装</a>
-               <h4><span class="Price"><i>RNB</i>123.00</span></h4>
-               </li>
-               <li class="recommend_info">
-               <a href="#" class="buy_btn">立即购买</a>
-               <a href="#" class="img"><img src="/static/home/products/p_25.jpg" width="160px" height="160px"/></a>
-               <a href="#" class="name">光明莫斯利安酸牛奶 巴氏杀菌常温200g*12盒钻石装</a>
-               <h4><span class="Price"><i>RNB</i>123.00</span></h4>
-               </li>
-               
-               <li class="recommend_info">
-               <a href="#" class="buy_btn">立即购买</a>
-               <a href="#" class="img"><img src="/static/home/products/p_15.jpg" width="160px" height="160px"/></a>
-               <a href="#" class="name">光明莫斯利安酸牛奶 巴氏杀菌常温200g*12盒钻石装</a>
-               <h4><span class="Price"><i>RNB</i>123.00</span></h4>
-               </li>
-               <li class="recommend_info">
-               <a href="#" class="buy_btn">立即购买</a>
-               <a href="#" class="img"><img src="/static/home/products/p_37.jpg" width="160px" height="160px"/></a>
-               <a href="#" class="name">光明莫斯利安酸牛奶 巴氏杀菌常温200g*12盒钻石装</a>
-               <h4><span class="Price"><i>RNB</i>123.00</span></h4>
-               </li>
-              </ul>  
-                </div>
-            </div>
-        </div>
     </body>
 </html>
 <script>

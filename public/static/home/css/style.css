@@ -261,7 +261,7 @@
 .Hot_p .hot_silde .bd li .Price b{ font-size:14px; font-weight:normal}
 .Hot_p .hot_silde .bd li .Quantity{ font-family:"新宋体"; float:right; line-height:24px}
 .Hot_p .hot_silde .bd li .Quantity b{ color:#F30;}
-.Hot_p .hot_silde .bd li .infostyle{ height:30px; margin-top:5px}
+.Hot_p .hot_silde .bd li .infostyle{ height:30px;}
 .Hot_p .hot_silde.hover a.next, 
 .Hot_p .hot_silde.hover a.prev { display:block}
 .Hot_p .hot_silde a.next, 
@@ -414,7 +414,7 @@
 	display: block;
 }
 .pro_list li .p_title_name {
-	height: 32px;
+	height: 20px;
 	line-height: 18px;
 	overflow: hidden;
 	margin: 5px 0px;

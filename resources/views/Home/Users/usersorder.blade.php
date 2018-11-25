@@ -111,9 +111,8 @@
                                             <tr> 
                                                 <td> 
                                                     <div class="product_name clearfix"> 
-                                                        <a href="#" class="product_img"><img src="{{$info->gpic}}" width="80px" height="80px" /></a> 
-                                                        <a href="3">{{$info->gdcr}}</a>
-                                                        <p class="specification">礼盒装20个/盒</p> 
+                                                        <a href="/homegoods/{{$info->gid}}" class="product_img"><img src="{{$info->gpic}}" width="80px" height="80px" /></a> 
+                                                        <a href="/homegoods/{{$info->gid}}" >{!!$info->gdcr!!}</a>
                                                     </div> 
                                                 </td>
                                                 <td>{{$info->gprice}}</td> 
